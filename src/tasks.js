@@ -1,10 +1,14 @@
 import Task from "./task.js";
 
 export default class Tasks {
-    #list = [];
+    static #list = [];
+
+    constructor() {
+        throw new Error("Tasks is a static class and cannot be instantiated.");
+    }
 
     // Add a task to the list
-    addTask(task) {
+    static addTask(task) {
 
         if (!(task instanceof Task)) {
             throw new Error("Only instances of Task can be added.");
@@ -13,11 +17,11 @@ export default class Tasks {
         this.#list.push(task);
     }
 
-    get list() {
+    static get list() {
         return this.#list;
     }
 
-    removeTask(id) {
+    static removeTask(id) {
 
         const initialLength = this.#list.length;
 
@@ -26,11 +30,11 @@ export default class Tasks {
         return initialLength !== this.#list.length; // Returns true if a task was removed
     }
 
-    findTaskById(id) {
+    static findTaskById(id) {
         return this.#list.find(task => task.id === id) || null;
     }
 
-    updateTask(id, updatedProperties) {
+    static updateTask(id, updatedProperties) {
 
         const task = this.findTaskById(id);
 
@@ -50,7 +54,7 @@ export default class Tasks {
 
     // === Filtering Methods ===
 
-    filterByPriority(priority) {
+    static filterByPriority(priority) {
 
         const allowedPriorities = ['low', 'medium', 'high'];
 
@@ -61,7 +65,7 @@ export default class Tasks {
         return this.#list.filter(task => task.priority === priority);
     }
     
-    filterByStatus(status) {
+    static filterByStatus(status) {
 
         const allowedStatuses = ['pending', 'in-progress', 'completed'];
 
@@ -72,7 +76,7 @@ export default class Tasks {
         return this.#list.filter(task => task.status === status);
     }
 
-    filterByDueDate(dueDate) {
+    static filterByDueDate(dueDate) {
 
         if (isNaN(Date.parse(dueDate))) {
             throw new Error('Due date must be a valid date string.');
