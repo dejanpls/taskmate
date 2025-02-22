@@ -24,6 +24,11 @@ export default class Task {
     }
 
     set title (value) {
+
+        if (value.length < 2) {
+            throw new Error('Title must be longer than 2 characters');
+        }
+
         if (typeof value !== 'string' || value.trim() === '') {
             throw new Error('Title must be a non-empty string');
         }
