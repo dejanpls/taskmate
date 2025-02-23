@@ -34,23 +34,12 @@ export default class Tasks {
         return this.#list.find(task => task.id === id) || null;
     }
 
-    static updateTask(id, updatedProperties) {
-
-        const task = this.findTaskById(id);
-
-        if (!task) {
-            throw new Error(`Task with ID ${id} not found.`);
+    static updateTask(updatedTask) {
+        const index = this.#list.findIndex(task => task.id === updatedTask.id);
+        if (index !== -1) {
+            this.#list[index] = updatedTask;
         }
-
-        for (const [key, value] of Object.entries(updatedProperties)) {
-
-            if (key in task) {
-                task[key] = value; // Uses the setter for validation
-            } else {
-                throw new Error(`Invalid property: ${key}`);
-            }
-        }
-    }
+    }    
 
     // === Filtering Methods ===
 
