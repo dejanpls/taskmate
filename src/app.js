@@ -16,11 +16,16 @@ class App {
         dialog.showModal();
 
         UI.getElement('close-dialog').addEventListener('click', () => dialog.close());
+
+        UI.getElement('dueDate-today').addEventListener('click', (event) => {
+            event.preventDefault();
+            UI.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
+        });
     }
 
     static addTask(event) {
         event.preventDefault();
-
+        
         const titleInput = UI.getValueOf("title");
         const descriptionInput = UI.getValueOf("description");
         const dueDateInput = UI.getValueOf("dueDate");
@@ -32,25 +37,21 @@ class App {
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput);
         } catch (error) {
-            console.error(error.message);
             UI.getElement('inputInfo').textContent = error.message;
         }
         
         if (task) {
             Tasks.addTask(task);
             UI.addTaskToList(task);
-            console.log(Tasks.list);  
             UI.getElement('inputInfo').textContent = "Task added";  
             UI.getElement('task-form').reset();
+            UI.getElement('item-delete').addEventListener('click', App.deleteTask);
         }
     }
 
     static deleteTask(event) {
-        if (event.target.classList.contains('delete')) {
-            const taskElement = event.target.parentElement;
-            Tasks.removeTask(taskElement.textContent); // I'll check this later
-            UI.removeTaskFromList(taskElement);
-        }
+        UI.removeTaskFromList(event.target.parentElement);
+        Tasks.removeTask(UI.getIdFrom(event));
     }
 }
 
