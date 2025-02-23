@@ -6,6 +6,49 @@
     <title>TaskMate</title>
 </head>
 <body>
+    <dialog id="task-dialog">
+        <form id="task-form" method="dialog">
+            <h2>Add New Task</h2>
     
+            <label for="title">Title:</label>
+            <br>
+            <input type="text" id="title" name="title" required>
+            <br><br>
+    
+            <label for="description">Description:</label>
+            <br>
+            <textarea id="description" name="description"></textarea>
+            <br><br>
+
+            <label for="dueDate">Due Date:</label>
+            <br>
+            <input type="date" id="dueDate" name="dueDate" required>
+            <br><br>
+
+            <label for="priority">Priority:</label>
+            <br>
+            <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <br><br>
+
+            <label for="status">Status:</label>
+            <br>
+            <select id="status" name="status">
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+            </select>
+            <br><br>
+            <div>
+                <button type="submit" id="confirm-dialog">Add Task</button>
+                <button type="button" id="close-dialog">Close</button>
+            </div>
+        </form>
+    </dialog>
+    
+    <button id="open-dialog">Add Task</button>
 </body>
 </html>
