@@ -50,12 +50,22 @@ export default class Task {
         return this.#dueDate;
     }
 
-    set dueDate (value) {
+    set dueDate(value) {
         if (isNaN(Date.parse(value))) {
-            throw new Error('Due date must be a valid date string');
+            throw new Error('Due date must be a valid date string.');
         }
-        this.#dueDate = new Date(value);
+    
+        const inputDate = new Date(value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time to compare only the date
+    
+        if (inputDate < today) {
+            throw new Error('Due date cannot be in the past.');
+        }
+    
+        this.#dueDate = inputDate;
     }
+    
 
     get priority () {
         return this.#priority;
