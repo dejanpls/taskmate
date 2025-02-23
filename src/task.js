@@ -7,7 +7,7 @@ export default class Task {
     #status;
 
     constructor ( title, description, dueDate, priority, status ) {
-        this.#id = `${Date.now()}-${Math.floor(Math.random() * 900 + 100)}`;  // unique id on each task instance
+        this.#id = `${Date.now()}${Math.floor(Math.random() * 900 + 100)}`;  // unique id on each task instance
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
