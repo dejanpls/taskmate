@@ -15,6 +15,8 @@ export default class App {
         const dialog = UI.getElement('task-dialog');
         dialog.showModal();
 
+        const confirmButton = UI.getElement('confirm-dialog');
+
         if (editTask) {
             UI.setValueOf("title", editTask.title);
             UI.setValueOf("description", editTask.description);
@@ -23,8 +25,6 @@ export default class App {
             UI.setValueOf("status", editTask.status);
 
             // Change confirm button behavior to update instead of add
-            const confirmButton = UI.getElement('confirm-dialog');
-
             confirmButton.removeEventListener('click', App.addTask);
             confirmButton.textContent = "Update Task";
             
@@ -34,6 +34,14 @@ export default class App {
             // Now add a fresh event listener
             newConfirmButton.addEventListener('click', (e) => App.updateTask(e, editTask));
         } else {
+            confirmButton.removeEventListener('click', (e) => App.updateTask(e, editTask));
+            confirmButton.textContent = "Add Task";
+
+            const newConfirmButton = confirmButton.cloneNode(true);
+            confirmButton.replaceWith(newConfirmButton);
+
+            newConfirmButton.addEventListener('click', App.addTask);
+            
             UI.getElement('task-form').reset();
         }
 
@@ -47,8 +55,6 @@ export default class App {
 
     static addTask(event) {
         event.preventDefault();
-
-        UI.getElement('confirm-dialog').textContent = "Add Task";
 
         const titleInput = UI.getValueOf("title");
         const descriptionInput = UI.getValueOf("description");
@@ -98,7 +104,6 @@ export default class App {
 
             // Update in local storage
             Tasks.updateTask(task);
-            console.log(Tasks.list);
 
             // Close dialog
             UI.getElement('task-dialog').close();
