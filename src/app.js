@@ -81,6 +81,7 @@ export default class App {
 
             currentElement.querySelector('#item-delete').addEventListener('click', App.deleteTask);
             currentElement.querySelector('#item-edit').addEventListener('click', (e) => App.openFormDialog(e, task));
+            currentElement.querySelector('#item-checkbox').addEventListener('click', (e) => UI.toggleCheckbox(e));
         }
     }
 
