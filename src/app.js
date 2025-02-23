@@ -2,7 +2,7 @@ import Task from './task.js';
 import Tasks from './tasks.js';
 import UI from "./ui.js";
 
-class App {
+export default class App {
     static init() {
         const tasks = Tasks.list;
         tasks.forEach(task => UI.addTaskToList(task));
@@ -11,9 +11,31 @@ class App {
         UI.getElement('confirm-dialog').addEventListener('click', App.addTask);
     }
 
-    static openFormDialog() {
+    static openFormDialog(event, editTask = null) {
         const dialog = UI.getElement('task-dialog');
         dialog.showModal();
+
+        if (editTask) {
+            UI.setValueOf("title", editTask.title);
+            UI.setValueOf("description", editTask.description);
+            UI.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
+            UI.setValueOf("priority", editTask.priority);
+            UI.setValueOf("status", editTask.status);
+
+            // Change confirm button behavior to update instead of add
+            const confirmButton = UI.getElement('confirm-dialog');
+
+            confirmButton.removeEventListener('click', App.addTask);
+            confirmButton.textContent = "Update Task";
+            
+            const newConfirmButton = confirmButton.cloneNode(true);
+            confirmButton.replaceWith(newConfirmButton);
+
+            // Now add a fresh event listener
+            newConfirmButton.addEventListener('click', (e) => App.updateTask(e, editTask));
+        } else {
+            UI.getElement('task-form').reset();
+        }
 
         UI.getElement('close-dialog').addEventListener('click', () => dialog.close());
 
@@ -25,27 +47,34 @@ class App {
 
     static addTask(event) {
         event.preventDefault();
-        
+
+        UI.getElement('confirm-dialog').textContent = "Add Task";
+
         const titleInput = UI.getValueOf("title");
         const descriptionInput = UI.getValueOf("description");
         const dueDateInput = UI.getValueOf("dueDate");
         const priorityInput = UI.getValueOf("priority");
         const statusInput = UI.getValueOf("status");
-        
+
         let task;
 
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput);
         } catch (error) {
             UI.getElement('inputInfo').textContent = error.message;
+            return;
         }
-        
+
         if (task) {
             Tasks.addTask(task);
             UI.addTaskToList(task);
-            UI.getElement('inputInfo').textContent = "Task added";  
+            UI.getElement('inputInfo').textContent = "Task added";
             UI.getElement('task-form').reset();
-            UI.getElement('item-delete').addEventListener('click', App.deleteTask);
+
+            const currentElement = UI.getElement(`item-${task.id}`);
+
+            currentElement.querySelector('#item-delete').addEventListener('click', App.deleteTask);
+            currentElement.querySelector('#item-edit').addEventListener('click', (e) => App.openFormDialog(e, task));
         }
     }
 
@@ -53,6 +82,28 @@ class App {
         UI.removeTaskFromList(event.target.parentElement);
         Tasks.removeTask(UI.getIdFrom(event));
     }
-}
 
-export default App;
+    static updateTask(event, task) {
+        event.preventDefault();
+
+        try {
+            task.title = UI.getValueOf("title");
+            task.description = UI.getValueOf("description");
+            task.dueDate = UI.getValueOf("dueDate");
+            task.priority = UI.getValueOf("priority");
+            task.status = UI.getValueOf("status");
+
+            // Update UI
+            UI.updateTaskInList(task);
+
+            // Update in local storage
+            Tasks.updateTask(task);
+            console.log(Tasks.list);
+
+            // Close dialog
+            UI.getElement('task-dialog').close();
+        } catch (error) {
+            UI.getElement('inputInfo').textContent = error.message;
+        }
+    }
+}
