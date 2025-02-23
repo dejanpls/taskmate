@@ -1,3 +1,5 @@
-import hello from "./greeting.js";
+import App from './app.js';
 
-hello("dejan");
+document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+});
