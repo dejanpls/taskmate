@@ -1,3 +1,5 @@
+import {format} from 'date-fns';
+
 export default class Task {
     #id;
     #title;
@@ -13,6 +15,13 @@ export default class Task {
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
+    }
+
+    // Factory method to restore an existing task with its ID
+    static fromData(data) {
+        const task = new Task(data.title, data.description, format(data.dueDate, 'yyyy-MM-dd'), data.priority, data.status);
+        task.#id = data.id; // Restore the original ID
+        return task;
     }
 
     get id () {
