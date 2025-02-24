@@ -2,6 +2,7 @@ import LocalStorage from "./core/localStorage.js"
 import Task from "./core/task.js";
 import Tasks from "./core/tasks.js";
 import UI from "./ui/ui.js";
+import Element from "./ui/element.js";
 
 
 export default class App {
@@ -12,17 +13,17 @@ export default class App {
         savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
-        UI.getElement('open-dialog').addEventListener('click', App.openFormDialog);
-        UI.getElement('confirm-dialog').addEventListener('click', App.addTask);
+        Element.get('open-dialog').addEventListener('click', App.openFormDialog);
+        Element.get('confirm-dialog').addEventListener('click', App.addTask);
 
         UI.attachEventListeners();
     }
 
     static openFormDialog(event, editTask = null) {
-        const dialog = UI.getElement('task-dialog');
+        const dialog = Element.get('task-dialog');
         dialog.showModal();
 
-        const confirmButton = UI.getElement('confirm-dialog');
+        const confirmButton = Element.get('confirm-dialog');
 
         if (editTask) {
             UI.setValueOf("title", editTask.title);
@@ -49,12 +50,12 @@ export default class App {
 
             newConfirmButton.addEventListener('click', App.addTask);
             
-            UI.getElement('task-form').reset();
+            Element.get('task-form').reset();
         }
 
-        UI.getElement('close-dialog').addEventListener('click', () => dialog.close());
+        Element.get('close-dialog').addEventListener('click', () => dialog.close());
 
-        UI.getElement('dueDate-today').addEventListener('click', (event) => {
+        Element.get('dueDate-today').addEventListener('click', (event) => {
             event.preventDefault();
             UI.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
         });
@@ -74,7 +75,7 @@ export default class App {
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput);
         } catch (error) {
-            UI.getElement('inputInfo').textContent = error.message;
+            Element.get('inputInfo').textContent = error.message;
             return;
         }
 
@@ -83,14 +84,14 @@ export default class App {
             LocalStorage.saveTasks();
 
             UI.addTaskToList(task);
-            UI.getElement('inputInfo').textContent = "Task added";
-            UI.getElement('task-form').reset();
+            Element.get('inputInfo').textContent = "Task added";
+            Element.get('task-form').reset();
 
-            const currentElement = UI.getElement(`item-${task.id}`);
+            const currentElement = Element.get(`item-${task.id}`);
 
-            currentElement.querySelector('#item-delete').addEventListener('click', App.deleteTask);
-            currentElement.querySelector('#item-edit').addEventListener('click', (e) => App.openFormDialog(e, task));
-            currentElement.querySelector('#item-checkbox').addEventListener('change', (e) => UI.toggleCheckbox(e));
+            Element.get('item-delete', currentElement).addEventListener('click', App.deleteTask);
+            Element.get('item-edit', currentElement).addEventListener('click', (e) => App.openFormDialog(e, task));
+            Element.get('item-checkbox', currentElement).addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
     }
 
@@ -117,9 +118,9 @@ export default class App {
             Tasks.updateTask(task);
             LocalStorage.saveTasks();
             // Close dialog
-            UI.getElement('task-dialog').close();
+            Element.get('task-dialog').close();
         } catch (error) {
-            UI.getElement('inputInfo').textContent = error.message;
+            Element.get('inputInfo').textContent = error.message;
         }
     }
 }
