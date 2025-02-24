@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
-import Tasks from './tasks.js';
-import LocalStorage from './localStorage.js';
-import App from "./app.js";
+import Tasks from "../core/tasks.js";
+import LocalStorage from '../core/localStorage.js';
+import App from "../app.js";
 
 export default class UI {
     static addTaskToList(task) {

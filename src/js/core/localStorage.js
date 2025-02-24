@@ -1,6 +1,5 @@
 import Tasks from "./tasks.js";
 import Task from "./task.js";
-import {format} from 'date-fns';
 
 export default class LocalStorage {
     static saveTasks() {

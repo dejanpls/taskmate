@@ -1,7 +1,8 @@
-import LocalStorage from './localStorage.js';
-import Task from './task.js';
-import Tasks from './tasks.js';
-import UI from "./ui.js";
+import LocalStorage from "./core/localStorage.js"
+import Task from "./core/task.js";
+import Tasks from "./core/tasks.js";
+import UI from "./ui/ui.js";
+
 
 export default class App {
     static init() {
