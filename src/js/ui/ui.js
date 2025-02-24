@@ -2,32 +2,31 @@ import { format } from 'date-fns';
 import Tasks from "../core/tasks.js";
 import LocalStorage from '../core/localStorage.js';
 import App from "../app.js";
+import Element from './element.js';
 
 export default class UI {
     static addTaskToList(task) {
 
-        const list = UI.getElement('task-list');
+        const list = Element.get('task-list');
 
-        const item = UI.createElement('li', `item-${task.id}`);
+        const item = Element.create('li', `item-${task.id}`);
 
-        const checkbox = UI.createElement('input', 'item-checkbox');
-        checkbox.type = 'checkbox';
-
+        const checkbox = Element.create('input', 'item-checkbox', 'checkbox');
         checkbox.checked = task.status === 'completed';
 
-        const title = UI.createElement('h3', 'item-title');
+        const title = Element.create('h3', 'item-title');
         title.textContent = task.title;
 
-        const description = UI.createElement('p', 'item-description');
+        const description = Element.create('p', 'item-description');
         description.textContent = task.description;
 
-        const dueDate = UI.createElement('p', 'item-dueDate');
+        const dueDate = Element.create('p', 'item-dueDate');
         dueDate.textContent = UI.formatDueDate(task.dueDate);
 
-        const priority = UI.createElement('p', 'item-priority');
+        const priority = Element.create('p', 'item-priority');
         priority.textContent = task.priority;
 
-        const status = UI.createElement('p', 'item-status');
+        const status = Element.create('p', 'item-status');
         status.textContent = task.status;
 
         item.appendChild(checkbox);
@@ -37,10 +36,10 @@ export default class UI {
         item.appendChild(priority);
         item.appendChild(status);
 
-        const deleteBtn = UI.createElement('button', 'item-delete');
+        const deleteBtn = Element.create('button', 'item-delete');
         deleteBtn.textContent = "X";
 
-        const editBtn = UI.createElement('button', 'item-edit');
+        const editBtn = Element.create('button', 'item-edit');
         editBtn.textContent = "Edit";
 
         item.appendChild(deleteBtn);
@@ -50,38 +49,27 @@ export default class UI {
     }
 
     static updateTaskInList(task) {
-        const taskElement = UI.getElement(`item-${task.id}`);
+        const taskElement = Element.get(`item-${task.id}`);
 
         if (!taskElement) return;
 
-        taskElement.querySelector('#item-title').textContent = task.title;
-        taskElement.querySelector('#item-description').textContent = task.description;
-        taskElement.querySelector('#item-dueDate').textContent = UI.formatDueDate(task.dueDate);
-        taskElement.querySelector('#item-priority').textContent = task.priority;
-        taskElement.querySelector('#item-status').textContent = task.status;
+        Element.get('item-title', taskElement).textContent = task.title;
+        Element.get('item-description', taskElement).textContent = task.description;
+        Element.get('item-dueDate', taskElement).textContent = UI.formatDueDate(task.dueDate);
+        Element.get('item-priority', taskElement).textContent = task.priority;
+        Element.get('item-status', taskElement).textContent = task.status;
     }
 
     static removeTaskFromList(taskElement) {
         taskElement.remove();
     }
 
-    static getElement(elementId) {
-        return document.getElementById(elementId);
-
-    }
-
-    static createElement(element, id) {
-        const el = document.createElement(element);
-        el.id = id;
-        return el;
-    }
-
     static getValueOf(elementId) {
-        return UI.getElement(elementId).value.trim();
+        return Element.get(elementId).value.trim();
     }
 
     static setValueOf(elementId, val) {
-        return UI.getElement(elementId).value = val;
+        return Element.get(elementId).value = val;
     }
 
     static getIdFrom(event) {
@@ -106,7 +94,7 @@ export default class UI {
     }
 
     static attachEventListeners() {
-        document.querySelectorAll('#item-edit').forEach(button => {
+        Element.getAll('item-edit').forEach(button => {
             button.addEventListener('click', (e) => {
                 const taskId = UI.getIdFrom(e); // Assuming tasks have unique IDs
                 const task = Tasks.findTaskById(taskId);
@@ -114,13 +102,13 @@ export default class UI {
             });
         });
 
-        document.querySelectorAll('#item-delete').forEach(button => {
+        Element.getAll('item-delete').forEach(button => {
             button.addEventListener('click', (e) => {
                 App.deleteTask(e);
             });
         });
         
-        document.querySelectorAll('#item-checkbox').forEach(checkbox => {
+        Element.getAll('item-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
