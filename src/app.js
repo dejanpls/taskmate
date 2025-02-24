@@ -1,3 +1,4 @@
+import LocalStorage from './localStorage.js';
 import Task from './task.js';
 import Tasks from './tasks.js';
 import UI from "./ui.js";
@@ -5,10 +6,15 @@ import UI from "./ui.js";
 export default class App {
     static init() {
         const tasks = Tasks.list;
+        const savedTasks = LocalStorage.loadTasks();
+        
+        savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
         UI.getElement('open-dialog').addEventListener('click', App.openFormDialog);
         UI.getElement('confirm-dialog').addEventListener('click', App.addTask);
+
+        UI.attachEventListeners();
     }
 
     static openFormDialog(event, editTask = null) {
@@ -73,6 +79,8 @@ export default class App {
 
         if (task) {
             Tasks.addTask(task);
+            LocalStorage.saveTasks();
+
             UI.addTaskToList(task);
             UI.getElement('inputInfo').textContent = "Task added";
             UI.getElement('task-form').reset();
@@ -81,13 +89,14 @@ export default class App {
 
             currentElement.querySelector('#item-delete').addEventListener('click', App.deleteTask);
             currentElement.querySelector('#item-edit').addEventListener('click', (e) => App.openFormDialog(e, task));
-            currentElement.querySelector('#item-checkbox').addEventListener('click', (e) => UI.toggleCheckbox(e));
+            currentElement.querySelector('#item-checkbox').addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
     }
 
     static deleteTask(event) {
         UI.removeTaskFromList(event.target.parentElement);
         Tasks.removeTask(UI.getIdFrom(event));
+        LocalStorage.saveTasks(); // Save updated list
     }
 
     static updateTask(event, task) {
@@ -105,7 +114,7 @@ export default class App {
 
             // Update in local storage
             Tasks.updateTask(task);
-
+            LocalStorage.saveTasks();
             // Close dialog
             UI.getElement('task-dialog').close();
         } catch (error) {
