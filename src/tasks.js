@@ -18,7 +18,7 @@ export default class Tasks {
     }
 
     static get list() {
-        return this.#list;
+        return this.#list || [];
     }
 
     static removeTask(id) {
