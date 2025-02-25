@@ -28,7 +28,7 @@ export default class App {
         if (editTask) {
             Element.setValueOf("title", editTask.title);
             Element.setValueOf("description", editTask.description);
-            Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
+            Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
 
