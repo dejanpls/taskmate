@@ -14,4 +14,16 @@ export default class Element {
     static getAll(elementId, selector = document) {
         return selector.querySelectorAll(`#${elementId}`);
     }
+
+    static getValueOf(elementId) {
+        return Element.get(elementId).value.trim();
+    }
+
+    static setValueOf(elementId, val) {
+        return Element.get(elementId).value = val;
+    }
+
+    static getIdFrom(event) {
+        return event.target.parentElement.id.split("-")[1];
+    }
 }

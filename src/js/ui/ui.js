@@ -64,18 +64,6 @@ export default class UI {
         taskElement.remove();
     }
 
-    static getValueOf(elementId) {
-        return Element.get(elementId).value.trim();
-    }
-
-    static setValueOf(elementId, val) {
-        return Element.get(elementId).value = val;
-    }
-
-    static getIdFrom(event) {
-        return event.target.parentElement.id.split("-")[1];
-    }
-
     static formatDueDate(dueDate) {
         if (!dueDate) return '';
 
@@ -84,7 +72,7 @@ export default class UI {
     }
 
     static toggleCheckbox(event) {
-        const taskId = UI.getIdFrom(event);
+        const taskId = Element.getIdFrom(event);
         const task = Tasks.findTaskById(taskId);
 
         task.status = event.target.checked ? 'completed' : 'pending';
@@ -96,7 +84,7 @@ export default class UI {
     static attachEventListeners() {
         Element.getAll('item-edit').forEach(button => {
             button.addEventListener('click', (e) => {
-                const taskId = UI.getIdFrom(e); // Assuming tasks have unique IDs
+                const taskId = Element.getIdFrom(e);
                 const task = Tasks.findTaskById(taskId);
                 App.openFormDialog(e, task); // Open dialog with task details
             });

@@ -26,11 +26,11 @@ export default class App {
         const confirmButton = Element.get('confirm-dialog');
 
         if (editTask) {
-            UI.setValueOf("title", editTask.title);
-            UI.setValueOf("description", editTask.description);
-            UI.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
-            UI.setValueOf("priority", editTask.priority);
-            UI.setValueOf("status", editTask.status);
+            Element.setValueOf("title", editTask.title);
+            Element.setValueOf("description", editTask.description);
+            Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
+            Element.setValueOf("priority", editTask.priority);
+            Element.setValueOf("status", editTask.status);
 
             // Change confirm button behavior to update instead of add
             confirmButton.removeEventListener('click', App.addTask);
@@ -57,18 +57,18 @@ export default class App {
 
         Element.get('dueDate-today').addEventListener('click', (event) => {
             event.preventDefault();
-            UI.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
+            Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
         });
     }
 
     static addTask(event) {
         event.preventDefault();
 
-        const titleInput = UI.getValueOf("title");
-        const descriptionInput = UI.getValueOf("description");
-        const dueDateInput = UI.getValueOf("dueDate");
-        const priorityInput = UI.getValueOf("priority");
-        const statusInput = UI.getValueOf("status");
+        const titleInput = Element.getValueOf("title");
+        const descriptionInput = Element.getValueOf("description");
+        const dueDateInput = Element.getValueOf("dueDate");
+        const priorityInput = Element.getValueOf("priority");
+        const statusInput = Element.getValueOf("status");
 
         let task;
 
@@ -105,11 +105,11 @@ export default class App {
         event.preventDefault();
 
         try {
-            task.title = UI.getValueOf("title");
-            task.description = UI.getValueOf("description");
-            task.dueDate = UI.getValueOf("dueDate");
-            task.priority = UI.getValueOf("priority");
-            task.status = UI.getValueOf("status");
+            task.title = Element.getValueOf("title");
+            task.description = Element.getValueOf("description");
+            task.dueDate = Element.getValueOf("dueDate");
+            task.priority = Element.getValueOf("priority");
+            task.status = Element.getValueOf("status");
 
             // Update UI
             UI.updateTaskInList(task);
