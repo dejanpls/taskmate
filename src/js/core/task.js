@@ -65,12 +65,12 @@ export default class Task {
         }
     
         const inputDate = new Date(value);
-        // const today = new Date();
-        // today.setHours(0, 0, 0, 0); // Reset time to compare only the date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time to compare only the date
     
-        // if (inputDate < today) {
-        //     throw new Error('Due date cannot be in the past.');
-        // }
+        if (this.#dueDate && inputDate < today) { // Only validate if setting a new due date manually
+            throw new Error('Due date cannot be in the past.');
+        }
     
         this.#dueDate = inputDate;
     }
