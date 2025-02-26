@@ -7,19 +7,21 @@ export default class Task {
     #dueDate;
     #priority;
     #status;
+    #checklist;
 
-    constructor ( title, description, dueDate, priority, status ) {
+    constructor ( title, description, dueDate, priority, status, checklist = [] ) {
         this.#id = `${Date.now()}${Math.floor(Math.random() * 900 + 100)}`;  // unique id on each task instance
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
+        this.checklist = checklist; // array of element
     }
 
     // Factory method to restore an existing task with its ID
     static fromData(data) {
-        const task = new Task(data.title, data.description, format(data.dueDate, 'yyyy-MM-dd'), data.priority, data.status);
+        const task = new Task(data.title, data.description, format(data.dueDate, 'yyyy-MM-dd'), data.priority, data.status, data.checklist);
         task.#id = data.id; // Restore the original ID
         return task;
     }
@@ -98,5 +100,18 @@ export default class Task {
             throw new Error(`Status must be one of: ${allowedStatuses.join(', ')}`);
         }
         this.#status = value;
+    }
+
+    get checklist () {
+        return this.#checklist || [];
+    }
+
+    set checklist (array) {
+
+        if (!Array.isArray(array)) {
+            throw new Error("Checklist must be an array of strings.");
+        }
+
+        this.#checklist = array.map(item => String(item));
     }
 }
