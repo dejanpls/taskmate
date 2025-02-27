@@ -58,6 +58,8 @@ export default class UI {
         Element.get('item-dueDate', taskElement).textContent = UI.formatDueDate(task.dueDate);
         Element.get('item-priority', taskElement).textContent = task.priority;
         Element.get('item-status', taskElement).textContent = task.status;
+
+        Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
     }
 
     static removeTaskFromList(taskElement) {
