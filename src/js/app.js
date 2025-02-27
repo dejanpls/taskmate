@@ -22,44 +22,46 @@ export default class App {
     static openFormDialog(event, editTask = null) {
         const dialog = Element.get('task-dialog');
         dialog.showModal();
-
+    
         const confirmButton = Element.get('confirm-dialog');
-
+    
+        // Remove all previous event listeners before adding new ones
+        confirmButton.replaceWith(confirmButton.cloneNode(true));
+        const newConfirmButton = Element.get('confirm-dialog'); // Get the new cloned button
+    
         if (editTask) {
             Element.setValueOf("title", editTask.title);
             Element.setValueOf("description", editTask.description);
             Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
-
-            // Change confirm button behavior to update instead of add
-            confirmButton.removeEventListener('click', App.addTask);
-            confirmButton.textContent = "Update Task";
-            
-            const newConfirmButton = confirmButton.cloneNode(true);
-            confirmButton.replaceWith(newConfirmButton);
-
-            // Now add a fresh event listener
-            newConfirmButton.addEventListener('click', (e) => App.updateTask(e, editTask));
+    
+            // Update button text
+            newConfirmButton.textContent = "Update Task";
+    
+            // Define the event listener function
+            function handleUpdateTask(e) {
+                App.updateTask(e, editTask);
+                newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
+            }
+    
+            // Add the event listener
+            newConfirmButton.addEventListener('click', handleUpdateTask);
         } else {
-            confirmButton.removeEventListener('click', (e) => App.updateTask(e, editTask));
-            confirmButton.textContent = "Add Task";
-
-            const newConfirmButton = confirmButton.cloneNode(true);
-            confirmButton.replaceWith(newConfirmButton);
-
+            newConfirmButton.textContent = "Add Task";
             newConfirmButton.addEventListener('click', App.addTask);
-            
+    
+            // Reset the form for a new task
             Element.get('task-form').reset();
         }
-
+    
         Element.get('close-dialog').addEventListener('click', () => dialog.close());
-
+    
         Element.get('dueDate-today').addEventListener('click', (event) => {
             event.preventDefault();
             Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
         });
-    }
+    }    
 
     static addTask(event) {
         event.preventDefault();
@@ -110,10 +112,10 @@ export default class App {
             task.dueDate = Element.getValueOf("dueDate");
             task.priority = Element.getValueOf("priority");
             task.status = Element.getValueOf("status");
-
+            
             // Update UI
             UI.updateTaskInList(task);
-
+            
             // Update in local storage
             Tasks.updateTask(task);
             LocalStorage.saveTasks();
