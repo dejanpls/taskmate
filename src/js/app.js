@@ -31,7 +31,7 @@ export default class App {
     
         if (editTask) {
             Element.setValueOf("title", editTask.title);
-            Element.setValueOf("description", editTask.description);
+            Element.setValueOf("description", editTask.description); 
             Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
@@ -99,7 +99,7 @@ export default class App {
 
     static deleteTask(event) {
         UI.removeTaskFromList(event.target.parentElement);
-        Tasks.removeTask(UI.getIdFrom(event));
+        Tasks.removeTask(Element.getIdFrom(event));
         LocalStorage.saveTasks(); // Save updated list
     }
 
