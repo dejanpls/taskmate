@@ -122,12 +122,29 @@ export default class UI {
     static listCategories() {
         const categoryList = Category.list();
         const categoryMenu = Element.get('category');
-        
+
         categoryList.forEach(category => {
             const categoryOption = document.createElement('option');
             categoryOption.value = category;
             categoryOption.textContent = category;
             categoryMenu.appendChild(categoryOption);
+        });
+    }
+
+    static updateDescriptionCharLimit() {
+        const textarea = document.getElementById("description");
+        const charCount = document.getElementById("charsCount");
+        const maxLength = 120; // Set the character limit
+
+        charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
+
+        textarea.addEventListener("input", function () {
+            if (this.value.length > maxLength) {
+                this.value = this.value.substring(0, maxLength); // Trim extra characters
+            }
+
+            const remaining = maxLength - this.value.length;
+            charCount.textContent = `${remaining} characters remaining`;
         });
     }
 }
