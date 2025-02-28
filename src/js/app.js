@@ -153,7 +153,7 @@ export default class App {
             // Close dialog
             Element.get('task-dialog').close();
         } catch (error) {
-            Element.get('inputInfo').textContent = error.message;
+            UI.notify(error.message);
         }
     }
 }
