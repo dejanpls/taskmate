@@ -10,7 +10,8 @@ export default class LocalStorage {
             description: task.description,
             dueDate: task.dueDate,
             priority: task.priority,
-            status: task.status
+            status: task.status,
+            category: task.category
         }));
         console.log("Saved tasks: ", taskData);
         localStorage.setItem('tasks', JSON.stringify(taskData));

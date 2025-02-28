@@ -4,7 +4,6 @@ import Tasks from "./core/tasks.js";
 import UI from "./ui/ui.js";
 import Element from "./ui/element.js";
 
-
 export default class App {
     static init() {
         const tasks = Tasks.list;
@@ -17,6 +16,7 @@ export default class App {
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
 
         UI.attachEventListeners();
+        UI.listCategories();
     }
 
     static openFormDialog(event, editTask = null) {
@@ -28,6 +28,11 @@ export default class App {
         // Remove all previous event listeners before adding new ones
         confirmButton.replaceWith(confirmButton.cloneNode(true));
         const newConfirmButton = Element.get('confirm-dialog'); // Get the new cloned button
+        
+        // Define the event listener function
+        function handleUpdateTask(e) {
+            App.updateTask(e, editTask);
+        }
 
         if (editTask) {
             Element.setValueOf("title", editTask.title);
@@ -35,19 +40,15 @@ export default class App {
             Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
+            Element.setValueOf("category", editTask.category);
 
             // Update button text
             newConfirmButton.textContent = "Update Task";
-
-            // Define the event listener function
-            function handleUpdateTask(e) {
-                App.updateTask(e, editTask);
-                newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
-            }
-
+            
             // Add the event listener
             newConfirmButton.addEventListener('click', handleUpdateTask);
         } else {
+            newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
             newConfirmButton.textContent = "Add Task";
             newConfirmButton.addEventListener('click', App.addTask);
 
@@ -71,11 +72,12 @@ export default class App {
         const dueDateInput = Element.getValueOf("dueDate");
         const priorityInput = Element.getValueOf("priority");
         const statusInput = Element.getValueOf("status");
+        const categoryInput = Element.getValueOf("category");
 
         let task;
 
         try {
-            task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput);
+            task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput, categoryInput);
         } catch (error) {
             UI.notify(error.message);
 
@@ -140,6 +142,7 @@ export default class App {
             task.dueDate = Element.getValueOf("dueDate");
             task.priority = Element.getValueOf("priority");
             task.status = Element.getValueOf("status");
+            task.category = Element.getValueOf("category");
 
             // Update UI
             UI.updateTaskInList(task);

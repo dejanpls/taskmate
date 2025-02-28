@@ -3,6 +3,7 @@ import Tasks from "../core/tasks.js";
 import LocalStorage from '../core/localStorage.js';
 import App from "../app.js";
 import Element from './element.js';
+import Category from "../core/category.js";
 
 export default class UI {
     static addTaskToList(task) {
@@ -20,6 +21,9 @@ export default class UI {
         const description = Element.create('p', 'item-description');
         description.textContent = task.description;
 
+        const category = Element.create('p', 'item-category');
+        category.textContent = task.category;
+
         const dueDate = Element.create('p', 'item-dueDate');
         dueDate.textContent = UI.formatDueDate(task.dueDate);
 
@@ -32,6 +36,7 @@ export default class UI {
         item.appendChild(checkbox);
         item.appendChild(title);
         item.appendChild(description);
+        item.appendChild(category);
         item.appendChild(dueDate);
         item.appendChild(priority);
         item.appendChild(status);
@@ -58,6 +63,7 @@ export default class UI {
         Element.get('item-dueDate', taskElement).textContent = UI.formatDueDate(task.dueDate);
         Element.get('item-priority', taskElement).textContent = task.priority;
         Element.get('item-status', taskElement).textContent = task.status;
+        Element.get('item-category', taskElement).textContent = task.category;
 
         Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
     }
@@ -111,5 +117,17 @@ export default class UI {
         setTimeout(() => {
             Element.get('input-info').textContent = '';
         }, 1500); // clears notification after 1.5 seconds;
+    }
+
+    static listCategories() {
+        const categoryList = Category.list();
+        const categoryMenu = Element.get('category');
+        
+        categoryList.forEach(category => {
+            const categoryOption = document.createElement('option');
+            categoryOption.value = category;
+            categoryOption.textContent = category;
+            categoryMenu.appendChild(categoryOption);
+        });
     }
 }
