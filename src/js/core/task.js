@@ -55,6 +55,11 @@ export default class Task {
         if (typeof value !== 'string') {
             throw new Error('Description must be a string');
         }
+
+        if (value.length > 120) {
+            throw new Error('Maximum of 120 characters is allowed');
+        }
+
         this.#description = value;
     }
 
