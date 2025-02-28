@@ -97,11 +97,19 @@ export default class UI {
                 App.deleteTask(e);
             });
         });
-        
+
         Element.getAll('item-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
         });
+    }
+
+    static notify(message) {
+        Element.get('input-info').textContent = message;
+
+        setTimeout(() => {
+            Element.get('input-info').textContent = '';
+        }, 1500); // clears notification after 1.5 seconds;
     }
 }
