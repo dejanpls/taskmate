@@ -41,6 +41,9 @@ export default class App {
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
             Element.setValueOf("category", editTask.category);
+            
+            // Update description characters count
+            UI.updateDescriptionCharLimit();
 
             // Update button text
             newConfirmButton.textContent = "Update Task";
