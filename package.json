@@ -9,8 +9,10 @@
     "webpack-dev-server": "^5.2.0"
   },
   "scripts": {
-    "build": "webpack",
     "dev": "webpack serve",
+    "sync": "git checkout gh-pages && git merge main --no-edit",
+    "build": "webpack",
+    "prepare-deploy": "git add dist -f && git commit -m 'Deployment commit'",
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
