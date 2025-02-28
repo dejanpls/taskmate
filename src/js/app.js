@@ -9,7 +9,7 @@ export default class App {
     static init() {
         const tasks = Tasks.list;
         const savedTasks = LocalStorage.loadTasks();
-        
+
         savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
@@ -22,46 +22,46 @@ export default class App {
     static openFormDialog(event, editTask = null) {
         const dialog = Element.get('task-dialog');
         dialog.showModal();
-    
+
         const confirmButton = Element.get('confirm-dialog');
-    
+
         // Remove all previous event listeners before adding new ones
         confirmButton.replaceWith(confirmButton.cloneNode(true));
         const newConfirmButton = Element.get('confirm-dialog'); // Get the new cloned button
-    
+
         if (editTask) {
             Element.setValueOf("title", editTask.title);
-            Element.setValueOf("description", editTask.description); 
+            Element.setValueOf("description", editTask.description);
             Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
-    
+
             // Update button text
             newConfirmButton.textContent = "Update Task";
-    
+
             // Define the event listener function
             function handleUpdateTask(e) {
                 App.updateTask(e, editTask);
                 newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
             }
-    
+
             // Add the event listener
             newConfirmButton.addEventListener('click', handleUpdateTask);
         } else {
             newConfirmButton.textContent = "Add Task";
             newConfirmButton.addEventListener('click', App.addTask);
-    
+
             // Reset the form for a new task
             Element.get('task-form').reset();
         }
-    
+
         Element.get('close-dialog').addEventListener('click', () => dialog.close());
-    
+
         Element.get('dueDate-today').addEventListener('click', (event) => {
             event.preventDefault();
             Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
         });
-    }    
+    }
 
     static addTask(event) {
         event.preventDefault();
@@ -99,12 +99,36 @@ export default class App {
     }
 
     static deleteTask(event) {
-        UI.removeTaskFromList(event.target.parentElement);
-        Tasks.removeTask(Element.getIdFrom(event));
+        const taskElement = event.target.parentElement;
+        const taskName = Array.from(taskElement.childNodes)[1].textContent;
 
+        UI.removeTaskFromList(taskElement);
         UI.notify("Task Deleted");
 
-        LocalStorage.saveTasks(); // Save updated list
+        const taskId = Element.getIdFrom(event);
+        const undoBtn = Element.create('button', 'undoBtn');
+        undoBtn.textContent = `Undo "${taskName}"?`;
+        document.body.appendChild(undoBtn);
+
+        let isUndone = false;
+
+        undoBtn.addEventListener('click', () => {
+            if (isUndone) return; // Prevent multiple restores
+    
+            Element.get('task-list').appendChild(taskElement);
+            UI.notify("Task Undone");
+    
+            isUndone = true;
+            undoBtn.remove(); // Remove undo button after use
+        });
+
+        setTimeout(() => {
+            if (!isUndone) {
+                Tasks.removeTask(taskId); // Only remove if not undone
+                LocalStorage.saveTasks();
+            }
+            undoBtn.remove(); // Remove undo button after timeout
+        }, 5000);
     }
 
     static updateTask(event, task) {
@@ -116,10 +140,10 @@ export default class App {
             task.dueDate = Element.getValueOf("dueDate");
             task.priority = Element.getValueOf("priority");
             task.status = Element.getValueOf("status");
-            
+
             // Update UI
             UI.updateTaskInList(task);
-            
+
             // Update in local storage
             Tasks.updateTask(task);
             LocalStorage.saveTasks();
