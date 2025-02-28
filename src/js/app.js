@@ -77,7 +77,8 @@ export default class App {
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput);
         } catch (error) {
-            Element.get('inputInfo').textContent = error.message;
+            UI.notify(error.message);
+
             return;
         }
 
@@ -86,7 +87,7 @@ export default class App {
             LocalStorage.saveTasks();
 
             UI.addTaskToList(task);
-            Element.get('inputInfo').textContent = "Task added";
+            UI.notify("Task added");
             Element.get('task-form').reset();
 
             const currentElement = Element.get(`item-${task.id}`);
@@ -100,6 +101,9 @@ export default class App {
     static deleteTask(event) {
         UI.removeTaskFromList(event.target.parentElement);
         Tasks.removeTask(Element.getIdFrom(event));
+
+        UI.notify("Task Deleted");
+
         LocalStorage.saveTasks(); // Save updated list
     }
 
@@ -119,6 +123,9 @@ export default class App {
             // Update in local storage
             Tasks.updateTask(task);
             LocalStorage.saveTasks();
+
+            UI.notify("Task Updated");
+
             // Close dialog
             Element.get('task-dialog').close();
         } catch (error) {
