@@ -131,12 +131,13 @@ export default class UI {
         });
     }
 
-    static updateDescriptionCharLimit() {
+    static updateDescriptionCharLimit(editTask = null) {
         const textarea = document.getElementById("description");
         const charCount = document.getElementById("charsCount");
         const maxLength = 120; // Set the character limit
 
-        charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
+        if (editTask) charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
+        else charCount.textContent = `${maxLength} characters remaining`;
 
         textarea.addEventListener("input", function () {
             if (this.value.length > maxLength) {

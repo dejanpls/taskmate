@@ -23,6 +23,9 @@ export default class App {
         const dialog = Element.get('task-dialog');
         dialog.showModal();
 
+        // Update description characters count
+        UI.updateDescriptionCharLimit();
+
         const confirmButton = Element.get('confirm-dialog');
 
         // Remove all previous event listeners before adding new ones
@@ -41,10 +44,10 @@ export default class App {
             Element.setValueOf("priority", editTask.priority);
             Element.setValueOf("status", editTask.status);
             Element.setValueOf("category", editTask.category);
-            
-            // Update description characters count
-            UI.updateDescriptionCharLimit();
 
+            // Update description characters count
+            UI.updateDescriptionCharLimit(editTask);
+            
             // Update button text
             newConfirmButton.textContent = "Update Task";
             
