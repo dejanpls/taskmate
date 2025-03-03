@@ -50,12 +50,14 @@ export default class App {
             
             // Update button text
             newConfirmButton.textContent = "Update Task";
+            Element.get('form-title').textContent = "Update Task";
             
             // Add the event listener
             newConfirmButton.addEventListener('click', handleUpdateTask);
         } else {
             newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
             newConfirmButton.textContent = "Add Task";
+            Element.get('form-title').textContent = "Add New Task";
             newConfirmButton.addEventListener('click', App.addTask);
 
             // Reset the form for a new task
