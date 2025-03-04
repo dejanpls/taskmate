@@ -1,5 +1,5 @@
 export default class Category {
-    static #categories = ["work", "personal", "study", "fitness", "default"];
+    static #categories = ["default", "personal", "study", "fitness", "work"];
 
     static list() {
         return [...this.#categories]; // prevent direct modification
