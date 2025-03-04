@@ -126,7 +126,7 @@ export default class UI {
         categoryList.forEach(category => {
             const categoryOption = document.createElement('option');
             categoryOption.value = category;
-            categoryOption.textContent = category;
+            categoryOption.textContent = category[0].toUpperCase() + category.slice(1);
             categoryMenu.appendChild(categoryOption);
         });
     }
