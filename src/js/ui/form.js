@@ -9,7 +9,7 @@ export default class Form {
         dialog.showModal();
 
         // Update description characters count
-        Form.updateDescriptionCharLimit();
+        Form.updateDescriptionCharCount();
 
         const confirmButton = Element.get('confirm-dialog');
 
@@ -31,7 +31,7 @@ export default class Form {
             Element.setValueOf("category", editTask.category);
 
             // Update description characters count
-            Form.updateDescriptionCharLimit(editTask);
+            Form.updateDescriptionCharCount(editTask);
 
             // Update button text
             newConfirmButton.textContent = "Update Task";
@@ -69,7 +69,7 @@ export default class Form {
         });
     }
 
-    static updateDescriptionCharLimit(editTask = null) {
+    static updateDescriptionCharCount(editTask = null) {
         const textarea = document.getElementById("description");
         const charCount = document.getElementById("charsCount");
         const maxLength = 120; // Set the character limit
