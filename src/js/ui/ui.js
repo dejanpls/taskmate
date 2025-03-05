@@ -3,7 +3,7 @@ import Tasks from "../core/tasks.js";
 import LocalStorage from '../core/localStorage.js';
 import App from "../app.js";
 import Element from './element.js';
-import Category from "../core/category.js";
+import Form from './form.js';
 
 export default class UI {
     static addTaskToList(task) {
@@ -57,6 +57,8 @@ export default class UI {
         const taskElement = Element.get(`item-${task.id}`);
 
         if (!taskElement) return;
+        
+        Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
 
         Element.get('item-title', taskElement).textContent = task.title;
         Element.get('item-description', taskElement).textContent = task.description;
@@ -65,7 +67,6 @@ export default class UI {
         Element.get('item-status', taskElement).textContent = task.status;
         Element.get('item-category', taskElement).textContent = task.category;
 
-        Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
     }
 
     static removeTaskFromList(taskElement) {
@@ -90,62 +91,28 @@ export default class UI {
     }
 
     static attachEventListeners() {
+
+        // Task Edit Button
         Element.getAll('item-edit').forEach(button => {
             button.addEventListener('click', (e) => {
                 const taskId = Element.getIdFrom(e);
                 const task = Tasks.findTaskById(taskId);
-                App.openFormDialog(e, task); // Open dialog with task details
+                Form.open(e, task); // Open dialog with task details
             });
         });
 
+        // Task Delete Button
         Element.getAll('item-delete').forEach(button => {
             button.addEventListener('click', (e) => {
                 App.deleteTask(e);
             });
         });
 
+        // Task Checkbox Button
         Element.getAll('item-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
-        });
-    }
-
-    static notify(message) {
-        Element.get('input-info').textContent = message;
-
-        setTimeout(() => {
-            Element.get('input-info').textContent = '';
-        }, 1500); // clears notification after 1.5 seconds;
-    }
-
-    static listCategories() {
-        const categoryList = Category.list();
-        const categoryMenu = Element.get('category');
-
-        categoryList.forEach(category => {
-            const categoryOption = document.createElement('option');
-            categoryOption.value = category;
-            categoryOption.textContent = category[0].toUpperCase() + category.slice(1);
-            categoryMenu.appendChild(categoryOption);
-        });
-    }
-
-    static updateDescriptionCharLimit(editTask = null) {
-        const textarea = document.getElementById("description");
-        const charCount = document.getElementById("charsCount");
-        const maxLength = 120; // Set the character limit
-
-        if (editTask) charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
-        else charCount.textContent = `${maxLength} characters remaining`;
-
-        textarea.addEventListener("input", function () {
-            if (this.value.length > maxLength) {
-                this.value = this.value.substring(0, maxLength); // Trim extra characters
-            }
-
-            const remaining = maxLength - this.value.length;
-            charCount.textContent = `${remaining} characters remaining`;
         });
     }
 }
