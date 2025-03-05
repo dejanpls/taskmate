@@ -3,6 +3,8 @@ import Task from "./core/task.js";
 import Tasks from "./core/tasks.js";
 import UI from "./ui/ui.js";
 import Element from "./ui/element.js";
+import Form from "./ui/form.js";
+import Log from "./ui/log.js";
 
 export default class App {
     static init() {
@@ -12,64 +14,11 @@ export default class App {
         savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
-        Element.get('open-dialog').addEventListener('click', App.openFormDialog);
+        Element.get('open-dialog').addEventListener('click', Form.open);
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
 
         UI.attachEventListeners();
-        UI.listCategories();
-    }
-
-    static openFormDialog(event, editTask = null) {
-        const dialog = Element.get('task-dialog');
-        dialog.showModal();
-
-        // Update description characters count
-        UI.updateDescriptionCharLimit();
-
-        const confirmButton = Element.get('confirm-dialog');
-
-        // Remove all previous event listeners before adding new ones
-        confirmButton.replaceWith(confirmButton.cloneNode(true));
-        const newConfirmButton = Element.get('confirm-dialog'); // Get the new cloned button
-        
-        // Define the event listener function
-        function handleUpdateTask(e) {
-            App.updateTask(e, editTask);
-        }
-
-        if (editTask) {
-            Element.setValueOf("title", editTask.title);
-            Element.setValueOf("description", editTask.description);
-            Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
-            Element.setValueOf("priority", editTask.priority);
-            Element.setValueOf("status", editTask.status);
-            Element.setValueOf("category", editTask.category);
-
-            // Update description characters count
-            UI.updateDescriptionCharLimit(editTask);
-            
-            // Update button text
-            newConfirmButton.textContent = "Update Task";
-            Element.get('form-title').textContent = "Update Task";
-            
-            // Add the event listener
-            newConfirmButton.addEventListener('click', handleUpdateTask);
-        } else {
-            newConfirmButton.removeEventListener('click', handleUpdateTask); // Remove after execution
-            newConfirmButton.textContent = "Add Task";
-            Element.get('form-title').textContent = "Add New Task";
-            newConfirmButton.addEventListener('click', App.addTask);
-
-            // Reset the form for a new task
-            Element.get('task-form').reset();
-        }
-
-        Element.get('close-dialog').addEventListener('click', () => dialog.close());
-
-        Element.get('dueDate-today').addEventListener('click', (event) => {
-            event.preventDefault();
-            Element.setValueOf('dueDate', new Date().toISOString().split('T')[0]);
-        });
+        Form.listCategories();
     }
 
     static addTask(event) {
@@ -87,7 +36,7 @@ export default class App {
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput, categoryInput);
         } catch (error) {
-            UI.notify(error.message);
+            Log.notify(error.message);
 
             return;
         }
@@ -97,13 +46,13 @@ export default class App {
             LocalStorage.saveTasks();
 
             UI.addTaskToList(task);
-            UI.notify("Task added");
+            Log.notify("Task added");
             Element.get('task-form').reset();
 
             const currentElement = Element.get(`item-${task.id}`);
 
             Element.get('item-delete', currentElement).addEventListener('click', App.deleteTask);
-            Element.get('item-edit', currentElement).addEventListener('click', (e) => App.openFormDialog(e, task));
+            Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
             Element.get('item-checkbox', currentElement).addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
     }
@@ -113,7 +62,7 @@ export default class App {
         const taskName = Array.from(taskElement.childNodes)[1].textContent;
 
         UI.removeTaskFromList(taskElement);
-        UI.notify("Task Deleted");
+        Log.notify("Task Deleted");
 
         const taskId = Element.getIdFrom(event);
         const undoBtn = Element.create('button', 'undoBtn');
@@ -126,7 +75,7 @@ export default class App {
             if (isUndone) return; // Prevent multiple restores
     
             Element.get('task-list').appendChild(taskElement);
-            UI.notify("Task Undone");
+            Log.notify("Task Undone");
     
             isUndone = true;
             undoBtn.remove(); // Remove undo button after use
@@ -159,12 +108,12 @@ export default class App {
             Tasks.updateTask(task);
             LocalStorage.saveTasks();
 
-            UI.notify("Task Updated");
+            Log.notify("Task Updated");
 
             // Close dialog
             Element.get('task-dialog').close();
         } catch (error) {
-            UI.notify(error.message);
+            Log.notify(error.message);
         }
     }
 }
