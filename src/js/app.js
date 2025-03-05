@@ -5,6 +5,7 @@ import UI from "./ui/ui.js";
 import Element from "./ui/element.js";
 import Form from "./ui/form.js";
 import Log from "./ui/log.js";
+import CategoryUI from "./ui/categoryUI.js";
 
 export default class App {
     static init() {
@@ -16,9 +17,11 @@ export default class App {
 
         Element.get('open-dialog').addEventListener('click', Form.open);
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
+        Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
 
         UI.attachEventListeners();
         Form.listCategories();
+        CategoryUI.renderCategories();
     }
 
     static addTask(event) {
