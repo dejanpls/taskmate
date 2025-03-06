@@ -91,6 +91,7 @@ export default class App {
 
     static updateTask(event, task) {
         event.preventDefault();
+        const previousCategory = task.category;
 
         try {
             task.title = Element.getValueOf("title");
@@ -102,6 +103,11 @@ export default class App {
 
             // Update UI
             UI.updateTaskInList(task);
+
+            // If all elements rendered, do not filter by category
+            if (Element.get('task-list').childElementCount !== Tasks.list.length) {
+                CategoryUI.filter(previousCategory);
+            }
 
             // Update in local storage
             Tasks.updateTask(task);
