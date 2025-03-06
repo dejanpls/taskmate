@@ -15,10 +15,6 @@ export default class App {
         savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
-        Element.get('open-dialog').addEventListener('click', Form.open);
-        Element.get('confirm-dialog').addEventListener('click', App.addTask);
-        Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
-
         UI.attachEventListeners();
         Form.listCategories();
         CategoryUI.renderCategories();
@@ -54,7 +50,7 @@ export default class App {
 
             const currentElement = Element.get(`item-${task.id}`);
 
-            Element.get('item-delete', currentElement).addEventListener('click', App.deleteTask);
+            Element.get('item-delete', currentElement).addEventListener('click', this.deleteTask);
             Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
             Element.get('item-checkbox', currentElement).addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
