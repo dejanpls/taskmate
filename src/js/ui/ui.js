@@ -4,6 +4,7 @@ import LocalStorage from '../core/localStorage.js';
 import App from "../app.js";
 import Element from './element.js';
 import Form from './form.js';
+import CategoryUI from './categoryUI.js';
 
 export default class UI {
     static addTaskToList(task) {
@@ -57,7 +58,7 @@ export default class UI {
         const taskElement = Element.get(`item-${task.id}`);
 
         if (!taskElement) return;
-        
+
         Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
 
         Element.get('item-title', taskElement).textContent = task.title;
@@ -91,6 +92,10 @@ export default class UI {
     }
 
     static attachEventListeners() {
+
+        Element.get('open-dialog').addEventListener('click', Form.open);
+        Element.get('confirm-dialog').addEventListener('click', App.addTask);
+        Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
 
         // Task Edit Button
         Element.getAll('item-edit').forEach(button => {
