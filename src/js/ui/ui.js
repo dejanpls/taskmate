@@ -13,25 +13,25 @@ export default class UI {
 
         const item = Element.create('li', `item-${task.id}`);
 
-        const checkbox = Element.create('input', 'item-checkbox', 'checkbox');
+        const checkbox = Element.create('input', `item-${task.id}-checkbox`, 'checkbox');
         checkbox.checked = task.status === 'completed';
 
-        const title = Element.create('h3', 'item-title');
+        const title = Element.create('h3', `item-${task.id}-title`);
         title.textContent = task.title;
 
-        const description = Element.create('p', 'item-description');
+        const description = Element.create('p', `item-${task.id}-description`);
         description.textContent = task.description;
 
-        const category = Element.create('p', 'item-category');
+        const category = Element.create('p', `item-${task.id}-category`);
         category.textContent = task.category;
 
-        const dueDate = Element.create('p', 'item-dueDate');
+        const dueDate = Element.create('p', `item-${task.id}-dueDate`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
 
-        const priority = Element.create('p', 'item-priority');
+        const priority = Element.create('p', `item-${task.id}-priority`);
         priority.textContent = task.priority;
 
-        const status = Element.create('p', 'item-status');
+        const status = Element.create('p', `item-${task.id}-status`);
         status.textContent = task.status;
 
         item.appendChild(checkbox);
@@ -59,14 +59,14 @@ export default class UI {
 
         if (!taskElement) return;
 
-        Element.get('item-checkbox', taskElement).checked = task.status === 'completed';
+        Element.get(`item-${task.id}-checkbox`, taskElement).checked = task.status === 'completed';
 
-        Element.get('item-title', taskElement).textContent = task.title;
-        Element.get('item-description', taskElement).textContent = task.description;
-        Element.get('item-dueDate', taskElement).textContent = UI.formatDueDate(task.dueDate);
-        Element.get('item-priority', taskElement).textContent = task.priority;
-        Element.get('item-status', taskElement).textContent = task.status;
-        Element.get('item-category', taskElement).textContent = task.category;
+        Element.get(`item-${task.id}-title`, taskElement).textContent = task.title;
+        Element.get(`item-${task.id}-description`, taskElement).textContent = task.description;
+        Element.get(`item-${task.id}-dueDate`, taskElement).textContent = UI.formatDueDate(task.dueDate);
+        Element.get(`item-${task.id}-priority`, taskElement).textContent = task.priority;
+        Element.get(`item-${task.id}-status`, taskElement).textContent = task.status;
+        Element.get(`item-${task.id}-category`, taskElement).textContent = task.category;
 
     }
 
@@ -91,11 +91,21 @@ export default class UI {
         LocalStorage.saveTasks();
     }
 
+    static renderTasks() {
+        // If all elements rendered, do not render tasks again
+        if (Element.get('task-list').childElementCount !== Tasks.list.length) {
+            Element.get('task-list').replaceChildren();
+            Tasks.list.forEach(task => UI.addTaskToList(task));
+        }
+    }
+
     static attachEventListeners() {
 
         Element.get('open-dialog').addEventListener('click', Form.open);
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
         Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
+
+        Element.get('show-tasks').addEventListener('click', this.renderTasks);
 
         // Task Edit Button
         Element.getAll('item-edit').forEach(button => {
@@ -114,7 +124,7 @@ export default class UI {
         });
 
         // Task Checkbox Button
-        Element.getAll('item-checkbox').forEach(checkbox => {
+        document.querySelectorAll('[id*="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
