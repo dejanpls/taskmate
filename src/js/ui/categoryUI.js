@@ -46,7 +46,8 @@ export default class CategoryUI {
     
                 try {
                     Category.add(value);
-                    CategoryUI.renderCategory(value)
+                    CategoryUI.renderCategory(value);
+                    Log.notify("New category added");
                 } catch (error) {
                     Log.notify(error.message);
                 }
