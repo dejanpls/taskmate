@@ -60,6 +60,7 @@ export default class Form {
     static listCategories() {
         const categoryList = Category.list();
         const categoryMenu = Element.get('category');
+        categoryMenu.replaceChildren();
 
         categoryList.forEach(category => {
             const categoryOption = document.createElement('option');
