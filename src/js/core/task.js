@@ -113,7 +113,7 @@ export default class Task {
     }
 
     set category (value) {
-        if (!Category.isValid(value)) {
+        if (!Category.exists(value)) {
             throw new Error(`Category must be one of: ${Category.list().join(', ')}`);
         }
         this.#category = value;
