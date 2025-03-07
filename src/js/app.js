@@ -6,9 +6,18 @@ import Element from "./ui/element.js";
 import Form from "./ui/form.js";
 import Log from "./ui/log.js";
 import CategoryUI from "./ui/categoryUI.js";
+import Category from "./core/category.js";
 
 export default class App {
     static init() {
+        const savedCategories = LocalStorage.loadCategories();
+        savedCategories.forEach(category => {
+            if (category !== 'default') Category.add(category);
+        });
+
+        Form.listCategories();
+        CategoryUI.renderCategories();
+
         const tasks = Tasks.list;
         const savedTasks = LocalStorage.loadTasks();
 
@@ -16,8 +25,6 @@ export default class App {
         tasks.forEach(task => UI.addTaskToList(task));
 
         UI.attachEventListeners();
-        Form.listCategories();
-        CategoryUI.renderCategories();
     }
 
     static addTask(event) {
@@ -52,7 +59,7 @@ export default class App {
 
             Element.get('item-delete', currentElement).addEventListener('click', this.deleteTask);
             Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
-            Element.get('item-checkbox', currentElement).addEventListener('change', (e) => UI.toggleCheckbox(e));
+            currentElement.querySelector('[id*="checkbox"]').addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
     }
 
@@ -104,10 +111,8 @@ export default class App {
             // Update UI
             UI.updateTaskInList(task);
 
-            // If all elements rendered, do not filter by category
-            if (Element.get('task-list').childElementCount !== Tasks.list.length) {
-                CategoryUI.filter(previousCategory);
-            }
+            // Remove from current category list if category updated
+            if (previousCategory !== task.category) CategoryUI.filter(previousCategory);
 
             // Update in local storage
             Tasks.updateTask(task);

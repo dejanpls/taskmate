@@ -105,7 +105,10 @@ export default class UI {
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
         Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
 
-        Element.get('show-tasks').addEventListener('click', this.renderTasks);
+        Element.get('show-tasks').addEventListener('click', () => {
+            UI.renderTasks();
+            UI.attachEventListeners();
+        });
 
         // Task Edit Button
         Element.getAll('item-edit').forEach(button => {

@@ -3,6 +3,7 @@ import Category from "../core/category.js";
 import Log from "./log.js";
 import Tasks from "../core/tasks.js";
 import UI from "./ui.js";
+import LocalStorage from "../core/localStorage.js";
 import Form from "./form.js";
 
 export default class CategoryUI {
@@ -52,6 +53,7 @@ export default class CategoryUI {
                 try {
                     Category.add(value);
                     CategoryUI.renderCategory(value);
+                    LocalStorage.saveCategories();
                     Form.listCategories();
                     Log.notify("New category added");
                 } catch (error) {
