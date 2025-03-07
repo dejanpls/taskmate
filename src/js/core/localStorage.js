@@ -1,5 +1,6 @@
 import Tasks from "./tasks.js";
 import Task from "./task.js";
+import Category from "./category.js";
 
 export default class LocalStorage {
     static saveTasks() {
@@ -22,5 +23,19 @@ export default class LocalStorage {
         const parsedTasks = storedTasks ? JSON.parse(storedTasks) : [];
     
         return parsedTasks.map(taskData => Task.fromData(taskData));
-    }        
+    }      
+    
+    static saveCategories() {
+        
+        const categoryData = Category.list();
+        console.log("Saved categories: ", categoryData);
+        localStorage.setItem('categories', JSON.stringify(categoryData));
+    }
+
+    static loadCategories() {
+        const storedCategories = localStorage.getItem('categories');
+        const parsedCategories = storedCategories ? JSON.parse(storedCategories) : [];
+    
+        return parsedCategories;
+    }   
 }
