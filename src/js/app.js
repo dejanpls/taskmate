@@ -52,7 +52,7 @@ export default class App {
             LocalStorage.saveTasks();
 
             const taskList = Element.get('task-list');
-            if (taskList.className === task.category) {
+            if (taskList.classList.length === 0 || taskList.className === task.category) {
                 UI.addTaskToList(task);      
                 
                 const currentElement = Element.get(`item-${task.id}`);
