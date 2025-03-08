@@ -70,6 +70,7 @@ export default class CategoryUI {
 
     static filter(category) {
         Element.get('task-list').replaceChildren();
+        Element.get('task-list').className = category;
         const filtered = Tasks.list.filter(task => task.category === category);
         filtered.forEach(task => UI.addTaskToList(task));
         UI.attachEventListeners();
