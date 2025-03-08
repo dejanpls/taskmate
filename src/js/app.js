@@ -51,15 +51,19 @@ export default class App {
             Tasks.addTask(task);
             LocalStorage.saveTasks();
 
-            UI.addTaskToList(task);
+            const taskList = Element.get('task-list');
+            if (taskList.className === task.category) {
+                UI.addTaskToList(task);      
+                
+                const currentElement = Element.get(`item-${task.id}`);
+    
+                Element.get('item-delete', currentElement).addEventListener('click', this.deleteTask);
+                Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
+                currentElement.querySelector('[id*="checkbox"]').addEventListener('change', (e) => UI.toggleCheckbox(e));
+            }
+
             Log.notify("Task added");
             Element.get('task-form').reset();
-
-            const currentElement = Element.get(`item-${task.id}`);
-
-            Element.get('item-delete', currentElement).addEventListener('click', this.deleteTask);
-            Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
-            currentElement.querySelector('[id*="checkbox"]').addEventListener('change', (e) => UI.toggleCheckbox(e));
         }
     }
 
