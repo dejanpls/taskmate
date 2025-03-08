@@ -92,9 +92,11 @@ export default class UI {
     }
 
     static renderTasks() {
+        const taskList = Element.get('task-list');
         // If all elements rendered, do not render tasks again
-        if (Element.get('task-list').childElementCount !== Tasks.list.length) {
-            Element.get('task-list').replaceChildren();
+        if (taskList.childElementCount !== Tasks.list.length) {
+            taskList.className = '';
+            taskList.replaceChildren();
             Tasks.list.forEach(task => UI.addTaskToList(task));
         }
     }
