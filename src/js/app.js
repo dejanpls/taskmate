@@ -63,7 +63,11 @@ export default class App {
             }
 
             Log.notify("Task added");
-            Element.get('task-form').reset();
+
+            // Reset title and description input fields
+            Element.get('title').value = '';
+            Element.get('description').value = '';
+
         }
     }
 
