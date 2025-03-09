@@ -1,3 +1,4 @@
+import '../style/style.css';
 import LocalStorage from "./core/localStorage.js"
 import Task from "./core/task.js";
 import Tasks from "./core/tasks.js";
