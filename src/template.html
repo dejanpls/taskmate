@@ -7,22 +7,35 @@
 </head>
 <body>
 
-    <div id="search-container">
-        <button id="search-task">Search</button>
-    </div>
+    <div id="wrapper">
 
-    <div id="sidebar">
-        <div id="button-container">
-            <button id="add-category">Add Category</button>
-            <button id="show-tasks">All Tasks</button>
+        <div id="menu-container">
+            <button id="sidebar-toggle">Hide/Show</button>
+            <div id="logo">TaskMate</div>
+            <div id="search-container">
+                <button id="search-task">Search</button>
+            </div>
         </div>
-        <ul id="categories"></ul>
+    
+        <div id="sidebar">
+            <div id="button-container">
+                <button id="add-category">Add Category</button>
+            </div>
+            <ul id="categories"></ul>
+        </div>
+        
+        <div id="main">
+            <button id="show-tasks">All Tasks</button>
+            <button id="open-dialog">Add Task</button>
+            <ul id="task-list" data-category="all" data-search="false"></ul>
+            <div id="input-info"></div>
+        </div>
+    
+        <footer id="footer">
+            <p id="footer-text">Made by <a href="https://github.com/dejanpls">@dejanpls</a></p>
+        </footer>
+
     </div>
-
-    <button id="open-dialog">Add Task</button>
-    <div id="input-info"></div>
-
-    <ul id="task-list" data-category="all" data-search="false"></ul>
 
     <dialog id="task-dialog">
         <form id="task-form" method="dialog">
