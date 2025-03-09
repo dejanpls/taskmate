@@ -5,6 +5,7 @@ import App from "../app.js";
 import Element from './element.js';
 import Form from './form.js';
 import CategoryUI from './categoryUI.js';
+import Search from './search.js';
 
 export default class UI {
     static addTaskToList(task) {
@@ -95,6 +96,7 @@ export default class UI {
         const taskList = Element.get('task-list');
         // If all elements rendered, do not render tasks again
         if (taskList.getAttribute('data-category') != 'all' || taskList.childElementCount !== Tasks.list.length) {
+            taskList.setAttribute('data-search', 'false');
             taskList.setAttribute('data-category', 'all');
             taskList.replaceChildren();
             Tasks.list.forEach(task => UI.addTaskToList(task));
@@ -102,6 +104,8 @@ export default class UI {
     }
 
     static attachEventListeners() {
+
+        Element.get('search-task').addEventListener('click', Search.task);
 
         Element.get('open-dialog').addEventListener('click', Form.open);
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
