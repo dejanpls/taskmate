@@ -94,8 +94,8 @@ export default class UI {
     static renderTasks() {
         const taskList = Element.get('task-list');
         // If all elements rendered, do not render tasks again
-        if (taskList.childElementCount !== Tasks.list.length) {
-            taskList.className = '';
+        if (taskList.getAttribute('data-category') != 'all' || taskList.childElementCount !== Tasks.list.length) {
+            taskList.setAttribute('data-category', 'all');
             taskList.replaceChildren();
             Tasks.list.forEach(task => UI.addTaskToList(task));
         }
