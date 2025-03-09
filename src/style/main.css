@@ -14,9 +14,45 @@
 /* === Sidebar === */
 
 #sidebar-container {
-    background-color: #6637be;
+    background-color: #e4eaec;
     width: 200px;
     flex-shrink: 0;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #dadfe0;
+}
+
+#button-container * {
+    border: none;
+    cursor: pointer;
+    background-color: #dadfe0;
+}
+
+#button-container #show-tasks {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#categories {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 8px;
+    margin-top: 8px;
+}
+
+#categories * {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e4eaec;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
 }
 
 /* === Content === */
