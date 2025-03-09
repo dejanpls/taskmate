@@ -1,36 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
     <title>TaskMate</title>
 </head>
+
 <body>
 
     <div id="wrapper">
 
         <div id="menu-container">
-            <button id="sidebar-toggle">Hide/Show</button>
-            <div id="logo">TaskMate</div>
-            <div id="search-container">
-                <button id="search-task">Search</button>
+
+            <div id="menu">
+
+                <button id="sidebar-toggle" class="material-icons">menu_open</button>
+                <div id="logo">Task<strong>Mate</strong></div>
+                <div id="search-container">
+                    <button id="search-task" class="material-icons">search</button>
+                </div>
+
             </div>
+
         </div>
-    
-        <div id="sidebar">
-            <div id="button-container">
-                <button id="add-category">Add Category</button>
+
+        <div id="main-container">
+
+            <div id="main">
+
+                <div id="sidebar-container">
+                    <div id="sidebar">
+                        <div id="button-container">
+                            <button id="show-tasks">All Tasks</button>
+                            <button id="add-category">Add Category</button>
+                        </div>
+                        <ul id="categories"></ul>
+                    </div>
+                </div>
+
+                <div id="tasks-container">
+
+                    <ul id="task-list" data-category="all" data-search="false"></ul>
+
+                    <!-- fixed elements -->
+                    <button id="open-dialog">Add Task</button>
+                    <div id="input-info"></div>
+
+                </div>
+
             </div>
-            <ul id="categories"></ul>
+
         </div>
-        
-        <div id="main">
-            <button id="show-tasks">All Tasks</button>
-            <button id="open-dialog">Add Task</button>
-            <ul id="task-list" data-category="all" data-search="false"></ul>
-            <div id="input-info"></div>
-        </div>
-    
+
+
         <footer id="footer">
             <p id="footer-text">Made by <a href="https://github.com/dejanpls">@dejanpls</a></p>
         </footer>
@@ -40,12 +70,12 @@
     <dialog id="task-dialog">
         <form id="task-form" method="dialog">
             <h2 id="form-title">Add New Task</h2>
-    
+
             <label for="title">Title:</label>
             <br>
             <input type="text" id="title" name="title" required>
             <br><br>
-    
+
             <label for="description">Description:</label>
             <br>
             <textarea id="description" name="description"></textarea>
@@ -87,4 +117,5 @@
         </form>
     </dialog>
 </body>
+
 </html>
