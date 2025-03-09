@@ -103,8 +103,24 @@ export default class UI {
         }
     }
 
+    static toggleSidebar() {
+        const sidebar = Element.get('sidebar-container')
+        const sidebarOpen = sidebar.getAttribute('data-open');
+
+        if (sidebarOpen === 'true') {
+            sidebar.setAttribute('data-open', 'false');
+            sidebar.classList.add('closed');
+            Element.get('sidebar-toggle').textContent = 'menu';
+        } else {
+            sidebar.setAttribute('data-open', 'true');
+            sidebar.classList.remove('closed');
+            Element.get('sidebar-toggle').textContent = 'menu_open';
+        }
+    }
+
     static attachEventListeners() {
 
+        Element.get('sidebar-toggle').addEventListener('click', UI.toggleSidebar);
         Element.get('search-task').addEventListener('click', Search.task);
 
         Element.get('open-dialog').addEventListener('click', Form.open);
