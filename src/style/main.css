@@ -1,0 +1,43 @@
+/* === Main === */
+
+#main-container {
+    display: flex;
+    flex: 1;
+}
+
+#main {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+}
+
+/* === Sidebar === */
+
+#sidebar-container {
+    background-color: #6637be;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+/* === Content === */
+
+#tasks-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === Task list === */
+
+#task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#task-list li[id^='item-'] {
+    border: 1px solid blue;
+    display: flex;
+    align-items: center;
+}
