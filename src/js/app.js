@@ -26,10 +26,12 @@ export default class App {
         tasks.forEach(task => UI.addTaskToList(task));
 
         UI.attachEventListeners();
+        CategoryUI.countCategoryTasks();
     }
 
     static addTask(event) {
         event.preventDefault();
+        Element.get('title').focus();
 
         const titleInput = Element.getValueOf("title");
         const descriptionInput = Element.getValueOf("description");
@@ -58,7 +60,7 @@ export default class App {
                 
                 const currentElement = Element.get(`item-${task.id}`);
     
-                Element.get('item-delete', currentElement).addEventListener('click', this.deleteTask);
+                Element.get('item-delete', currentElement).addEventListener('click', App.deleteTask);
                 Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
                 currentElement.querySelector('[id*="checkbox"]').addEventListener('change', (e) => UI.toggleCheckbox(e));
             }
@@ -68,6 +70,9 @@ export default class App {
             // Reset title and description input fields
             Element.get('title').value = '';
             Element.get('description').value = '';
+
+            // Update category items' count
+            CategoryUI.countCategoryTasks();
 
         }
     }
@@ -80,9 +85,7 @@ export default class App {
         Log.notify("Task Deleted");
 
         const taskId = Element.getIdFrom(event);
-        const undoBtn = Element.create('button', 'undoBtn');
-        undoBtn.textContent = `Undo "${taskName}"?`;
-        document.body.appendChild(undoBtn);
+        const undoBtn = UI.generateUndoBtn(taskName);
 
         let isUndone = false;
 
@@ -95,11 +98,14 @@ export default class App {
             isUndone = true;
             undoBtn.remove(); // Remove undo button after use
         });
-
+   
         setTimeout(() => {
             if (!isUndone) {
                 Tasks.removeTask(taskId); // Only remove if not undone
                 LocalStorage.saveTasks();
+                
+                // Update category items' count
+                CategoryUI.countCategoryTasks();
             }
             undoBtn.remove(); // Remove undo button after timeout
         }, 5000);
@@ -131,6 +137,9 @@ export default class App {
 
             // Close dialog
             Element.get('task-dialog').close();
+
+            // Update category items' count
+            CategoryUI.countCategoryTasks();
         } catch (error) {
             Log.notify(error.message);
         }
