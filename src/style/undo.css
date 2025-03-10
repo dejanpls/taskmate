@@ -1,0 +1,14 @@
+#undo-container {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between buttons */
+    align-items: center;
+}
+
+#undo-container button {
+    width: 150px; /* Adjust size if necessary */
+}
