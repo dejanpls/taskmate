@@ -1,0 +1,17 @@
+#input-info-container {
+    position: fixed;
+    left: 40px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between buttons */
+    align-items: center;
+}
+
+#input-info-container div {
+    width: 150px; /* Adjust size if necessary */
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    text-align: center;
+}
