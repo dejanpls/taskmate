@@ -1,5 +1,6 @@
 @import './navigation.css';
 @import './main.css';
+@import './undo.css';
 
 * {
     margin: 0;
@@ -46,13 +47,6 @@
     position: absolute;
     left: 40px;
     bottom: 20px;
-}
-
-#undoBtn {
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 #button-container #new-category-input {
