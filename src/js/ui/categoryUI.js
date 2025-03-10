@@ -80,4 +80,10 @@ export default class CategoryUI {
         filtered.forEach(task => UI.addTaskToList(task));
         UI.attachEventListeners();
     }
+
+    static countCategoryTasks() {
+        Category.list().forEach(category => {
+            Element.get(`category-count-${category}`).textContent = Tasks.list.filter(task => task.category === category).length;
+        });
+    }
 }
