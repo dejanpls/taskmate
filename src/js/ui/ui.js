@@ -101,6 +101,7 @@ export default class UI {
             taskList.replaceChildren();
             Tasks.list.forEach(task => UI.addTaskToList(task));
         }
+        UI.attachEventListeners();
     }
 
     static toggleSidebar() {
@@ -118,6 +119,13 @@ export default class UI {
         }
     }
 
+    static generateUndoBtn(taskName) {
+        const undoBtn = Element.create('button', 'undoBtn');
+        undoBtn.textContent = `Undo "${taskName}"?`;
+        document.body.appendChild(undoBtn);
+        return undoBtn;
+    }
+
     static attachEventListeners() {
 
         Element.get('sidebar-toggle').addEventListener('click', UI.toggleSidebar);
@@ -127,10 +135,8 @@ export default class UI {
         Element.get('confirm-dialog').addEventListener('click', App.addTask);
         Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
 
-        Element.get('show-tasks').addEventListener('click', () => {
-            UI.renderTasks();
-            UI.attachEventListeners();
-        });
+        Element.get('show-tasks').removeEventListener('click', UI.renderTasks);
+        Element.get('show-tasks').addEventListener('click', UI.renderTasks);
 
         // Task Edit Button
         Element.getAll('item-edit').forEach(button => {
