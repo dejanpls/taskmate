@@ -126,6 +126,13 @@ export default class UI {
         return undoBtn;
     }
 
+    static generateInputInfo(message) {
+        const inputInfo = Element.create('div', `info-${Element.get('input-info-container').childElementCount + 1}`);
+        inputInfo.textContent = message;
+        Element.get('input-info-container').appendChild(inputInfo);
+        return inputInfo;
+    }
+
     static attachEventListeners() {
 
         Element.get('sidebar-toggle').addEventListener('click', UI.toggleSidebar);
