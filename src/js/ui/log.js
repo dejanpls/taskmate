@@ -1,12 +1,12 @@
-import Element from "./element.js";
+import UI from "./ui.js";
 
 export default class Log {
 
     static notify(message) {
-        Element.get('input-info').textContent = message;
+        const inputInfo = UI.generateInputInfo(message);
 
         setTimeout(() => {
-            Element.get('input-info').textContent = '';
+            inputInfo.remove();
         }, 1500); // clears notification after 1.5 seconds;
     }
 
