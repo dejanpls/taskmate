@@ -23,7 +23,15 @@
     display: flex;
     justify-content: center;
     padding: 8px 0;
-    background-color: #dd75cf;
+    background-color: #e4eaec;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#footer * {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 300;
 }
 
 /* ***=== fix/absolute-positioned buttons / divs ===*** */
