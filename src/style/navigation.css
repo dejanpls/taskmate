@@ -26,8 +26,9 @@
 }
 
 #menu #search-input {
-    position: fixed;
-    right: 40px;
+    position: absolute;
+    width: 70%;
+    right: 15%;
     top: 10px;
     font-size: 16px;
     border-radius: 16px;
