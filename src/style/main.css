@@ -73,9 +73,11 @@
 }
 
 #task-list li[id^='item-'] {
-    border: 1px solid blue;
+    border: 1px solid #000;
+    padding: 8px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .selected {

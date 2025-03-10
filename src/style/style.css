@@ -1,6 +1,7 @@
 @import './navigation.css';
 @import './main.css';
 @import './undo.css';
+@import './input-info.css';
 
 * {
     margin: 0;
@@ -41,12 +42,6 @@
     position: fixed;
     right: 20px;
     bottom: 40px;
-}
-
-#input-info {
-    position: absolute;
-    left: 40px;
-    bottom: 20px;
 }
 
 #button-container #new-category-input {
