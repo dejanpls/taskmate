@@ -26,7 +26,7 @@
     background-color: #dd75cf;
 }
 
-/* ***=== fix-positioned buttons / divs ===*** */
+/* ***=== fix/absolute-positioned buttons / divs ===*** */
 
 #open-dialog {
     position: fixed;
@@ -35,7 +35,7 @@
 }
 
 #input-info {
-    position: fixed;
+    position: absolute;
     left: 40px;
     bottom: 20px;
 }
@@ -45,4 +45,12 @@
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#button-container #new-category-input {
+    position: absolute;
+    font-size: 16px;
+    padding: 4px;
+    left: 0;
+    margin-left: 4px;
 }
