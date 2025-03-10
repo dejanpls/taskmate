@@ -120,9 +120,9 @@ export default class UI {
     }
 
     static generateUndoBtn(taskName) {
-        const undoBtn = Element.create('button', 'undoBtn');
+        const undoBtn = Element.create('button', `undoBtn-${taskName}`);
         undoBtn.textContent = `Undo "${taskName}"?`;
-        document.body.appendChild(undoBtn);
+        Element.get('undo-container').appendChild(undoBtn);
         return undoBtn;
     }
 
