@@ -38,11 +38,11 @@ export default class Task {
     set title (value) {
 
         if (value.length < 2) {
-            throw new Error('Title must be longer than 2 characters');
+            throw new Error('Title too short');
         }
 
         if (typeof value !== 'string' || value.trim() === '') {
-            throw new Error('Title must be a non-empty string');
+            throw new Error('Title is empty');
         }
         this.#title = value;
     }
@@ -53,11 +53,11 @@ export default class Task {
 
     set description (value) {
         if (typeof value !== 'string') {
-            throw new Error('Description must be a string');
+            throw new Error('Description invalid');
         }
 
         if (value.length > 120) {
-            throw new Error('Maximum of 120 characters is allowed');
+            throw new Error('Description too long');
         }
 
         this.#description = value;
@@ -69,7 +69,7 @@ export default class Task {
 
     set dueDate(value) {
         if (isNaN(Date.parse(value))) {
-            throw new Error('Due date must be a valid date string.');
+            throw new Error('Due date invalid.');
         }
     
         const inputDate = new Date(value);
@@ -77,7 +77,7 @@ export default class Task {
         today.setHours(0, 0, 0, 0); // Reset time to compare only the date
     
         if (this.#dueDate && inputDate < today) { // Only validate if setting a new due date manually
-            throw new Error('Due date cannot be in the past.');
+            throw new Error('Due date in the past.');
         }
     
         this.#dueDate = inputDate;
@@ -91,7 +91,7 @@ export default class Task {
     set priority (value) {
         const allowedPriorities = ['low', 'medium', 'high'];
         if (!allowedPriorities.includes(value)) {
-            throw new Error(`Priority must be one of: ${allowedPriorities.join(', ')}`);
+            throw new Error(`Invalid Priority}`);
         }
         this.#priority = value;
     }
@@ -103,7 +103,7 @@ export default class Task {
     set status (value) {
         const allowedStatuses = ['pending', 'in-progress', 'completed'];
         if (!allowedStatuses.includes(value)) {
-            throw new Error(`Status must be one of: ${allowedStatuses.join(', ')}`);
+            throw new Error(`Invalid Status}`);
         }
         this.#status = value;
     }
@@ -114,7 +114,7 @@ export default class Task {
 
     set category (value) {
         if (!Category.exists(value)) {
-            throw new Error(`Category must be one of: ${Category.list().join(', ')}`);
+            throw new Error(`Invalid Category`);
         }
         this.#category = value;
     }
