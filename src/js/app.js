@@ -45,7 +45,7 @@ export default class App {
         try {
             task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput, categoryInput);
         } catch (error) {
-            Log.notify(error.message);
+            Log.notify(error.message, 'error');
 
             return;
         }
@@ -141,7 +141,7 @@ export default class App {
             // Update category items' count
             CategoryUI.countCategoryTasks();
         } catch (error) {
-            Log.notify(error.message);
+            Log.notify(error.message, 'error');
         }
     }
 }
