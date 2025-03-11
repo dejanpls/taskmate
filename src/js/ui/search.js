@@ -1,4 +1,5 @@
 import Tasks from "../core/tasks.js";
+import CategoryUI from "./categoryUI.js";
 import Element from "./element.js";
 import Log from "./log.js";
 import UI from "./ui.js";
@@ -34,6 +35,7 @@ export default class Search {
                 taskList.replaceChildren();
                 searchResults.forEach(task => UI.addTaskToList(task));
                 UI.attachEventListeners();
+                CategoryUI.updateCurrentCategorytitle(value);
 
                 removeInput(); // Ensure safe removal
             }
