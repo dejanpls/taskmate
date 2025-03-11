@@ -101,6 +101,7 @@ export default class UI {
             taskList.setAttribute('data-category', 'all');
             taskList.replaceChildren();
             Tasks.list.forEach(task => UI.addTaskToList(task));
+            CategoryUI.updateCurrentCategorytitle();
         }
         UI.attachEventListeners();
     }
