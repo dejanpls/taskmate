@@ -10,6 +10,11 @@
     font-family: 'Roboto', sans-serif;
 }
 
+*::selection {
+    background-color: #1b3a4b;
+    color: #e4eaec;
+}
+
 /* === Wrapper === */
 
 #wrapper {
@@ -31,18 +36,12 @@
 
 #footer * {
     text-decoration: none;
-    color: black;
+    color: #1b3a4b;
     font-size: 14px;
     font-weight: 300;
 }
 
 /* ***=== fix/absolute-positioned buttons / divs ===*** */
-
-#open-dialog {
-    position: fixed;
-    right: 20px;
-    bottom: 40px;
-}
 
 #button-container #new-category-input {
     position: absolute;

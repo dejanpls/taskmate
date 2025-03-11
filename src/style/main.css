@@ -27,6 +27,7 @@
 }
 
 #button-container * {
+    color: #1b3a4b;
     border: none;
     cursor: pointer;
     background-color: #dadfe0;
@@ -49,6 +50,7 @@
     display: flex;
     justify-content: space-between;
     background-color: #e4eaec;
+    color: #1b3a4b;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -60,13 +62,30 @@
 #tasks-container {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    margin: 8px;
+}
+
+/* === Control panel === */
+
+#control-panel {
+    /* border: 1px solid red; */
+    color: #1b3a4b;
+    background-color: #edf6f9;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 8px;
 }
 
 /* === Task list === */
 
 #task-list {
+    padding: 8px;
+    max-width: 900px;
+    border: 1px solid red;
+    flex-grow: 1;
+    /* flex-grow: 40; */
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -80,6 +99,22 @@
     justify-content: space-between;
 }
 
+#task-list li[id^='item-'] > * {
+    flex: 1; /* Makes each direct child take up equal space */
+}
+
 .selected {
     font-style: italic;
+}
+
+#tasks-container #open-dialog {
+    position: fixed;
+    right: 16px;
+    bottom: 35px;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    color: aliceblue;
+    background-color: #1b3a4b;
+    cursor: pointer;
 }

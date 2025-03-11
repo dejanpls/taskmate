@@ -16,10 +16,12 @@
 }
 
 #menu div#logo {
+    color: #1b3a4b;
     font-size: 24px;
 }
 
 #menu button {
+    color: #1b3a4b;
     background-color: #edf6f9;
     border: none;
     cursor: pointer;
@@ -27,6 +29,8 @@
 
 #menu #search-input {
     position: absolute;
+    color: #1b3a4b;
+    border-color: #1b3a4b;
     width: 70%;
     right: 15%;
     top: 10px;
