@@ -53,11 +53,11 @@ export default class Task {
 
     set description (value) {
         if (typeof value !== 'string') {
-            throw new Error('Description invalid');
+            throw new Error('Invalid Description');
         }
 
         if (value.length > 120) {
-            throw new Error('Description too long');
+            throw new Error('Invalid Description');
         }
 
         this.#description = value;
@@ -69,7 +69,7 @@ export default class Task {
 
     set dueDate(value) {
         if (isNaN(Date.parse(value))) {
-            throw new Error('Due date invalid.');
+            throw new Error('Invalid Date');
         }
     
         const inputDate = new Date(value);
@@ -77,7 +77,7 @@ export default class Task {
         today.setHours(0, 0, 0, 0); // Reset time to compare only the date
     
         if (this.#dueDate && inputDate < today) { // Only validate if setting a new due date manually
-            throw new Error('Due date in the past.');
+            throw new Error('Date in the past');
         }
     
         this.#dueDate = inputDate;
@@ -91,7 +91,7 @@ export default class Task {
     set priority (value) {
         const allowedPriorities = ['low', 'medium', 'high'];
         if (!allowedPriorities.includes(value)) {
-            throw new Error(`Invalid Priority}`);
+            throw new Error(`Invalid Priority`);
         }
         this.#priority = value;
     }
