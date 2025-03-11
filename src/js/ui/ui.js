@@ -6,6 +6,7 @@ import Element from './element.js';
 import Form from './form.js';
 import CategoryUI from './categoryUI.js';
 import Search from './search.js';
+import Log from './log.js';
 
 export default class UI {
     static addTaskToList(task) {
@@ -120,17 +121,27 @@ export default class UI {
     }
 
     static generateUndoBtn(taskName) {
-        const undoBtn = Element.create('button', `undoBtn-${taskName}`);
-        undoBtn.textContent = `Undo "${taskName}"?`;
+        const undoBtn = Element.create('button', `undoBtn-${UI.generateId('undo-container')}`);
+        undoBtn.textContent += `Undo "${Log.truncate(taskName, 10)}"?`;
+
         Element.get('undo-container').appendChild(undoBtn);
         return undoBtn;
     }
 
-    static generateInputInfo(message) {
-        const inputInfo = Element.create('div', `info-${Element.get('input-info-container').childElementCount + 1}`);
-        inputInfo.textContent = message;
+    static generateInputInfo(message, status) {
+        const inputInfo = Element.create('div', `info-${UI.generateId('input-info-container')}`);
+
+        if (status !== 'success') inputInfo.style.background = '#ad2831';
+        else inputInfo.style.background = '#2d6a4f';
+
+        inputInfo.textContent = Log.truncate(message, 16);
+
         Element.get('input-info-container').appendChild(inputInfo);
         return inputInfo;
+    }
+
+    static generateId(element) {
+        return Element.get(element).childElementCount + 1;
     }
 
     static attachEventListeners() {
