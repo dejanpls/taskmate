@@ -14,6 +14,10 @@ export default class UI {
         const list = Element.get('task-list');
 
         const item = Element.create('li', `item-${task.id}`);
+        
+        const categoryContainer = Element.create('div', `category-container-${task.id}`);
+        const category = Element.create('p', `item-${task.id}-category`);
+        category.textContent = task.category;
 
         const checkbox = Element.create('input', `item-${task.id}-checkbox`, 'checkbox');
         checkbox.checked = task.status === 'completed';
@@ -22,10 +26,7 @@ export default class UI {
         title.textContent = task.title;
 
         const description = Element.create('p', `item-${task.id}-description`);
-        description.textContent = task.description;
-
-        const category = Element.create('p', `item-${task.id}-category`);
-        category.textContent = task.category;
+        description.textContent = task.description;   
 
         const dueDate = Element.create('p', `item-${task.id}-dueDate`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
@@ -36,10 +37,12 @@ export default class UI {
         const status = Element.create('p', `item-${task.id}-status`);
         status.textContent = task.status;
 
+        categoryContainer.appendChild(category)
+        item.appendChild(categoryContainer);
+
         item.appendChild(checkbox);
         item.appendChild(title);
         item.appendChild(description);
-        item.appendChild(category);
         item.appendChild(dueDate);
         item.appendChild(priority);
         item.appendChild(status);
