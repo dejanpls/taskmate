@@ -15,46 +15,105 @@ export default class UI {
 
         const item = Element.create('li', `item-${task.id}`);
         
+        // Category Container
         const categoryContainer = Element.create('div', `category-container-${task.id}`);
+
         const category = Element.create('p', `item-${task.id}-category`);
         category.textContent = task.category;
 
+        // View Wrapper
+        const viewWrapper = Element.create('div', `view-wrapper-${task.id}`);
+
+        // Main View Container
+        const mainView = Element.create('div', `main-view-${task.id}`);
+
+        // Details Container
+        const details = Element.create('div', `item-details-${task.id}`);
         const checkbox = Element.create('input', `item-${task.id}-checkbox`, 'checkbox');
         checkbox.checked = task.status === 'completed';
 
         const title = Element.create('h3', `item-${task.id}-title`);
         title.textContent = task.title;
 
-        const description = Element.create('p', `item-${task.id}-description`);
-        description.textContent = task.description;   
+        // Date Container
+        const dateContainer = Element.create('div', `date-container-${task.id}`);
+        const dateIcon = Element.create('div', `date-icon-${task.id}`);
+        dateIcon.className = 'material-icons';
+        dateIcon.textContent = 'schedule';
 
         const dueDate = Element.create('p', `item-${task.id}-dueDate`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
 
+        // Secondary View Container
+        const secondaryView = Element.create('div', `sec-view-${task.id}`);
+        // secondaryView.style.display = 'none'; 
+
+        // Notification Container
+        const notificationContainer = Element.create('div', `not-container-${task.id}`);
+
+        // Priority Container
+        const priorityContainer = Element.create('div', `priority-container-${task.id}`);
+        const priorityIcon = Element.create('div', `priority-icon-${task.id}`);
+        priorityIcon.className = 'material-icons';
+        priorityIcon.textContent = 'notification_important';
+
         const priority = Element.create('p', `item-${task.id}-priority`);
         priority.textContent = task.priority;
 
+        // Status Container
+        const statusContainer = Element.create('div', `status-container-${task.id}`);
+        const statusIcon = Element.create('div', `status-icon-${task.id}`);
+        statusIcon.className = 'material-icons';
+        statusIcon.textContent = 'stars';
+        
         const status = Element.create('p', `item-${task.id}-status`);
         status.textContent = task.status;
+        
+        const description = Element.create('p', `item-${task.id}-description`);
+        description.textContent = task.description;   
 
         categoryContainer.appendChild(category)
         item.appendChild(categoryContainer);
 
-        item.appendChild(checkbox);
-        item.appendChild(title);
-        item.appendChild(description);
-        item.appendChild(dueDate);
-        item.appendChild(priority);
-        item.appendChild(status);
+        details.appendChild(checkbox);
+        details.appendChild(title);
+        mainView.appendChild(details);
+
+        dateContainer.appendChild(dateIcon);
+        dateContainer.appendChild(dueDate);
+        mainView.appendChild(dateContainer);
+        
+        priorityContainer.appendChild(priorityIcon);
+        priorityContainer.appendChild(priority);
+        notificationContainer.appendChild(priorityContainer);
+
+        statusContainer.appendChild(statusIcon);
+        statusContainer.appendChild(status);
+        notificationContainer.appendChild(statusContainer);
+
+        secondaryView.appendChild(notificationContainer);
+        secondaryView.appendChild(description);
+        
+        viewWrapper.appendChild(mainView);
+        viewWrapper.appendChild(secondaryView);
+
+        item.appendChild(viewWrapper);
+
+        // Button Container
+        const btnContainer = Element.create('div', `btn-container-${task.id}`);
 
         const deleteBtn = Element.create('button', 'item-delete');
-        deleteBtn.textContent = "X";
+        deleteBtn.className = 'material-icons';
+        deleteBtn.textContent = "delete";
 
         const editBtn = Element.create('button', 'item-edit');
-        editBtn.textContent = "Edit";
+        editBtn.className = 'material-icons'
+        editBtn.textContent = "more_vert";
 
-        item.appendChild(deleteBtn);
-        item.appendChild(editBtn);
+        btnContainer.appendChild(editBtn);
+        btnContainer.appendChild(deleteBtn);
+
+        viewWrapper.appendChild(btnContainer);
 
         list.appendChild(item); // Append li to the ui
     }
@@ -76,7 +135,7 @@ export default class UI {
     }
 
     static removeTaskFromList(taskElement) {
-        taskElement.remove();
+        taskElement.parentElement.parentElement.remove();
     }
 
     static formatDueDate(dueDate) {
@@ -87,7 +146,7 @@ export default class UI {
     }
 
     static toggleCheckbox(event) {
-        const taskId = Element.getIdFrom(event);
+        const taskId = event.target.id.split('-')[1];
         const task = Tasks.findTaskById(taskId);
 
         task.status = event.target.checked ? 'completed' : 'pending';
