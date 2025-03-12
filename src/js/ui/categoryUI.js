@@ -39,6 +39,7 @@ export default class CategoryUI {
     static addNewCategory() {
         const btnContainer = Element.get('button-container');
         const input = Element.create('input', 'new-category-input', 'text');
+        input.maxLength = 10; // Limit category's name length
 
         input.placeholder = 'Enter new category';
 
