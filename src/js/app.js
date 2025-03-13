@@ -60,9 +60,9 @@ export default class App {
                 
                 const currentElement = Element.get(`item-${task.id}`);
     
-                Element.get('item-delete', currentElement).addEventListener('click', App.deleteTask);
-                Element.get('item-edit', currentElement).addEventListener('click', (e) => Form.open(e, task));
-                currentElement.querySelector('[id*="checkbox"]').addEventListener('change', (e) => UI.toggleCheckbox(e));
+                Element.get(`item-delete-${task.id}`, currentElement).addEventListener('click', App.deleteTask);
+                Element.get(`item-edit-${task.id}`, currentElement).addEventListener('click', (e) => Form.open(e, task));
+                Element.get(`item-checkbox-${task.id}`).addEventListener('change', (e) => UI.toggleCheckbox(e));
             }
 
             Log.notify("Task added");
@@ -73,18 +73,17 @@ export default class App {
 
             // Update category items' count
             CategoryUI.countCategoryTasks();
-
         }
     }
 
     static deleteTask(event) {
-        const taskElement = event.target.parentElement;
-        const taskName = Array.from(taskElement.childNodes)[1].textContent;
+        const taskId = Element.getIdFrom(event);
+        const taskElement = Element.get(`item-${taskId}`);
+        const taskName = Element.get(`item-title-${taskId}`).textContent;
 
         UI.removeTaskFromList(taskElement);
         Log.notify("Task Deleted");
 
-        const taskId = Element.getIdFrom(event);
         const undoBtn = UI.generateUndoBtn(taskName);
 
         let isUndone = false;

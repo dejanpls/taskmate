@@ -24,6 +24,6 @@ export default class Element {
     }
 
     static getIdFrom(event) {
-        return event.target.parentElement.id.split("-")[1];
+        return event.target.id.split('-').pop();
     }
 }

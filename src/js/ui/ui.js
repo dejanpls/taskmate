@@ -18,7 +18,7 @@ export default class UI {
         // Category Container
         const categoryContainer = Element.create('div', `category-container-${task.id}`);
 
-        const category = Element.create('p', `item-${task.id}-category`);
+        const category = Element.create('p', `item-category-${task.id}`);
         category.textContent = task.category;
 
         // View Wrapper
@@ -29,10 +29,10 @@ export default class UI {
 
         // Details Container
         const details = Element.create('div', `item-details-${task.id}`);
-        const checkbox = Element.create('input', `item-${task.id}-checkbox`, 'checkbox');
+        const checkbox = Element.create('input', `item-checkbox-${task.id}`, 'checkbox');
         checkbox.checked = task.status === 'completed';
 
-        const title = Element.create('h3', `item-${task.id}-title`);
+        const title = Element.create('h3', `item-title-${task.id}`);
         title.textContent = task.title;
 
         // Date Container
@@ -41,7 +41,7 @@ export default class UI {
         dateIcon.className = 'material-icons';
         dateIcon.textContent = 'schedule';
 
-        const dueDate = Element.create('p', `item-${task.id}-dueDate`);
+        const dueDate = Element.create('p', `item-dueDate-${task.id}`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
 
         // Secondary View Container
@@ -57,7 +57,7 @@ export default class UI {
         priorityIcon.className = 'material-icons';
         priorityIcon.textContent = 'notification_important';
 
-        const priority = Element.create('p', `item-${task.id}-priority`);
+        const priority = Element.create('p', `item-priority-${task.id}`);
         priority.textContent = task.priority;
 
         // Status Container
@@ -66,10 +66,10 @@ export default class UI {
         statusIcon.className = 'material-icons';
         statusIcon.textContent = 'stars';
         
-        const status = Element.create('p', `item-${task.id}-status`);
+        const status = Element.create('p', `item-status-${task.id}`);
         status.textContent = task.status;
         
-        const description = Element.create('p', `item-${task.id}-description`);
+        const description = Element.create('p', `item-description-${task.id}`);
         description.textContent = task.description;   
 
         categoryContainer.appendChild(category)
@@ -102,11 +102,11 @@ export default class UI {
         // Button Container
         const btnContainer = Element.create('div', `btn-container-${task.id}`);
 
-        const deleteBtn = Element.create('button', 'item-delete');
+        const deleteBtn = Element.create('button', `item-delete-${task.id}`);
         deleteBtn.className = 'material-icons';
         deleteBtn.textContent = "delete";
 
-        const editBtn = Element.create('button', 'item-edit');
+        const editBtn = Element.create('button', `item-edit-${task.id}`);
         editBtn.className = 'material-icons'
         editBtn.textContent = "more_vert";
 
@@ -123,19 +123,19 @@ export default class UI {
 
         if (!taskElement) return;
 
-        Element.get(`item-${task.id}-checkbox`, taskElement).checked = task.status === 'completed';
+        Element.get(`item-checkbox-${task.id}`, taskElement).checked = task.status === 'completed';
 
-        Element.get(`item-${task.id}-title`, taskElement).textContent = task.title;
-        Element.get(`item-${task.id}-description`, taskElement).textContent = task.description;
-        Element.get(`item-${task.id}-dueDate`, taskElement).textContent = UI.formatDueDate(task.dueDate);
-        Element.get(`item-${task.id}-priority`, taskElement).textContent = task.priority;
-        Element.get(`item-${task.id}-status`, taskElement).textContent = task.status;
-        Element.get(`item-${task.id}-category`, taskElement).textContent = task.category;
+        Element.get(`item-title-${task.id}`, taskElement).textContent = task.title;
+        Element.get(`item-description-${task.id}`, taskElement).textContent = task.description;
+        Element.get(`item-dueDate-${task.id}`, taskElement).textContent = UI.formatDueDate(task.dueDate);
+        Element.get(`item-priority-${task.id}`, taskElement).textContent = task.priority;
+        Element.get(`item-status-${task.id}`, taskElement).textContent = task.status;
+        Element.get(`item-category-${task.id}`, taskElement).textContent = task.category;
 
     }
 
     static removeTaskFromList(taskElement) {
-        taskElement.parentElement.parentElement.remove();
+        taskElement.remove();
     }
 
     static formatDueDate(dueDate) {
@@ -146,13 +146,14 @@ export default class UI {
     }
 
     static toggleCheckbox(event) {
-        const taskId = event.target.id.split('-')[1];
+        const taskId = Element.getIdFrom(event);
         const task = Tasks.findTaskById(taskId);
 
         task.status = event.target.checked ? 'completed' : 'pending';
 
         UI.updateTaskInList(task);
         LocalStorage.saveTasks();
+        Log.notify("Status updated");
     }
 
     static renderTasks() {
@@ -220,7 +221,7 @@ export default class UI {
         Element.get('show-tasks').addEventListener('click', UI.renderTasks);
 
         // Task Edit Button
-        Element.getAll('item-edit').forEach(button => {
+        document.querySelectorAll( '[id*="item-edit-"]' ).forEach(button => {
             button.addEventListener('click', (e) => {
                 const taskId = Element.getIdFrom(e);
                 const task = Tasks.findTaskById(taskId);
@@ -229,14 +230,14 @@ export default class UI {
         });
 
         // Task Delete Button
-        Element.getAll('item-delete').forEach(button => {
+        document.querySelectorAll( '[id*="item-delete-"]' ).forEach(button => {
             button.addEventListener('click', (e) => {
                 App.deleteTask(e);
             });
         });
 
         // Task Checkbox Button
-        document.querySelectorAll('[id*="checkbox"]').forEach(checkbox => {
+        document.querySelectorAll( '[id*="checkbox"]' ).forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
