@@ -1,9 +1,12 @@
 /* === Navigation === */
 
 #menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     display: flex;
     justify-content: center;
-    padding: 16px 8px;
     background-color: #edf6f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
@@ -13,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 16px;
 }
 
 #menu div#logo {

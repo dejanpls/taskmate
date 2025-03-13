@@ -1,0 +1,21 @@
+@media (max-width: 1150px) {
+    #task-list {
+        width: 100%;
+    }
+
+    #main {
+        position: relative;
+    }
+
+    #sidebar-container {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    div[id^='sec-view-'] {
+        display: none;
+    }
+}
