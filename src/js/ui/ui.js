@@ -200,13 +200,13 @@ export default class UI {
 
         if (sidebarOpen === 'true') {
             sidebar.setAttribute('data-open', 'false');
-            sidebar.classList.add('closed');
             Element.get('sidebar-toggle').textContent = 'menu';
         } else {
             sidebar.setAttribute('data-open', 'true');
-            sidebar.classList.remove('closed');
             Element.get('sidebar-toggle').textContent = 'menu_open';
         }
+
+        sidebar.classList.toggle('open');
     }
 
     static generateUndoBtn(taskName) {
