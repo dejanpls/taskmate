@@ -107,7 +107,7 @@ div[id^='category-container-'] {
     overflow: hidden;
     width: 24px;
     min-width: 24px;
-    /* min-height: 124px; */
+    min-height: 141px;
     height: 100%;
 }
 
@@ -158,6 +158,7 @@ div[id^="main-view-"] [id^="item-details-"] {
 
 button[id^="displaySecView-btn"] {
     max-height: 24px;
+    cursor: pointer;
 }
 
 div[id^="main-view-"] [id^="date-container-"] {

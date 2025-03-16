@@ -1,4 +1,5 @@
 @media (max-width: 1150px) {
+
     #task-list {
         width: 100%;
         max-width: 900px;
@@ -24,7 +25,7 @@
 
     div[id^='item-details-'] {
         flex-grow: 1;
-        height: 80px;
+        height: 97px;
         width: 0;
     }
 
@@ -87,6 +88,11 @@
     }
 
     div[id^='item-details-'] {
-        font-size: smaller;
+        font-size: 15px;
+    }
+
+    div[id^='sec-view-'] {
+        font-size: 15px;
+        overflow: hidden;
     }
 }
