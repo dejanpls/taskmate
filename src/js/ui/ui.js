@@ -235,7 +235,15 @@ export default class UI {
 
     static toggleSecView(task) {
         const secView = Element.get(`sec-view-${task.id}`);
-        secView.style.display = secView.style.display === 'flex' ? 'none' : 'flex';
+        if (secView.style.display === 'flex') {
+            secView.style.display = 'none';
+            document.querySelector(`#displaySecView-icon-${task.id}`).textContent = 'expand_more';
+            document.querySelector(`#displaySecView-text-${task.id}`).textContent = 'view more';
+        } else {
+            secView.style.display = 'flex';
+            document.querySelector(`#displaySecView-icon-${task.id}`).textContent = 'expand_less';
+            document.querySelector(`#displaySecView-text-${task.id}`).textContent = 'view less';
+        }
     }
 
     static attachEventListeners() {
@@ -278,7 +286,16 @@ export default class UI {
             button.addEventListener('click', (e) => {
                 const taskId = Element.getIdFrom(e);
                 const secView = Element.get(`sec-view-${taskId}`);
-                secView.style.display = secView.style.display === 'flex' ? 'none' : 'flex';
+                                
+                if (secView.style.display === 'flex') {
+                    secView.style.display = 'none';
+                    document.querySelector(`#displaySecView-icon-${taskId}`).textContent = 'expand_more';
+                    document.querySelector(`#displaySecView-text-${taskId}`).textContent = 'view more';
+                } else {
+                    secView.style.display = 'flex';
+                    document.querySelector(`#displaySecView-icon-${taskId}`).textContent = 'expand_less';
+                    document.querySelector(`#displaySecView-text-${taskId}`).textContent = 'view less';
+                }
             });
         });
 
@@ -288,6 +305,8 @@ export default class UI {
                 secViews.forEach(el => el.style.display = "flex"); // Show again on larger screens
             } else {
                 secViews.forEach(el => el.style.display = "none");
+                document.querySelectorAll('[id*="displaySecView-text-"]').forEach(el => el.textContent = 'view more');
+                document.querySelectorAll('[id*="displaySecView-icon-"]').forEach(el => el.textContent = 'expand_more');
             }
         });
     }
