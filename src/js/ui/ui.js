@@ -14,7 +14,7 @@ export default class UI {
         const list = Element.get('task-list');
 
         const item = Element.create('li', `item-${task.id}`);
-        
+
         // Category Container
         const categoryContainer = Element.create('div', `category-container-${task.id}`);
 
@@ -79,12 +79,12 @@ export default class UI {
         const statusIcon = Element.create('div', `status-icon-${task.id}`);
         statusIcon.className = 'material-icons';
         statusIcon.textContent = 'stars';
-        
+
         const status = Element.create('p', `item-status-${task.id}`);
         status.textContent = task.status;
-        
+
         const description = Element.create('p', `item-description-${task.id}`);
-        description.textContent = task.description;   
+        description.textContent = task.description;
 
         categoryContainer.appendChild(category)
         item.appendChild(categoryContainer);
@@ -101,7 +101,7 @@ export default class UI {
         dateContainer.appendChild(dateIcon);
         dateContainer.appendChild(dueDate);
         mainContent.appendChild(dateContainer);
-        
+
         priorityContainer.appendChild(priorityIcon);
         priorityContainer.appendChild(priority);
         notificationContainer.appendChild(priorityContainer);
@@ -233,6 +233,11 @@ export default class UI {
         return Element.get(element).childElementCount + 1;
     }
 
+    static toggleSecView(task) {
+        const secView = Element.get(`sec-view-${task.id}`);
+        secView.style.display = secView.style.display === 'flex' ? 'none' : 'flex';
+    }
+
     static attachEventListeners() {
 
         Element.get('sidebar-toggle').addEventListener('click', UI.toggleSidebar);
@@ -246,7 +251,7 @@ export default class UI {
         Element.get('show-tasks').addEventListener('click', UI.renderTasks);
 
         // Task Edit Button
-        document.querySelectorAll( '[id*="item-edit-"]' ).forEach(button => {
+        document.querySelectorAll('[id*="item-edit-"]').forEach(button => {
             button.addEventListener('click', (e) => {
                 const taskId = Element.getIdFrom(e);
                 const task = Tasks.findTaskById(taskId);
@@ -255,17 +260,35 @@ export default class UI {
         });
 
         // Task Delete Button
-        document.querySelectorAll( '[id*="item-delete-"]' ).forEach(button => {
+        document.querySelectorAll('[id*="item-delete-"]').forEach(button => {
             button.addEventListener('click', (e) => {
                 App.deleteTask(e);
             });
         });
 
         // Task Checkbox Button
-        document.querySelectorAll( '[id*="checkbox"]' ).forEach(checkbox => {
+        document.querySelectorAll('[id*="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 UI.toggleCheckbox(e);
             });
+        });
+
+        // Task viewMore Button
+        document.querySelectorAll('[id*="displaySecView-btn-"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const taskId = Element.getIdFrom(e);
+                const secView = Element.get(`sec-view-${taskId}`);
+                secView.style.display = secView.style.display === 'flex' ? 'none' : 'flex';
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            const secViews = document.querySelectorAll("div[id^='sec-view-']");
+            if (window.innerWidth > 700) {
+                secViews.forEach(el => el.style.display = "flex"); // Show again on larger screens
+            } else {
+                secViews.forEach(el => el.style.display = "none");
+            }
         });
     }
 }
