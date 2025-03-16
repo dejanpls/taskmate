@@ -25,11 +25,11 @@ export default class CategoryUI {
     static updateCurrentCategorytitle(query = null) {
         if (Element.get('task-list').getAttribute('data-search') === 'true') {
             
-            Element.get('current-category-name').textContent = `Searched for "${query}"`;
+            Element.get('current-category').textContent = `Searched for "${query}"`;
             return;
         }
         const currentCategory = Element.get('task-list').getAttribute('data-category');
-        Element.get('current-category-name').textContent = currentCategory.slice(0, 1).toUpperCase() + currentCategory.slice(1);
+        Element.get('current-category').textContent = currentCategory.slice(0, 1).toUpperCase() + currentCategory.slice(1) + " Tasks";
     }
 
     static renderCategories() {
