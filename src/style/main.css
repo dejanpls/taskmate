@@ -158,6 +158,7 @@ div[id^="main-view-"] [id^="item-details-"] {
 
 button[id^="displaySecView-btn"] {
     max-height: 24px;
+    min-width: 90px;
     cursor: pointer;
 }
 
