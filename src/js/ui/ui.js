@@ -27,7 +27,9 @@ export default class UI {
         // Main View Container
         const mainView = Element.create('div', `main-view-${task.id}`);
 
-        // Details Container
+        const mainContent = Element.create('div', `main-content-${task.id}`);
+
+        // 1. Details Container
         const details = Element.create('div', `item-details-${task.id}`);
         const checkbox = Element.create('input', `item-checkbox-${task.id}`, 'checkbox');
         checkbox.checked = task.status === 'completed';
@@ -35,7 +37,7 @@ export default class UI {
         const title = Element.create('h3', `item-title-${task.id}`);
         title.textContent = task.title;
 
-        // Date Container
+        // 2. Date Container
         const dateContainer = Element.create('div', `date-container-${task.id}`);
         const dateIcon = Element.create('div', `date-icon-${task.id}`);
         dateIcon.className = 'material-icons';
@@ -43,6 +45,18 @@ export default class UI {
 
         const dueDate = Element.create('p', `item-dueDate-${task.id}`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
+
+        // 3. View SecView Container (button to open 'sec-view-...')
+
+        const displaySecView = Element.create('div', `displaySecView-${task.id}`);
+        displaySecView.className = 'closed';
+        const displaySecViewIcon = Element.create('span', `displaySecView-icon-${task.id}`);
+        displaySecViewIcon.className = 'material-icons';
+        displaySecViewIcon.textContent = 'expand_more';
+
+        const displaySecViewBtn = Element.create('button', `displaySecView-btn-${task.id}`);
+        const viewMoreText = Element.create('p', `displaySecView-text-${task.id}`);
+        viewMoreText.textContent = 'view more';
 
         // Secondary View Container
         const secondaryView = Element.create('div', `sec-view-${task.id}`);
@@ -77,11 +91,16 @@ export default class UI {
 
         details.appendChild(checkbox);
         details.appendChild(title);
-        mainView.appendChild(details);
+        mainContent.appendChild(details);
+
+        displaySecView.appendChild(displaySecViewBtn);
+        displaySecViewBtn.appendChild(displaySecViewIcon);
+        displaySecViewBtn.appendChild(viewMoreText);
+        mainContent.appendChild(displaySecView);
 
         dateContainer.appendChild(dateIcon);
         dateContainer.appendChild(dueDate);
-        mainView.appendChild(dateContainer);
+        mainContent.appendChild(dateContainer);
         
         priorityContainer.appendChild(priorityIcon);
         priorityContainer.appendChild(priority);
@@ -92,12 +111,12 @@ export default class UI {
         notificationContainer.appendChild(statusContainer);
 
         secondaryView.appendChild(notificationContainer);
-        secondaryView.appendChild(description);
-        
-        viewWrapper.appendChild(mainView);
-        viewWrapper.appendChild(secondaryView);
 
-        item.appendChild(viewWrapper);
+        const descriptionContainer = Element.create('div', `desc-container-${task.id}`);
+
+        descriptionContainer.appendChild(description);
+        secondaryView.appendChild(descriptionContainer);
+
 
         // Button Container
         const btnContainer = Element.create('div', `btn-container-${task.id}`);
@@ -113,7 +132,13 @@ export default class UI {
         btnContainer.appendChild(editBtn);
         btnContainer.appendChild(deleteBtn);
 
-        viewWrapper.appendChild(btnContainer);
+        mainView.appendChild(mainContent);
+        mainView.appendChild(secondaryView);
+        mainView.appendChild(btnContainer);
+
+        viewWrapper.appendChild(mainView);
+
+        item.appendChild(viewWrapper);
 
         list.appendChild(item); // Append li to the ui
     }
