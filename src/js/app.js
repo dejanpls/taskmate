@@ -63,6 +63,7 @@ export default class App {
                 Element.get(`item-delete-${task.id}`, currentElement).addEventListener('click', App.deleteTask);
                 Element.get(`item-edit-${task.id}`, currentElement).addEventListener('click', (e) => Form.open(e, task));
                 Element.get(`item-checkbox-${task.id}`).addEventListener('change', (e) => UI.toggleCheckbox(e));
+                Element.get(`displaySecView-btn-${task.id}`).addEventListener('click', () => UI.toggleSecView(task));
             }
 
             Log.notify("Task added");
