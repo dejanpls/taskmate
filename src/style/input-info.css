@@ -10,8 +10,7 @@
 }
 
 #input-info-container div {
-    width: 115px; /* Adjust size if necessary */
-    /* background-color: #c1121f; */
+    width: 115px;
     color: aliceblue;
     border-radius: 4px;
     padding: 8px 4px;

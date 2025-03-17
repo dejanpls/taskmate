@@ -103,7 +103,6 @@
     display: flex;
     align-items: center;
     box-shadow: 3px 6px 16px rgba(0, 0, 0, 0.2);
-    /* box-shadow: 2px 7px 10px rgba(0, 0, 0, 0.3); */
     border-radius: 8px;
 }
 
@@ -158,7 +157,12 @@ div[id^="main-view-"] {
 }
 
 div[id^="item-details-"] [id^="item-title-"] {
-    font-size: 22px;
+    font-size: 24px;
+}
+
+div[id^="item-details-"] [id^="item-title-"].checked {
+    color: #8d99ae;
+    transition: color 0.3s ease-in-out;
 }
 
 div[id^="main-view-"] [id^="item-details-"] {
@@ -171,10 +175,10 @@ div[id^="main-view-"] [id^="item-details-"] {
 
 [id^='item-checkbox-'] {
     appearance: none; /* Removes default styles */
-    width: 20px;
-    height: 20px;
-    border: 2px solid #1b3a4b;
-    border-radius: 4px;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #1b3a4b;
+    border-radius: 16px;
     background-color: white;
     cursor: pointer;
     display: inline-block;
@@ -183,7 +187,7 @@ div[id^="main-view-"] [id^="item-details-"] {
 
 /* Checked state */
 [id^='item-checkbox-']:checked {
-    background-color: #1b3a4b; /* Green */
+    background-color: #2d6a4f;
     border-color: #1b3a4b;
 }
 
@@ -202,17 +206,17 @@ div[id^="main-view-"] [id^="item-details-"] {
 
 button[id^="displaySecView-btn"] {
     max-height: 24px;
-    min-width: 90px;
+    min-width: 105px;
     cursor: pointer;
     background-color: #1b3a4b;
     border: none;
     border-radius: 16px;
     padding: 8px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button[id^="displaySecView-btn"] * {
     color: #dadfe0;
-    
 }
 
 p[id^="displaySecView-text"] {
@@ -226,6 +230,16 @@ div[id^="main-view-"] [id^="date-container-"] {
     gap: 8px;
 }
 
+p[id^="item-dueDate-"].done {
+    color: #8d99ae;
+    transition: color 0.3s ease-in-out;
+}
+
+div[id^="date-icon-"].done {
+    color: #8d99ae;
+    transition: color 0.3s ease-in-out;
+}
+
 div[id^="sec-view-"] {
     border: 1px solid #edf6f9;
     display: flex;
@@ -237,10 +251,11 @@ div[id^="sec-view-"] {
 div[id^='not-container-'] {
     display: flex;
     gap: 16px;
-    border: 1px solid #1b3a4b;
+    border: 1px solid #f0f4f5;
     background-color: #f0f4f5;
     border-radius: 8px;
     padding: 4px 8px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 div[id^='not-container-'] > * {
@@ -254,11 +269,12 @@ div[id^='desc-container'] {
     width: 100%;
     align-self: center;
     flex-grow: 1;
-    height: 85px;
+    height: 90px;
     padding: 4px;
     background-color: #f0f4f5;
-    border: 1px solid #1b3a4b;
+    border: 1px solid #f0f4f5;
     border-radius: 8px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 div[id^='desc-container'] p {

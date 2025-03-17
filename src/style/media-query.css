@@ -25,7 +25,7 @@
 
     div[id^='item-details-'] {
         flex-grow: 1;
-        height: 105px;
+        height: 110px;
         width: 0;
     }
 
@@ -51,7 +51,7 @@
     }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 460px) {
        
     div[id^="main-view-"] [id^='item-details-'] {
         flex-grow: 0; /* Disables flex expansion */
@@ -79,6 +79,10 @@
 }
 
 @media (max-width: 360px) {
+
+    div[id^="item-details-"] [id^="item-title-"] {
+        font-size: 22px;
+    }
 
     ul#task-list {
         padding: 8px 0;

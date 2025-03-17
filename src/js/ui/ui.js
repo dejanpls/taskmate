@@ -37,14 +37,18 @@ export default class UI {
         const title = Element.create('h3', `item-title-${task.id}`);
         title.textContent = task.title;
 
+        checkbox.checked ? title.classList.add('checked') : title.classList.remove('checked');
+
         // 2. Date Container
         const dateContainer = Element.create('div', `date-container-${task.id}`);
         const dateIcon = Element.create('div', `date-icon-${task.id}`);
         dateIcon.className = 'material-icons';
         dateIcon.textContent = 'schedule';
+        checkbox.checked ? dateIcon.classList.add('done') : dateIcon.classList.remove('done');
 
         const dueDate = Element.create('p', `item-dueDate-${task.id}`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
+        checkbox.checked ? dueDate.classList.add('done') : dueDate.classList.remove('done');
 
         // 3. View SecView Container (button to open 'sec-view-...')
 
@@ -145,10 +149,17 @@ export default class UI {
 
     static updateTaskInList(task) {
         const taskElement = Element.get(`item-${task.id}`);
+        const title = Element.get(`item-title-${task.id}`);
+        const dueDate = Element.get(`item-dueDate-${task.id}`);
+        const dateIcon = Element.get(`date-icon-${task.id}`);
 
         if (!taskElement) return;
 
-        Element.get(`item-checkbox-${task.id}`, taskElement).checked = task.status === 'completed';
+        const checkbox = Element.get(`item-checkbox-${task.id}`, taskElement)
+        checkbox.checked = task.status === 'completed';
+        checkbox.checked ? title.classList.add('checked') : title.classList.remove('checked');
+        checkbox.checked ? dueDate.classList.add('done') : dueDate.classList.remove('done');
+        checkbox.checked ? dateIcon.classList.add('done') : dateIcon.classList.remove('done');
 
         Element.get(`item-title-${task.id}`, taskElement).textContent = task.title;
         Element.get(`item-description-${task.id}`, taskElement).textContent = task.description;
@@ -173,8 +184,23 @@ export default class UI {
     static toggleCheckbox(event) {
         const taskId = Element.getIdFrom(event);
         const task = Tasks.findTaskById(taskId);
+        const title = Element.get(`item-title-${task.id}`);
+        const dueDate = Element.get(`item-title-${task.id}`);
+        const dateIcon = Element.get(`date-icon-${task.id}`);
 
         task.status = event.target.checked ? 'completed' : 'pending';
+
+        if (event.target.checked) {
+            task.status = 'completed';
+            title.classList.add('checked');
+            dueDate.classList.add('done');
+            dateIcon.classList.add('done');
+        } else {
+            task.status = 'pending';
+            title.classList.remove('checked');
+            dueDate.classList.remove('done');
+            dateIcon.classList.remove('done');
+        }
 
         UI.updateTaskInList(task);
         LocalStorage.saveTasks();
