@@ -3,6 +3,7 @@
 @import './undo.css';
 @import './input-info.css';
 @import './media-query.css';
+@import './dialog.css';
 
 * {
     margin: 0;

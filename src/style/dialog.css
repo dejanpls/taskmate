@@ -1,0 +1,81 @@
+#task-dialog {
+    width: 320px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+}
+
+/* Centering the dialog */
+#task-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Input and select fields */
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 110px;
+}
+
+/* Buttons */
+#task-dialog button {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#confirm-dialog {
+    background-color: #1b3a4b;
+    color: white;
+}
+
+#close-dialog {
+    background-color: #ccc;
+}
+
+#task-dialog button:hover {
+    opacity: 0.8;
+}
+
+/* Adjust spacing */
+p#charsCount {
+    font-size: 12px;
+    color: gray;
+}
+
+div#dueDate-container {
+    display: flex;
+    gap: 8px;
+}
+
+button#dueDate-today {
+    width: 50%;
+}
