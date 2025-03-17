@@ -74,44 +74,42 @@
             <h2 id="form-title">Add New Task</h2>
 
             <label for="title">Title:</label>
-            <br>
+
             <input type="text" id="title" name="title" maxlength="20" required>
-            <br><br>
 
             <label for="description">Description:</label>
-            <br>
+
             <textarea id="description" name="description"></textarea>
             <p id="charsCount">120 characters remaining</p>
 
             <label for="dueDate">Due Date:</label>
-            <br>
-            <input type="date" id="dueDate" name="dueDate" required>
-            <button type="button" id="dueDate-today">Today</button>
-            <br><br>
+
+            <div id="dueDate-container">
+                <input type="date" id="dueDate" name="dueDate" required>
+                <button type="button" id="dueDate-today">Today</button>
+            </div>
 
             <label for="category">Category:</label>
-            <br>
+
             <select id="category" name="category">
             </select>
-            <br><br>
 
             <label for="priority">Priority:</label>
-            <br>
+
             <select id="priority" name="priority">
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            <br><br>
 
             <label for="status">Status:</label>
-            <br>
+
             <select id="status" name="status">
                 <option value="pending">Pending</option>
                 <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
             </select>
-            <br><br>
+
             <div>
                 <button type="submit" id="confirm-dialog">Add Task</button>
                 <button type="button" id="close-dialog">Close</button>
