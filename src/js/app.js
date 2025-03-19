@@ -25,6 +25,8 @@ export default class App {
         savedTasks.forEach(task => Tasks.addTask(task));
         tasks.forEach(task => UI.addTaskToList(task));
 
+        UI.toggleTaskListVisibility(tasks.length === 0);
+
         UI.attachEventListeners();
         CategoryUI.countCategoryTasks();
     }
@@ -53,6 +55,7 @@ export default class App {
         if (task) {
             Tasks.addTask(task);
             LocalStorage.saveTasks();
+            UI.toggleTaskListVisibility(Tasks.list.length === 0);
 
             const dataCategory = Element.get('task-list').getAttribute('data-category');
             if (dataCategory === 'all' || dataCategory === task.category) {
@@ -103,6 +106,7 @@ export default class App {
             if (!isUndone) {
                 Tasks.removeTask(taskId); // Only remove if not undone
                 LocalStorage.saveTasks();
+                UI.toggleTaskListVisibility(Tasks.list.length === 0);
                 
                 // Update category items' count
                 CategoryUI.countCategoryTasks();
