@@ -209,6 +209,9 @@ export default class UI {
 
     static renderTasks() {
         const taskList = Element.get('task-list');
+
+        UI.toggleTaskListVisibility(Tasks.list.length === 0);
+
         // If all elements rendered, do not render tasks again
         if (taskList.getAttribute('data-category') != 'all' || taskList.childElementCount !== Tasks.list.length) {
             taskList.setAttribute('data-search', 'false');
@@ -269,6 +272,20 @@ export default class UI {
             secView.style.display = 'flex';
             document.querySelector(`#displaySecView-icon-${task.id}`).textContent = 'expand_less';
             document.querySelector(`#displaySecView-text-${task.id}`).textContent = 'view less';
+        }
+    }
+
+    static toggleTaskListVisibility(empty) {
+        const list = Element.get('task-list');
+        const placeholder = Element.get('list-placeholder');
+
+
+        if (empty) {
+            list.classList.add('hide');
+            placeholder.classList.add('show');
+        } else {
+            list.classList.remove('hide');
+            placeholder.classList.remove('show');
         }
     }
 
