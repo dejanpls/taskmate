@@ -87,10 +87,10 @@ export default class CategoryUI {
         taskList.setAttribute('data-search', 'false');
         taskList.setAttribute('data-category', category);
         const filtered = Tasks.list.filter(task => task.category === category);
-        console.log(filtered);
         filtered.forEach(task => UI.addTaskToList(task));
         CategoryUI.updateCurrentCategorytitle();
         UI.attachEventListeners();
+        UI.toggleTaskListVisibility(filtered.length === 0);
     }
 
     static countCategoryTasks() {
