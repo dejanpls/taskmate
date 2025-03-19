@@ -98,6 +98,18 @@
     gap: 16px;
 }
 
+#task-list.hide {
+    display: none;
+}
+
+#list-placeholder {
+    display: none;
+}
+
+#list-placeholder.show {
+    display: flex;
+}
+
 #task-list li[id^='item-'] {
     min-width: 300px;
     display: flex;
