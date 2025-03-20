@@ -10,10 +10,24 @@
 }
 
 #input-info-container div {
-    width: 115px;
+    width: 120px;
     color: aliceblue;
     border-radius: 4px;
     padding: 8px 4px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
+    opacity: 0; /* Initially hidden */
+    transform: translateX(10px); /* Slightly moved up */
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+}
+
+#input-info-container div.show {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Moves into position */
+}
+
+/* Fade out effect and smooth upward shift */
+#input-info-container div.hide {
+    opacity: 0;
+    transform: translateY(-10px);
 }
