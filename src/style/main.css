@@ -104,6 +104,8 @@
 
 #list-placeholder {
     display: none;
+    color: #1b3a4b;
+    font-size: 18px;
 }
 
 #list-placeholder.show {
