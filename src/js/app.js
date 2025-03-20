@@ -90,6 +90,11 @@ export default class App {
 
         const undoBtn = UI.generateUndoBtn(taskName);
 
+        // Ensure it's visible before the timeout starts
+        requestAnimationFrame(() => {
+            undoBtn.classList.add('show');
+        });
+
         let isUndone = false;
 
         undoBtn.addEventListener('click', () => {
@@ -99,7 +104,13 @@ export default class App {
             Log.notify("Task Undone");
     
             isUndone = true;
-            undoBtn.remove(); // Remove undo button after use
+            // undoBtn.remove(); // Remove undo button after use
+
+            undoBtn.classList.add('hide'); // Start fade-out & slide-up animation
+
+            setTimeout(() => {
+                undoBtn.remove(); // Remove element from DOM
+            }, 300); // Wait for fade-out to complete
         });
    
         setTimeout(() => {
