@@ -19,4 +19,18 @@
     text-align: center;
     font-size: 16px;
     cursor: pointer;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(10px); /* Slightly moved up */
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+}
+
+#undo-container button.show {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Moves into position */
+}
+
+/* Fade out effect and smooth upward shift */
+#undo-container button.hide {
+    opacity: 0;
+    transform: translateY(10px);
 }
