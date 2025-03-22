@@ -117,7 +117,10 @@ export default class App {
             if (!isUndone) {
                 Tasks.removeTask(taskId); // Only remove if not undone
                 LocalStorage.saveTasks();
-                UI.toggleTaskListVisibility(Tasks.list.length === 0);
+
+                // Show placeholder if tasklist or category empty
+                const currentCategoryCount = Element.get('task-list').childElementCount;
+                UI.toggleTaskListVisibility(Tasks.list.length === 0 || currentCategoryCount === 0);
                 
                 // Update category items' count
                 CategoryUI.countCategoryTasks();
