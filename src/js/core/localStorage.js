@@ -26,8 +26,11 @@ export default class LocalStorage {
     }      
     
     static saveCategories() {
-        
-        const categoryData = Category.list();
+
+        const categoryData = Category.list().map(category => ({
+            name: category.name,
+            color: category.color
+        }));
         console.log("Saved categories: ", categoryData);
         localStorage.setItem('categories', JSON.stringify(categoryData));
     }
@@ -36,6 +39,6 @@ export default class LocalStorage {
         const storedCategories = localStorage.getItem('categories');
         const parsedCategories = storedCategories ? JSON.parse(storedCategories) : [];
     
-        return parsedCategories;
+        return parsedCategories.map(categoryData => categoryData);
     }   
 }
