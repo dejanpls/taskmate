@@ -1,5 +1,5 @@
 export default class Category {
-    static #categories = ["default"];
+    static #categories = [{name: "default", color: '#014871'}];
 
     static list() {
         return [...this.#categories]; // prevent direct modification
