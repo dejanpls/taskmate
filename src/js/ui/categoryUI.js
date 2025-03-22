@@ -10,12 +10,12 @@ export default class CategoryUI {
     static renderCategory(category) {
         const parent = Element.get('categories');
 
-        const li = Element.create('li', `category-${category}`);
-        const button = Element.create('button', `category-btn-${category}`);
-        const count = Element.create('div', `category-count-${category}`);
-        button.textContent = category;
+        const li = Element.create('li', `category-${category.name}`);
+        const button = Element.create('button', `category-btn-${category.name}`);
+        const count = Element.create('div', `category-count-${category.name}`);
+        button.textContent = category.name;
 
-        button.addEventListener('click', () => CategoryUI.filter(category));
+        button.addEventListener('click', () => CategoryUI.filter(category.name));
 
         li.appendChild(button);
         li.appendChild(count);
@@ -95,7 +95,7 @@ export default class CategoryUI {
 
     static countCategoryTasks() {
         Category.list().forEach(category => {
-            Element.get(`category-count-${category}`).textContent = Tasks.list.filter(task => task.category === category).length;
+            Element.get(`category-count-${category.name}`).textContent = Tasks.list.filter(task => task.category === category.name).length;
         });
     }
 }
