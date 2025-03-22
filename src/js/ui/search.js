@@ -9,6 +9,7 @@ export default class Search {
         const searchContainer = Element.get('search-container');
         const input = Element.create('input', 'search-input', 'text');
         const taskList = Element.get('task-list');
+        const placeholder = Element.get('list-placeholder'); // in case of 0 results
 
         input.placeholder = 'Enter task title';
 
@@ -34,8 +35,14 @@ export default class Search {
 
                 taskList.replaceChildren();
                 searchResults.forEach(task => UI.addTaskToList(task));
-                UI.attachEventListeners();
                 CategoryUI.updateCurrentCategorytitle(value);
+
+                if (searchResults.length === 0) {
+                    UI.toggleTaskListVisibility(taskList.childElementCount === 0);
+                    placeholder.textContent = "No matches found";
+                } else {
+                    UI.attachEventListeners();
+                }
 
                 removeInput(); // Ensure safe removal
             }
