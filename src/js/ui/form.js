@@ -64,8 +64,8 @@ export default class Form {
 
         categoryList.forEach(category => {
             const categoryOption = document.createElement('option');
-            categoryOption.value = category;
-            categoryOption.textContent = category[0].toUpperCase() + category.slice(1);
+            categoryOption.value = category.name;
+            categoryOption.textContent = category.name[0].toUpperCase() + category.name.slice(1);
             categoryMenu.appendChild(categoryOption);
         });
     }
