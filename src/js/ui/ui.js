@@ -278,7 +278,7 @@ export default class UI {
     static toggleTaskListVisibility(empty) {
         const list = Element.get('task-list');
         const placeholder = Element.get('list-placeholder');
-
+        placeholder.textContent = "Task list empty";
 
         if (empty) {
             list.classList.add('hide');
