@@ -13,7 +13,7 @@ export default class App {
     static init() {
         const savedCategories = LocalStorage.loadCategories();
         savedCategories.forEach(category => {
-            if (category !== 'default') Category.add(category);
+            if (category.name !== 'default') Category.add(category);
         });
 
         Form.listCategories();
