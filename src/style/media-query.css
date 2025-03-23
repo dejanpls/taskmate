@@ -80,6 +80,10 @@
 
 @media (max-width: 360px) {
 
+    #select-container {
+        font-size: 13px;
+    }
+
     div[id^="item-details-"] [id^="item-title-"] {
         font-size: 22px;
     }
