@@ -47,10 +47,59 @@
 
 /* ***=== fix/absolute-positioned buttons / divs ===*** */
 
-#button-container #new-category-input {
+#button-container #new-category-container {
     position: absolute;
+    width: 234px;
     font-size: 16px;
     padding: 4px;
     left: 0;
-    margin-left: 4px;
+    margin-left: 8px;
+    border: 1px solid red;
+    cursor: unset;
+}
+
+#new-category-container #close-category-container {
+    position: absolute;
+    border: 1px solid red;
+    width: 16px;
+    height: 16px;
+    top: -4px;
+    left: -4px;
+    z-index: 1;
+}
+
+#new-category-container #new-category-input{
+    border: 1px solid blue;
+    cursor: text;
+}
+
+#new-category-container #color-selector {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    line-height: 36px;
+    border: 1px solid red;
+}
+
+#color-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#new-category-container #color-selector input{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+#category-color-value {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid red;
 }
