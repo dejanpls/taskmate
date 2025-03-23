@@ -13,6 +13,7 @@ export default class CategoryUI {
         const li = Element.create('li', `category-${category.name}`);
         const button = Element.create('button', `category-btn-${category.name}`);
         const count = Element.create('div', `category-count-${category.name}`);
+        count.textContent = "0";
         button.textContent = category.name;
 
         button.addEventListener('click', () => CategoryUI.filter(category.name));
@@ -38,19 +39,40 @@ export default class CategoryUI {
 
     static addNewCategory() {
         const btnContainer = Element.get('button-container');
+        const newCategoryContainer = Element.create('div', 'new-category-container');
+        const closeBtn = Element.create('button', 'close-category-container');
+        closeBtn.textContent = 'X';
         const input = Element.create('input', 'new-category-input', 'text');
-        input.maxLength = 10; // Limit category's name length
 
+        const colorSelector = Element.create('div', 'color-selector');
+        colorSelector.textContent = 'Choose Color';
+        const color = Element.create('input', 'category-color-input', 'color');
+        const colorValue = Element.create('div', 'category-color-value');
+        colorValue.style.backgroundColor = UI.getRandomHexColor();
+        
+        input.maxLength = 12; // Limit category's name length
         input.placeholder = 'Enter new category';
 
-        btnContainer.appendChild(input);
+        let categoryColor = UI.rgbToHex(colorValue.style.backgroundColor);
+        
+        colorSelector.appendChild(color);
+        colorSelector.appendChild(colorValue);
+        newCategoryContainer.appendChild(closeBtn);
+        newCategoryContainer.appendChild(colorSelector);
+        newCategoryContainer.appendChild(input);
+        btnContainer.appendChild(newCategoryContainer);
+
+        color.addEventListener('input', () => {
+            colorValue.style.backgroundColor = color.value;
+            categoryColor = color.value;
+        });
         input.focus();
 
         function removeInput() {
             if (input && input.parentElement) {
                 input.removeEventListener('keypress', handleEnterKey);
-                input.removeEventListener('blur', removeInput);
-                input.remove();
+                closeBtn.removeEventListener('click', removeInput);
+                newCategoryContainer.remove(); // Remove parent & children elements
             }
         }
 
@@ -64,8 +86,10 @@ export default class CategoryUI {
                 }
 
                 try {
-                    Category.add(value);
-                    CategoryUI.renderCategory(value);
+
+                    const obj = {name: value, color: categoryColor};
+                    Category.add(obj);
+                    CategoryUI.renderCategory(obj);
                     LocalStorage.saveCategories();
                     Form.listCategories();
                     Log.notify("New category added");
@@ -78,7 +102,7 @@ export default class CategoryUI {
         }
 
         input.addEventListener('keypress', handleEnterKey);
-        input.addEventListener('blur', removeInput);
+        closeBtn.addEventListener('click', removeInput);
     }
 
     static filter(category) {
