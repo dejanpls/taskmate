@@ -32,18 +32,14 @@ export default class Search {
                 if (!value) return;
 
                 const searchResults = Tasks.filterByTitle(value);
-
                 taskList.replaceChildren();
+
+                if (searchResults.length === 0) placeholder.textContent = "No matches found";
+                UI.toggleTaskListVisibility(searchResults.length === 0);
+
                 searchResults.forEach(task => UI.addTaskToList(task));
                 CategoryUI.updateCurrentCategorytitle(value);
-
-                if (searchResults.length === 0) {
-                    UI.toggleTaskListVisibility(taskList.childElementCount === 0);
-                    placeholder.textContent = "No matches found";
-                } else {
-                    UI.attachEventListeners();
-                }
-
+                UI.attachEventListeners();
                 removeInput(); // Ensure safe removal
             }
         }
