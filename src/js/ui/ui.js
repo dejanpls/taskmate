@@ -7,6 +7,7 @@ import Form from './form.js';
 import CategoryUI from './categoryUI.js';
 import Search from './search.js';
 import Log from './log.js';
+import Category from '../core/category.js';
 
 export default class UI {
     static addTaskToList(task) {
@@ -17,6 +18,7 @@ export default class UI {
 
         // Category Container
         const categoryContainer = Element.create('div', `category-container-${task.id}`);
+        categoryContainer.style.backgroundColor = Category.list().find(cat => cat.name == task.category).color;
 
         const category = Element.create('p', `item-category-${task.id}`);
         category.textContent = task.category;
@@ -48,6 +50,11 @@ export default class UI {
 
         const dueDate = Element.create('p', `item-dueDate-${task.id}`);
         dueDate.textContent = UI.formatDueDate(task.dueDate);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time to compare only the date
+        task.dueDate < today ? dateIcon.textContent = 'priority_high' : 'schedule';
+
         checkbox.checked ? dueDate.classList.add('done') : dueDate.classList.remove('done');
 
         // 3. View SecView Container (button to open 'sec-view-...')
@@ -287,6 +294,19 @@ export default class UI {
             list.classList.remove('hide');
             placeholder.classList.remove('show');
         }
+    }
+
+    static getRandomHexColor() {
+        return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+    }
+
+    static rgbToHex(rgb) {
+        // Extract numbers using regex
+        const match = rgb.match(/\d+/g);
+        if (!match) return null;
+    
+        // Convert to HEX and pad with 0 if needed
+        return `#${match.map(x => Number(x).toString(16).padStart(2, '0')).join('')}`;
     }
 
     static attachEventListeners() {
