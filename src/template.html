@@ -36,7 +36,7 @@
 
             <div id="main">
 
-                <div id="sidebar-container" data-open="false">
+                <div id="sidebar-container" tabindex="0" data-open="false">
                     <div id="sidebar">
                         <div id="button-container">
                             <button id="show-tasks">All Tasks</button>
@@ -90,30 +90,34 @@
                 <button type="button" id="dueDate-today">Today</button>
             </div>
 
-            <label for="category">Category:</label>
+            <div id="select-container">
+                <div id="category-selector">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category"></select>
+                </div>
+            
+                <div id="priority-selector">
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            
+                <div id="status-selector">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </div>
 
-            <select id="category" name="category">
-            </select>
-
-            <label for="priority">Priority:</label>
-
-            <select id="priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-
-            <label for="status">Status:</label>
-
-            <select id="status" name="status">
-                <option value="pending">Pending</option>
-                <option value="in-progress">In Progress</option>
-                <option value="completed">Completed</option>
-            </select>
-
-            <div>
-                <button type="submit" id="confirm-dialog">Add Task</button>
+            <div id="dialog-btn-container">
                 <button type="button" id="close-dialog">Close</button>
+                <button type="submit" id="confirm-dialog">Add Task</button>
             </div>
         </form>
     </dialog>
