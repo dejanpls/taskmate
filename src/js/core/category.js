@@ -6,7 +6,8 @@ export default class Category {
     }
 
     static exists(category) {
-        return this.#categories.includes(category);
+        const currentCategories = this.#categories.map(cat => cat.name);  
+        return currentCategories.includes(category);
     }
 
     static add(category) {
