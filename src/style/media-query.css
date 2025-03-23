@@ -54,7 +54,7 @@
 @media (max-width: 460px) {
 
     dialog#task-dialog {
-        width: 98%;
+        width: 100%;
     }
        
     div[id^="main-view-"] [id^='item-details-'] {
