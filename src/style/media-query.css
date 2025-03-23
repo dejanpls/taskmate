@@ -52,6 +52,10 @@
 }
 
 @media (max-width: 460px) {
+
+    dialog#task-dialog {
+        width: 98%;
+    }
        
     div[id^="main-view-"] [id^='item-details-'] {
         flex-grow: 0; /* Disables flex expansion */
