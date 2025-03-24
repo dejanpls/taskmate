@@ -98,11 +98,25 @@ p#charsCount {
     color: gray;
 }
 
-div#dueDate-container {
+#dueDate {
+    position: relative;
+    height: 30px;
+    width: 40px;
+    color: transparent;
+    border: none;
     display: flex;
-    gap: 8px;
+    justify-content: center;
+    padding: 0;
+    outline: none;
 }
 
-button#dueDate-today {
-    width: 50%;
+#dueDate::-webkit-datetime-edit,
+#dueDate::-webkit-clear-button {
+    display: none;
+}
+
+#dueDate::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    font-size: 1.2em;
+    cursor: pointer;
 }
