@@ -1,13 +1,14 @@
 #task-dialog {
     width: 330px;
     padding: 16px;
+    padding-top: 24px;
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     font-family: Arial, sans-serif;
 
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -27,18 +28,20 @@ form * {
     font-size: 16px;
 }
 
-h2 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    color: #333;
-}
-
 /* Input and select fields */
 input, textarea, select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    outline: none;
+}
+
+input:focus, 
+textarea:focus, 
+select:focus {
+    border: 1px solid #1b3a4b;
+    transition: border .2s ease-out;
 }
 
 textarea {
@@ -46,8 +49,9 @@ textarea {
 }
 
 /* Flex container for select elements */
+
 #select-container {
-    margin-top: 8px;
+    margin-top: 4px;
     display: flex;
     justify-content: space-between;
 }
@@ -57,34 +61,37 @@ textarea {
 #status-selector {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
+}
+
+select {
+    padding: 2px 4px;
+    color: #1b3a4b;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+select option {
+    background-color: #fff;
+    color: #1b3a4b;
 }
 
 /* Buttons */
 #task-dialog button {
-    padding: 8px;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
 }
 
-#dialog-btn-container {
-    margin-top: 8px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
-#confirm-dialog {
-    background-color: #1b3a4b;
-    color: white;
-    width: 45%;
-}
-
 #close-dialog {
-    background-color: #ccc;
-    width: 45%;
+    padding: 4px;
+    margin: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    color: #1b3a4b;
 }
 
 #task-dialog button:hover {
@@ -98,6 +105,28 @@ p#charsCount {
     color: gray;
 }
 
+label {
+    font-size: 12px;
+    color: gray;
+}
+
+/* header */
+div#task-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#task-dialog-header div#header-btn-container {
+    display: flex;
+}
+
+/* title */
+h2#form-title {
+    font-size: 24px;
+    color: #333;
+}
+/* dueDate */
 #dueDate {
     position: relative;
     height: 30px;
@@ -119,4 +148,13 @@ p#charsCount {
     opacity: 1;
     font-size: 1.2em;
     cursor: pointer;
+}
+
+
+/* confirm button */
+#confirm-dialog {
+    padding: 8px;
+    background-color: #1b3a4b;
+    color: white;
+    width: 80px;
 }
