@@ -23,7 +23,7 @@
             <div id="menu">
 
                 <button id="sidebar-toggle" class="material-icons">menu</button>
-                <div id="logo">Task<strong>Mate</strong></div>
+                <div id="logo">Task<span>Mate</span></div>
                 <div id="search-container">
                     <button id="search-task" class="material-icons">search</button>
                 </div>
@@ -36,7 +36,7 @@
 
             <div id="main">
 
-                <div id="sidebar-container" tabindex="0" data-open="false">
+                <div id="sidebar-container" data-open="false">
                     <div id="sidebar">
                         <div id="button-container">
                             <button id="show-tasks">All Tasks</button>
@@ -74,44 +74,34 @@
         <form id="task-form" method="dialog">
 
             <div id="task-dialog-header">
-                <h2 id="form-title">Add New Task</h2>
+                <h2 id="form-title">New Task</h2>
     
-                <div id="dueDate-container">
+                <div id="header-btn-container">
                     <input type="date" id="dueDate" name="dueDate" required>
+                    <button type="submit" id="confirm-dialog" class="material-icons">send</button>
                 </div>
-    
-                <button type="submit" id="confirm-dialog">Add Task</button>
             </div>
 
-            <label for="title">Title:</label>
+            <input placeholder="Your task name" type="text" id="title" name="title" maxlength="20" required>
 
-            <input type="text" id="title" name="title" maxlength="20" required>
-
-            <label for="description">Description:</label>
-
-            <textarea id="description" name="description"></textarea>
-            <p id="charsCount">120 characters remaining</p>
-
-            <label for="dueDate">Due Date:</label>
-
-
+            
             <div id="select-container">
                 <div id="category-selector">
-                    <label for="category">Category:</label>
+                    <label for="category">Category</label>
                     <select id="category" name="category"></select>
                 </div>
-
+                
                 <div id="priority-selector">
-                    <label for="priority">Priority:</label>
+                    <label for="priority">Priority</label>
                     <select id="priority" name="priority">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
                 </div>
-
+                
                 <div id="status-selector">
-                    <label for="status">Status:</label>
+                    <label for="status">Status</label>
                     <select id="status" name="status">
                         <option value="pending">Pending</option>
                         <option value="in-progress">In Progress</option>
@@ -119,10 +109,13 @@
                     </select>
                 </div>
             </div>
-
-            <button type="button" id="close-dialog">Close</button>
             
+            <div id="description-container">
+                <textarea placeholder="Write a note" id="description" name="description"></textarea>
+                <p id="charsCount">120 characters remaining</p>
+            </div>
 
+            <button type="button" id="close-dialog" class="material-icons">close</button>
         </form>
     </dialog>
 </body>
