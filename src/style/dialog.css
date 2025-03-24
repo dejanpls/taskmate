@@ -110,15 +110,10 @@ label {
 }
 
 /* header */
-div#task-dialog-header {
+div#dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-div#task-dialog-header div#header-btn-container {
-    display: flex;
-    gap: 8px;
 }
 
 /* title */
@@ -128,9 +123,13 @@ h2#form-title {
 }
 /* dueDate */
 #dueDate {
+    position: absolute;
+    right: 80px;
     width: 130px;
     height: 30px;
     border: none;
+    color: #1b3a4b;
+    background-color: #fff;
 }
 
 /* confirm button */

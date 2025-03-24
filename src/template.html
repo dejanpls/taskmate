@@ -72,17 +72,17 @@
 
     <dialog id="task-dialog">
         <form id="task-form" method="dialog">
-
-            <div id="task-dialog-header">
+            
+            <div id="dialog-header">
                 <h2 id="form-title">New Task</h2>
-
-                <div id="header-btn-container">
-                    <input type="date" id="dueDate" name="dueDate" required>
-                    <button type="submit" id="confirm-dialog" class="material-icons">send</button>
-                </div>
+                <button type="submit" id="confirm-dialog" class="material-icons">send</button>
             </div>
-
+            
             <input placeholder="Your task name" type="text" id="title" name="title" maxlength="20" required>
+
+            <div id="task-dialog-header"></div>
+            <input type="date" id="dueDate" name="dueDate" required>
+
 
 
             <div id="select-container">

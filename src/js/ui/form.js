@@ -6,20 +6,11 @@ export default class Form {
 
     static open(event, editTask = null) {
         const dialog = Element.get('task-dialog');
-        const dueDate = Element.get('dueDate');
-
-        // Prevent autofocusing on date picker
-        dueDate.setAttribute("tabindex", "-1");
-
-        dialog.showModal();
-
-        setTimeout(() => {
-            Element.get('title').focus();
-            dueDate.removeAttribute("tabindex"); // Restore it after focus is set
-        }, 10);
-
+        
+        dialog.showModal();   
+        
         Element.get('title').focus();
-
+        
         // Update description characters count
         Form.updateDescriptionCharCount();
 
