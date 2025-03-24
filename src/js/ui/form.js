@@ -8,7 +8,7 @@ export default class Form {
         const dialog = Element.get('task-dialog');
         dialog.showModal();
 
-        // Element.get('title').focus();
+        Element.get('title').focus();
 
         // Update description characters count
         Form.updateDescriptionCharCount();
