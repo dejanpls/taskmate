@@ -203,6 +203,7 @@ div[id^="main-view-"] [id^="item-details-"] {
 /* Checked state */
 [id^='item-checkbox-']:checked {
     background-color: #2d6a4f;
+    color: #fff;
     border-color: #1b3a4b;
 }
 

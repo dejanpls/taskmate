@@ -32,15 +32,15 @@ form * {
 input, textarea, select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #fff;
+    border-radius: 16px;
     outline: none;
 }
 
 input:focus, 
 textarea:focus, 
 select:focus {
-    border: 1px solid #1b3a4b;
+    border: 1px solid #ccc;
     transition: border .2s ease-out;
 }
 
@@ -68,7 +68,8 @@ select {
     padding: 2px 4px;
     color: #1b3a4b;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
+    border-radius: 16px;
 }
 
 select option {
@@ -79,13 +80,11 @@ select option {
 /* Buttons */
 #task-dialog button {
     border: none;
-    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
 }
 
 #close-dialog {
-    padding: 4px;
     margin: 4px;
     position: absolute;
     left: 0;
@@ -119,7 +118,7 @@ div#task-dialog-header {
 
 div#task-dialog-header div#header-btn-container {
     display: flex;
-    gap: 24px;
+    gap: 8px;
 }
 
 /* title */
@@ -128,25 +127,10 @@ h2#form-title {
     color: #333;
 }
 /* dueDate */
-#dueDate-container {
-    position: relative;
-    display: flex;
-}
-
 #dueDate {
-    width: 0;
-    height: 0;
+    width: 130px;
+    height: 30px;
     border: none;
-    background: none;
-    cursor: pointer;
-}
-
-#dueDate-icon {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
 }
 
 /* confirm button */
@@ -154,5 +138,7 @@ h2#form-title {
     padding: 8px;
     background-color: #1b3a4b;
     color: white;
-    width: 80px;
+    width: 60px;
+    height: 30px;
+    border-radius: 16px;
 }

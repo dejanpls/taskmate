@@ -75,25 +75,22 @@
 
             <div id="task-dialog-header">
                 <h2 id="form-title">New Task</h2>
-    
+
                 <div id="header-btn-container">
-                    <div id="dueDate-container">
-                        <input type="date" id="dueDate" name="dueDate" required>
-                        <span id="dueDate-icon" class="material-icons">calendar_today</span>
-                    </div>                    
+                    <input type="date" id="dueDate" name="dueDate" required>
                     <button type="submit" id="confirm-dialog" class="material-icons">send</button>
                 </div>
             </div>
 
             <input placeholder="Your task name" type="text" id="title" name="title" maxlength="20" required>
 
-            
+
             <div id="select-container">
                 <div id="category-selector">
                     <label for="category">Category</label>
                     <select id="category" name="category"></select>
                 </div>
-                
+
                 <div id="priority-selector">
                     <label for="priority">Priority</label>
                     <select id="priority" name="priority">
@@ -102,7 +99,7 @@
                         <option value="high">High</option>
                     </select>
                 </div>
-                
+
                 <div id="status-selector">
                     <label for="status">Status</label>
                     <select id="status" name="status">
@@ -112,7 +109,7 @@
                     </select>
                 </div>
             </div>
-            
+
             <div id="description-container">
                 <textarea placeholder="Write a note" id="description" name="description"></textarea>
                 <p id="charsCount">120 characters remaining</p>
