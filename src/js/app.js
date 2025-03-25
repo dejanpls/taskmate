@@ -48,7 +48,14 @@ export default class App {
 
     try {
       // eslint-disable-next-line max-len
-      task = new Task(titleInput, descriptionInput, dueDateInput, priorityInput, statusInput, categoryInput);
+      task = new Task(
+        titleInput,
+        descriptionInput,
+        dueDateInput,
+        priorityInput,
+        statusInput,
+        categoryInput,
+      );
     } catch (error) {
       Log.notify(error.message, 'error');
 
@@ -60,16 +67,29 @@ export default class App {
       LocalStorage.saveTasks();
       UI.toggleTaskListVisibility(Tasks.list.length === 0);
 
-      const dataCategory = Element.get('task-list').getAttribute('data-category');
+      const dataCategory =
+        Element.get('task-list').getAttribute('data-category');
       if (dataCategory === 'all' || dataCategory === task.category) {
         UI.addTaskToList(task);
 
         const currentElement = Element.get(`item-${task.id}`);
 
-        Element.get(`item-delete-${task.id}`, currentElement).addEventListener('click', App.deleteTask);
-        Element.get(`item-edit-${task.id}`, currentElement).addEventListener('click', (e) => Form.open(e, task));
-        Element.get(`item-checkbox-${task.id}`).addEventListener('change', (e) => UI.toggleCheckbox(e));
-        Element.get(`displaySecView-btn-${task.id}`).addEventListener('click', () => UI.toggleSecView(task));
+        Element.get(`item-delete-${task.id}`, currentElement).addEventListener(
+          'click',
+          App.deleteTask,
+        );
+        Element.get(`item-edit-${task.id}`, currentElement).addEventListener(
+          'click',
+          (e) => Form.open(e, task),
+        );
+        Element.get(`item-checkbox-${task.id}`).addEventListener(
+          'change',
+          (e) => UI.toggleCheckbox(e),
+        );
+        Element.get(`displaySecView-btn-${task.id}`).addEventListener(
+          'click',
+          () => UI.toggleSecView(task),
+        );
       }
 
       Log.notify('Task added');
@@ -123,7 +143,9 @@ export default class App {
 
         // Show placeholder if tasklist or category empty
         const currentCategoryCount = Element.get('task-list').childElementCount;
-        UI.toggleTaskListVisibility(Tasks.list.length === 0 || currentCategoryCount === 0);
+        UI.toggleTaskListVisibility(
+          Tasks.list.length === 0 || currentCategoryCount === 0,
+        );
 
         // Update category items' count
         CategoryUI.countCategoryTasks();
@@ -148,7 +170,8 @@ export default class App {
       UI.updateTaskInList(task);
 
       // Remove from current category list if category updated
-      if (previousCategory !== task.category) CategoryUI.filter(previousCategory);
+      if (previousCategory !== task.category)
+        CategoryUI.filter(previousCategory);
 
       // Update in local storage
       Tasks.updateTask(task);

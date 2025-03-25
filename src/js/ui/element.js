@@ -20,7 +20,7 @@ export default class Element {
 
   static setValueOf(elementId, val) {
     // eslint-disable-next-line no-return-assign
-    return Element.get(elementId).value = val;
+    return (Element.get(elementId).value = val);
   }
 
   static getIdFrom(event) {

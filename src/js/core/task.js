@@ -28,7 +28,14 @@ export default class Task {
 
   // Factory method to restore an existing task with its ID
   static fromData(data) {
-    const task = new Task(data.title, data.description, format(data.dueDate, 'yyyy-MM-dd'), data.priority, data.status, data.category);
+    const task = new Task(
+      data.title,
+      data.description,
+      format(data.dueDate, 'yyyy-MM-dd'),
+      data.priority,
+      data.status,
+      data.category,
+    );
     task.#id = data.id; // Restore the original ID
     return task;
   }
@@ -81,7 +88,8 @@ export default class Task {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Reset time to compare only the date
 
-    if (this.#dueDate && inputDate < today) { // Only validate if setting a new due date manually
+    if (this.#dueDate && inputDate < today) {
+      // Only validate if setting a new due date manually
       throw new Error('Date in the past');
     }
 

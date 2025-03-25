@@ -29,8 +29,10 @@ export default class CategoryUI {
       Element.get('current-category').textContent = `Searched for "${query}"`;
       return;
     }
-    const currentCategory = Element.get('task-list').getAttribute('data-category');
-    Element.get('current-category').textContent = `${currentCategory.slice(0, 1).toUpperCase() + currentCategory.slice(1)} Tasks`;
+    const currentCategory =
+      Element.get('task-list').getAttribute('data-category');
+    Element.get('current-category').textContent =
+      `${currentCategory.slice(0, 1).toUpperCase() + currentCategory.slice(1)} Tasks`;
   }
 
   static renderCategories() {
@@ -39,7 +41,10 @@ export default class CategoryUI {
 
   static addNewCategory() {
     const btnContainer = Element.get('button-container');
-    const newCategoryContainer = Element.create('div', 'new-category-container');
+    const newCategoryContainer = Element.create(
+      'div',
+      'new-category-container',
+    );
     const closeBtn = Element.create('button', 'close-category-container');
     closeBtn.textContent = 'X';
     const input = Element.create('input', 'new-category-input', 'text');
@@ -119,7 +124,8 @@ export default class CategoryUI {
 
   static countCategoryTasks() {
     Category.list().forEach((category) => {
-      Element.get(`category-count-${category.name}`).textContent = Tasks.list.filter((task) => task.category === category.name).length;
+      Element.get(`category-count-${category.name}`).textContent =
+        Tasks.list.filter((task) => task.category === category.name).length;
     });
   }
 }

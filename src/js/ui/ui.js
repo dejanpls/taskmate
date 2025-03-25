@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /* eslint-disable import/no-cycle */
 import { format } from 'date-fns';
 import Tasks from '../core/tasks.js';
@@ -17,9 +19,14 @@ export default class UI {
     const item = Element.create('li', `item-${task.id}`);
 
     // Category Container
-    const categoryContainer = Element.create('div', `category-container-${task.id}`);
+    const categoryContainer = Element.create(
+      'div',
+      `category-container-${task.id}`,
+    );
     // eslint-disable-next-line max-len
-    categoryContainer.style.backgroundColor = Category.list().find((cat) => cat.name === task.category).color;
+    categoryContainer.style.backgroundColor = Category.list().find(
+      (cat) => cat.name === task.category,
+    ).color;
 
     const category = Element.create('p', `item-category-${task.id}`);
     category.textContent = task.category;
@@ -34,14 +41,20 @@ export default class UI {
 
     // 1. Details Container
     const details = Element.create('div', `item-details-${task.id}`);
-    const checkbox = Element.create('input', `item-checkbox-${task.id}`, 'checkbox');
+    const checkbox = Element.create(
+      'input',
+      `item-checkbox-${task.id}`,
+      'checkbox',
+    );
     checkbox.checked = task.status === 'completed';
 
     const title = Element.create('h3', `item-title-${task.id}`);
     title.textContent = task.title;
 
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? title.classList.add('checked') : title.classList.remove('checked');
+    checkbox.checked
+      ? title.classList.add('checked')
+      : title.classList.remove('checked');
 
     // 2. Date Container
     const dateContainer = Element.create('div', `date-container-${task.id}`);
@@ -49,7 +62,9 @@ export default class UI {
     dateIcon.className = 'material-icons';
     dateIcon.textContent = 'schedule';
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? dateIcon.classList.add('done') : dateIcon.classList.remove('done');
+    checkbox.checked
+      ? dateIcon.classList.add('done')
+      : dateIcon.classList.remove('done');
 
     const dueDate = Element.create('p', `item-dueDate-${task.id}`);
     dueDate.textContent = UI.formatDueDate(task.dueDate);
@@ -57,20 +72,30 @@ export default class UI {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Reset time to compare only the date
     // eslint-disable-next-line no-unused-expressions
-    task.dueDate < today ? dateIcon.textContent = 'priority_high' : 'schedule';
+    task.dueDate < today
+      ? (dateIcon.textContent = 'priority_high')
+      : 'schedule';
 
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? dueDate.classList.add('done') : dueDate.classList.remove('done');
+    checkbox.checked
+      ? dueDate.classList.add('done')
+      : dueDate.classList.remove('done');
 
     // 3. View SecView Container (button to open 'sec-view-...')
 
     const displaySecView = Element.create('div', `displaySecView-${task.id}`);
     displaySecView.className = 'closed';
-    const displaySecViewIcon = Element.create('span', `displaySecView-icon-${task.id}`);
+    const displaySecViewIcon = Element.create(
+      'span',
+      `displaySecView-icon-${task.id}`,
+    );
     displaySecViewIcon.className = 'material-icons';
     displaySecViewIcon.textContent = 'expand_more';
 
-    const displaySecViewBtn = Element.create('button', `displaySecView-btn-${task.id}`);
+    const displaySecViewBtn = Element.create(
+      'button',
+      `displaySecView-btn-${task.id}`,
+    );
     const viewMoreText = Element.create('p', `displaySecView-text-${task.id}`);
     viewMoreText.textContent = 'view more';
 
@@ -79,10 +104,16 @@ export default class UI {
     // secondaryView.style.display = 'none';
 
     // Notification Container
-    const notificationContainer = Element.create('div', `not-container-${task.id}`);
+    const notificationContainer = Element.create(
+      'div',
+      `not-container-${task.id}`,
+    );
 
     // Priority Container
-    const priorityContainer = Element.create('div', `priority-container-${task.id}`);
+    const priorityContainer = Element.create(
+      'div',
+      `priority-container-${task.id}`,
+    );
     const priorityIcon = Element.create('div', `priority-icon-${task.id}`);
     priorityIcon.className = 'material-icons';
     priorityIcon.textContent = 'notification_important';
@@ -91,7 +122,10 @@ export default class UI {
     priority.textContent = task.priority;
 
     // Status Container
-    const statusContainer = Element.create('div', `status-container-${task.id}`);
+    const statusContainer = Element.create(
+      'div',
+      `status-container-${task.id}`,
+    );
     const statusIcon = Element.create('div', `status-icon-${task.id}`);
     statusIcon.className = 'material-icons';
     statusIcon.textContent = 'stars';
@@ -128,7 +162,10 @@ export default class UI {
 
     secondaryView.appendChild(notificationContainer);
 
-    const descriptionContainer = Element.create('div', `desc-container-${task.id}`);
+    const descriptionContainer = Element.create(
+      'div',
+      `desc-container-${task.id}`,
+    );
 
     descriptionContainer.appendChild(description);
     secondaryView.appendChild(descriptionContainer);
@@ -169,18 +206,29 @@ export default class UI {
     const checkbox = Element.get(`item-checkbox-${task.id}`, taskElement);
     checkbox.checked = task.status === 'completed';
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? title.classList.add('checked') : title.classList.remove('checked');
+    checkbox.checked
+      ? title.classList.add('checked')
+      : title.classList.remove('checked');
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? dueDate.classList.add('done') : dueDate.classList.remove('done');
+    checkbox.checked
+      ? dueDate.classList.add('done')
+      : dueDate.classList.remove('done');
     // eslint-disable-next-line no-unused-expressions
-    checkbox.checked ? dateIcon.classList.add('done') : dateIcon.classList.remove('done');
+    checkbox.checked
+      ? dateIcon.classList.add('done')
+      : dateIcon.classList.remove('done');
 
     Element.get(`item-title-${task.id}`, taskElement).textContent = task.title;
-    Element.get(`item-description-${task.id}`, taskElement).textContent = task.description;
-    Element.get(`item-dueDate-${task.id}`, taskElement).textContent = UI.formatDueDate(task.dueDate);
-    Element.get(`item-priority-${task.id}`, taskElement).textContent = task.priority;
-    Element.get(`item-status-${task.id}`, taskElement).textContent = task.status;
-    Element.get(`item-category-${task.id}`, taskElement).textContent = task.category;
+    Element.get(`item-description-${task.id}`, taskElement).textContent =
+      task.description;
+    Element.get(`item-dueDate-${task.id}`, taskElement).textContent =
+      UI.formatDueDate(task.dueDate);
+    Element.get(`item-priority-${task.id}`, taskElement).textContent =
+      task.priority;
+    Element.get(`item-status-${task.id}`, taskElement).textContent =
+      task.status;
+    Element.get(`item-category-${task.id}`, taskElement).textContent =
+      task.category;
   }
 
   static removeTaskFromList(taskElement) {
@@ -226,7 +274,10 @@ export default class UI {
     UI.toggleTaskListVisibility(Tasks.list.length === 0);
 
     // If all elements rendered, do not render tasks again
-    if (taskList.getAttribute('data-category') !== 'all' || taskList.childElementCount !== Tasks.list.length) {
+    if (
+      taskList.getAttribute('data-category') !== 'all' ||
+      taskList.childElementCount !== Tasks.list.length
+    ) {
       taskList.setAttribute('data-search', 'false');
       taskList.setAttribute('data-category', 'all');
       taskList.replaceChildren();
@@ -252,7 +303,10 @@ export default class UI {
   }
 
   static generateUndoBtn(taskName) {
-    const undoBtn = Element.create('button', `undoBtn-${UI.generateId('undo-container')}`);
+    const undoBtn = Element.create(
+      'button',
+      `undoBtn-${UI.generateId('undo-container')}`,
+    );
     undoBtn.textContent += `Undo "${Log.truncate(taskName, 10)}"?`;
 
     Element.get('undo-container').appendChild(undoBtn);
@@ -260,7 +314,10 @@ export default class UI {
   }
 
   static generateInputInfo(message, status) {
-    const inputInfo = Element.create('div', `info-${UI.generateId('input-info-container')}`);
+    const inputInfo = Element.create(
+      'div',
+      `info-${UI.generateId('input-info-container')}`,
+    );
 
     if (status !== 'success') inputInfo.style.background = '#ad2831';
     else inputInfo.style.background = '#2d6a4f';
@@ -279,12 +336,16 @@ export default class UI {
     const secView = Element.get(`sec-view-${task.id}`);
     if (secView.style.display === 'flex') {
       secView.style.display = 'none';
-      document.querySelector(`#displaySecView-icon-${task.id}`).textContent = 'expand_more';
-      document.querySelector(`#displaySecView-text-${task.id}`).textContent = 'view more';
+      document.querySelector(`#displaySecView-icon-${task.id}`).textContent =
+        'expand_more';
+      document.querySelector(`#displaySecView-text-${task.id}`).textContent =
+        'view more';
     } else {
       secView.style.display = 'flex';
-      document.querySelector(`#displaySecView-icon-${task.id}`).textContent = 'expand_less';
-      document.querySelector(`#displaySecView-text-${task.id}`).textContent = 'view less';
+      document.querySelector(`#displaySecView-icon-${task.id}`).textContent =
+        'expand_less';
+      document.querySelector(`#displaySecView-text-${task.id}`).textContent =
+        'view less';
     }
   }
 
@@ -303,7 +364,9 @@ export default class UI {
   }
 
   static getRandomHexColor() {
-    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+    return `#${Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, '0')}`;
   }
 
   static rgbToHex(rgb) {
@@ -321,7 +384,10 @@ export default class UI {
 
     Element.get('open-dialog').addEventListener('click', Form.open);
     Element.get('confirm-dialog').addEventListener('click', App.addTask);
-    Element.get('add-category').addEventListener('click', CategoryUI.addNewCategory);
+    Element.get('add-category').addEventListener(
+      'click',
+      CategoryUI.addNewCategory,
+    );
 
     Element.get('show-tasks').removeEventListener('click', UI.renderTasks);
     Element.get('show-tasks').addEventListener('click', UI.renderTasks);
@@ -350,35 +416,45 @@ export default class UI {
     });
 
     // Task viewMore Button
-    document.querySelectorAll('[id*="displaySecView-btn-"]').forEach((button) => {
-      button.addEventListener('click', (e) => {
-        const taskId = Element.getIdFrom(e);
-        const secView = Element.get(`sec-view-${taskId}`);
+    document
+      .querySelectorAll('[id*="displaySecView-btn-"]')
+      .forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const taskId = Element.getIdFrom(e);
+          const secView = Element.get(`sec-view-${taskId}`);
 
-        if (secView.style.display === 'flex') {
-          secView.style.display = 'none';
-          document.querySelector(`#displaySecView-icon-${taskId}`).textContent = 'expand_more';
-          document.querySelector(`#displaySecView-text-${taskId}`).textContent = 'view more';
-        } else {
-          secView.style.display = 'flex';
-          document.querySelector(`#displaySecView-icon-${taskId}`).textContent = 'expand_less';
-          document.querySelector(`#displaySecView-text-${taskId}`).textContent = 'view less';
-        }
+          if (secView.style.display === 'flex') {
+            secView.style.display = 'none';
+            document.querySelector(
+              `#displaySecView-icon-${taskId}`,
+            ).textContent = 'expand_more';
+            document.querySelector(
+              `#displaySecView-text-${taskId}`,
+            ).textContent = 'view more';
+          } else {
+            secView.style.display = 'flex';
+            document.querySelector(
+              `#displaySecView-icon-${taskId}`,
+            ).textContent = 'expand_less';
+            document.querySelector(
+              `#displaySecView-text-${taskId}`,
+            ).textContent = 'view less';
+          }
+        });
       });
-    });
 
     window.addEventListener('resize', () => {
       const secViews = document.querySelectorAll("div[id^='sec-view-']");
       if (window.innerWidth > 700) {
-        // eslint-disable-next-line no-return-assign, no-param-reassign
-        secViews.forEach((el) => el.style.display = 'flex'); // Show again on larger screens
+        secViews.forEach((el) => (el.style.display = 'flex')); // Show again on larger screens
       } else {
-        // eslint-disable-next-line no-return-assign, no-param-reassign
-        secViews.forEach((el) => el.style.display = 'none');
-        // eslint-disable-next-line no-return-assign, no-param-reassign
-        document.querySelectorAll('[id*="displaySecView-text-"]').forEach((el) => el.textContent = 'view more');
-        // eslint-disable-next-line no-return-assign, no-param-reassign
-        document.querySelectorAll('[id*="displaySecView-icon-"]').forEach((el) => el.textContent = 'expand_more');
+        secViews.forEach((el) => (el.style.display = 'none'));
+        document
+          .querySelectorAll('[id*="displaySecView-text-"]')
+          .forEach((el) => (el.textContent = 'view more'));
+        document
+          .querySelectorAll('[id*="displaySecView-icon-"]')
+          .forEach((el) => (el.textContent = 'expand_more'));
       }
     });
   }

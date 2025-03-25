@@ -33,7 +33,9 @@ export default class LocalStorage {
 
   static loadCategories() {
     const storedCategories = localStorage.getItem('categories');
-    const parsedCategories = storedCategories ? JSON.parse(storedCategories) : [];
+    const parsedCategories = storedCategories
+      ? JSON.parse(storedCategories)
+      : [];
 
     return parsedCategories.map((categoryData) => categoryData);
   }

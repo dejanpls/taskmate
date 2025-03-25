@@ -35,7 +35,8 @@ export default class Search {
         const searchResults = Tasks.filterByTitle(value);
         taskList.replaceChildren();
 
-        if (searchResults.length === 0) placeholder.textContent = 'No matches found';
+        if (searchResults.length === 0)
+          placeholder.textContent = 'No matches found';
         UI.toggleTaskListVisibility(searchResults.length === 0);
 
         searchResults.forEach((task) => UI.addTaskToList(task));

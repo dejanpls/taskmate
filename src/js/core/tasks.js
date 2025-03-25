@@ -42,14 +42,18 @@ export default class Tasks {
   // === Filtering Methods ===
 
   static filterByTitle(title) {
-    return this.#list.filter((task) => task.title.toLowerCase().includes(title.toLowerCase()));
+    return this.#list.filter((task) =>
+      task.title.toLowerCase().includes(title.toLowerCase()),
+    );
   }
 
   static filterByPriority(priority) {
     const allowedPriorities = ['low', 'medium', 'high'];
 
     if (!allowedPriorities.includes(priority)) {
-      throw new Error(`Priority must be one of: ${allowedPriorities.join(', ')}.`);
+      throw new Error(
+        `Priority must be one of: ${allowedPriorities.join(', ')}.`,
+      );
     }
 
     return this.#list.filter((task) => task.priority === priority);

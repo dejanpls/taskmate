@@ -28,7 +28,10 @@ export default class Form {
     if (editTask) {
       Element.setValueOf('title', editTask.title);
       Element.setValueOf('description', editTask.description);
-      Element.setValueOf('dueDate', editTask.dueDate.toISOString().split('T')[0]);
+      Element.setValueOf(
+        'dueDate',
+        editTask.dueDate.toISOString().split('T')[0],
+      );
       Element.setValueOf('priority', editTask.priority);
       Element.setValueOf('status', editTask.status);
       Element.setValueOf('category', editTask.category);
@@ -66,7 +69,8 @@ export default class Form {
     categoryList.forEach((category) => {
       const categoryOption = document.createElement('option');
       categoryOption.value = category.name;
-      categoryOption.textContent = category.name[0].toUpperCase() + category.name.slice(1);
+      categoryOption.textContent =
+        category.name[0].toUpperCase() + category.name.slice(1);
       categoryMenu.appendChild(categoryOption);
     });
   }
@@ -76,7 +80,8 @@ export default class Form {
     const charCount = document.getElementById('charsCount');
     const maxLength = 120; // Set the character limit
 
-    if (editTask) charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
+    if (editTask)
+      charCount.textContent = `${maxLength - textarea.value.length} characters remaining`;
     else charCount.textContent = `${maxLength} characters remaining`;
 
     textarea.addEventListener('input', () => {
