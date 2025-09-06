@@ -1,4 +1,8 @@
+import Categories from './components/Categories.jsx';
+
 export default function App() {
+  const categories = ['default', 'work', 'leisure'];
+
   return (
     <form>
       <label htmlFor="title">
@@ -23,6 +27,8 @@ export default function App() {
           <option value="high">High</option>
         </select>
       </label>
+
+      <Categories {...{ categories }} />
 
       <button type="submit">Add Task</button>
     </form>
