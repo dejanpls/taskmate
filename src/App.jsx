@@ -37,6 +37,14 @@ export default function App() {
     setNewTask(initialTask);
   };
 
+  const handleCompleted = (id) => {
+    setTasks((tasks) =>
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
   return (
     <>
       <Form
@@ -52,12 +60,19 @@ export default function App() {
         <ul>
           {tasks.map((task) => (
             <li key={task.id}>
-              <input type="checkbox" value={task.completed} />
+              <input
+                type="checkbox"
+                value={task.completed}
+                onChange={() => handleCompleted(task.id)}
+              />
               <h2>{task.title}</h2>
               <p>{task.description}</p>
               <p>Due date: {task.dueDate}</p>
               <p>Priority: {task.priority}</p>
               <p>Category: {task.category}</p>
+
+              <button type="button">Delete</button>
+              <button type="button">Edit</button>
             </li>
           ))}
         </ul>
