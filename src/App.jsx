@@ -6,7 +6,6 @@ import { getCurrentDateFormatted } from './utils/dateConverter.js';
 
 export default function App() {
   const initialTask = {
-    id: Date.now(),
     title: '',
     description: '',
     dueDate: getCurrentDateFormatted(),
@@ -27,9 +26,18 @@ export default function App() {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setTasks((prev) => [
+      ...prev,
+      { ...newTask, id: Date.now(), completed: false },
+    ]);
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="title">
           <input
             value={newTask.title}
@@ -80,7 +88,7 @@ export default function App() {
         <button type="submit">Add Task</button>
       </form>
 
-      {console.log(newTask)}
+      {tasks.length > 0 && console.log(tasks)}
     </>
   );
 }
