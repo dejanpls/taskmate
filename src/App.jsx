@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Categories from './components/Categories.jsx';
 import { categories } from './utils/categories.js';
+import Form from './components/Form.jsx';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
 
 export default function App() {
@@ -33,62 +33,35 @@ export default function App() {
       ...prev,
       { ...newTask, id: Date.now(), completed: false },
     ]);
+
+    setNewTask(initialTask);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title">
-          <input
-            value={newTask.title}
-            onChange={handleChange}
-            name="title"
-            id="title"
-            type="text"
-          />
-        </label>
+      <Form
+        {...{
+          handleSubmit,
+          newTask,
+          handleChange,
+        }}
+        categoryData={{ currentCategory, categories }}
+      />
 
-        <label htmlFor="description">
-          Description:
-          <textarea
-            value={newTask.description}
-            onChange={handleChange}
-            name="description"
-            id="description"
-          />
-        </label>
-
-        <label htmlFor="dueDate">
-          Due date:
-          <input
-            value={newTask.dueDate}
-            onChange={handleChange}
-            type="date"
-            name="dueDate"
-            id="dueDate"
-          />
-        </label>
-
-        <label htmlFor="priority">
-          Priority:
-          <select
-            value={newTask.priority}
-            onChange={handleChange}
-            name="priority"
-            id="priority"
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </label>
-
-        <Categories {...{ handleChange, currentCategory, categories }} />
-
-        <button type="submit">Add Task</button>
-      </form>
-
-      {tasks.length > 0 && console.log(tasks)}
+      {tasks.length > 0 && (
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <input type="checkbox" value={task.completed} />
+              <h2>{task.title}</h2>
+              <p>{task.description}</p>
+              <p>Due date: {task.dueDate}</p>
+              <p>Priority: {task.priority}</p>
+              <p>Category: {task.category}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
