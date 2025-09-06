@@ -1,4 +1,5 @@
 import Categories from './Categories.jsx';
+import { getCurrentDateFormatted } from '../utils/dateConverter.js';
 
 export default function Form({
   handleSubmit,
@@ -55,7 +56,12 @@ export default function Form({
 
       <Categories {...{ handleChange, ...categoryData }} />
 
-      <button type="submit">Add Task</button>
+      <button
+        disabled={!newTask.title || newTask.dueDate < getCurrentDateFormatted()}
+        type="submit"
+      >
+        Add Task
+      </button>
     </form>
   );
 }
