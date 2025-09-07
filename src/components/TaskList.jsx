@@ -1,18 +1,18 @@
 export default function TaskList({
-  tasks,
+  getFilteredTasks,
   handleCompleted,
   handleDelete,
   handleEdit,
 }) {
   return (
     <>
-      {tasks.length > 0 && (
+      {getFilteredTasks().length > 0 && (
         <ul>
-          {tasks.map((task) => (
+          {getFilteredTasks().map((task) => (
             <li key={task.id}>
               <input
                 type="checkbox"
-                value={task.completed}
+                checked={task.completed}
                 onChange={() => handleCompleted(task.id)}
               />
               <h2>{task.title}</h2>
