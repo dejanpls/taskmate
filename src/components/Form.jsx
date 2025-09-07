@@ -3,7 +3,7 @@ import { getCurrentDateFormatted } from '../utils/dateConverter.js';
 
 export default function Form({
   editId,
-  editTask,
+  tasksEqual,
   handleCancel,
   handleSubmit,
   newTask,
@@ -63,12 +63,7 @@ export default function Form({
         disabled={
           !newTask.title ||
           newTask.dueDate < getCurrentDateFormatted() ||
-          (editTask &&
-            newTask.title === editTask.title &&
-            newTask.description === editTask.description &&
-            newTask.dueDate === editTask.dueDate &&
-            newTask.priority === editTask.priority &&
-            newTask.category === editTask.category)
+          (editId && tasksEqual)
         }
         type="submit"
       >
@@ -77,13 +72,7 @@ export default function Form({
 
       {editId && (
         <button onClick={handleCancel} type="button">
-          {newTask.title === editTask.title &&
-          newTask.description === editTask.description &&
-          newTask.dueDate === editTask.dueDate &&
-          newTask.priority === editTask.priority &&
-          newTask.category === editTask.category
-            ? 'Discard'
-            : 'Cancel'}
+          {tasksEqual ? 'Cancel' : 'Discard'}
         </button>
       )}
     </form>
