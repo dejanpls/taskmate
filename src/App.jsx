@@ -2,22 +2,17 @@ import { useState } from 'react';
 
 import { isEqual } from './utils/isEqual.js';
 import { getTaskValues } from './utils/getTaskValues.js';
-import { getCurrentDateFormatted } from './utils/dateConverter.js';
+import { initialTask } from './utils/initialTask.js';
+
 import { FILTERS } from './utils/filters.js';
+import { SORTS } from './utils/sorts.js';
 
 import Form from './components/Form.jsx';
 import TaskList from './components/TaskList.jsx';
 import Tabs from './components/Tabs';
+import SortDropdown from './components/SortDropdown.jsx';
 
 export default function App() {
-  const initialTask = {
-    title: '',
-    description: '',
-    dueDate: getCurrentDateFormatted(),
-    priority: 'low',
-    category: 'default',
-  };
-
   const [newTask, setNewTask] = useState(initialTask);
   const [tasks, setTasks] = useState([]);
   const [editId, setEditId] = useState(null);
@@ -28,10 +23,15 @@ export default function App() {
   const [showCategoryInput, setShowCategoryInput] = useState(false);
 
   const [filter, setFilter] = useState('all');
+  const [sort, setSort] = useState('newestFirst');
+
+  const getProcessedTasks = () => {
+    const filtered = FILTERS[filter](tasks);
+    return SORTS[sort](filtered);
+  };
 
   const handleFilter = (e) => setFilter(e.target.value);
-
-  const getFilteredTasks = () => FILTERS[filter](tasks);
+  const handleSort = (e) => setSort(e.target.value);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -127,9 +127,11 @@ export default function App() {
         }}
       />
 
+      <SortDropdown {...{ sort, handleSort }} />
+
       <TaskList
         {...{
-          getFilteredTasks,
+          getProcessedTasks,
           handleCompleted,
           handleDelete,
           handleEdit,
