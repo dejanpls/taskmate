@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { isEqual } from './utils/isEqual.js';
 import { getTaskValues } from './utils/getTaskValues.js';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
+import { FILTERS } from './utils/filters.js';
 
 import Form from './components/Form.jsx';
 import TaskList from './components/TaskList.jsx';
+import Tabs from './components/Tabs';
 
 export default function App() {
   const initialTask = {
@@ -24,6 +26,12 @@ export default function App() {
   const [newCategory, setNewCategory] = useState('');
   const [categories, setCategories] = useState(['default']);
   const [showCategoryInput, setShowCategoryInput] = useState(false);
+
+  const [filter, setFilter] = useState('all');
+
+  const handleFilter = (e) => setFilter(e.target.value);
+
+  const getFilteredTasks = () => FILTERS[filter](tasks);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,12 +129,14 @@ export default function App() {
 
       <TaskList
         {...{
-          tasks,
+          getFilteredTasks,
           handleCompleted,
           handleDelete,
           handleEdit,
         }}
       />
+
+      <Tabs {...{ handleFilter }} />
     </>
   );
 }
