@@ -10,9 +10,6 @@ export default function Tabs() {
       <button value="done" type="button">
         Done
       </button>
-      <button value="deleted" type="button">
-        Deleted
-      </button>
     </div>
   );
 }
