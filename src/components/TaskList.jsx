@@ -1,8 +1,11 @@
+import { prettyDate } from '../utils/prettyDate.js';
+
 export default function TaskList({
   getProcessedTasks,
   handleCompleted,
   handleDelete,
   handleEdit,
+  editId,
 }) {
   return (
     <>
@@ -17,14 +20,22 @@ export default function TaskList({
               />
               <h2>{task.title}</h2>
               <p>{task.description}</p>
-              <p>Due date: {task.dueDate}</p>
+              <p>Due {prettyDate(task.dueDate)}</p>
               <p>Priority: {task.priority}</p>
               <p>Category: {task.category}</p>
 
-              <button type="button" onClick={() => handleDelete(task.id)}>
+              <button
+                disabled={task.id === editId}
+                type="button"
+                onClick={() => handleDelete(task.id)}
+              >
                 Delete
               </button>
-              <button type="button" onClick={() => handleEdit(task.id)}>
+              <button
+                disabled={editId}
+                type="button"
+                onClick={() => handleEdit(task.id)}
+              >
                 Edit
               </button>
             </li>
