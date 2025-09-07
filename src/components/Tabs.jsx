@@ -1,13 +1,13 @@
-export default function Tabs() {
+export default function Tabs({ handleFilter }) {
   return (
     <div>
-      <button value="all" type="button">
+      <button onClick={handleFilter} value="all" type="button">
         All
       </button>
-      <button value="active" type="button">
+      <button onClick={handleFilter} value="active" type="button">
         Active
       </button>
-      <button value="done" type="button">
+      <button onClick={handleFilter} value="done" type="button">
         Done
       </button>
     </div>
