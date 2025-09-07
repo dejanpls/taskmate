@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
 import { categories } from './utils/categories.js';
-import Form from './components/Form.jsx';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
+
+import Form from './components/Form.jsx';
+import TaskList from './components/TaskList.jsx';
 
 export default function App() {
   const initialTask = {
@@ -82,31 +84,14 @@ export default function App() {
         categoryData={{ currentCategory, categories }}
       />
 
-      {tasks.length > 0 && (
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <input
-                type="checkbox"
-                value={task.completed}
-                onChange={() => handleCompleted(task.id)}
-              />
-              <h2>{task.title}</h2>
-              <p>{task.description}</p>
-              <p>Due date: {task.dueDate}</p>
-              <p>Priority: {task.priority}</p>
-              <p>Category: {task.category}</p>
-
-              <button type="button" onClick={() => handleDelete(task.id)}>
-                Delete
-              </button>
-              <button type="button" onClick={() => handleEdit(task.id)}>
-                Edit
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <TaskList
+        {...{
+          tasks,
+          handleCompleted,
+          handleDelete,
+          handleEdit,
+        }}
+      />
     </>
   );
 }
