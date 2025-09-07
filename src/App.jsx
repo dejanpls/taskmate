@@ -16,6 +16,7 @@ export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
   const [tasks, setTasks] = useState([]);
   const currentCategory = newTask.category;
+  const [editId, setEditId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,10 +30,19 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setTasks((prev) => [
-      ...prev,
-      { ...newTask, id: Date.now(), completed: false },
-    ]);
+    if (editId) {
+      setTasks((tasks) =>
+        tasks.map((task) =>
+          task.id === editId ? { ...task, ...newTask } : task
+        )
+      );
+      setEditId(null);
+    } else {
+      setTasks((prev) => [
+        ...prev,
+        { ...newTask, id: Date.now(), completed: false },
+      ]);
+    }
 
     setNewTask(initialTask);
   };
@@ -47,6 +57,18 @@ export default function App() {
 
   const handleDelete = (id) => {
     setTasks((tasks) => tasks.filter((task) => task.id !== id));
+  };
+
+  const handleEdit = (id) => {
+    const taskToEdit = tasks.find((task) => task.id === id);
+    setEditId(taskToEdit.id);
+    setNewTask({
+      title: taskToEdit.title,
+      description: taskToEdit.description,
+      dueDate: taskToEdit.dueDate,
+      priority: taskToEdit.priority,
+      category: taskToEdit.category,
+    });
   };
 
   return (
@@ -78,7 +100,9 @@ export default function App() {
               <button type="button" onClick={() => handleDelete(task.id)}>
                 Delete
               </button>
-              <button type="button">Edit</button>
+              <button type="button" onClick={() => handleEdit(task.id)}>
+                Edit
+              </button>
             </li>
           ))}
         </ul>
