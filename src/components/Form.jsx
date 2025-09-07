@@ -2,6 +2,9 @@ import Categories from './Categories.jsx';
 import { getCurrentDateFormatted } from '../utils/dateConverter.js';
 
 export default function Form({
+  editId,
+  editTask,
+  handleCancel,
   handleSubmit,
   newTask,
   handleChange,
@@ -57,11 +60,32 @@ export default function Form({
       <Categories {...{ handleChange, ...categoryData }} />
 
       <button
-        disabled={!newTask.title || newTask.dueDate < getCurrentDateFormatted()}
+        disabled={
+          !newTask.title ||
+          newTask.dueDate < getCurrentDateFormatted() ||
+          (editTask &&
+            newTask.title === editTask.title &&
+            newTask.description === editTask.description &&
+            newTask.dueDate === editTask.dueDate &&
+            newTask.priority === editTask.priority &&
+            newTask.category === editTask.category)
+        }
         type="submit"
       >
-        Add Task
+        {editId ? 'Save' : 'Add Task'}
       </button>
+
+      {editId && (
+        <button onClick={handleCancel} type="button">
+          {newTask.title === editTask.title &&
+          newTask.description === editTask.description &&
+          newTask.dueDate === editTask.dueDate &&
+          newTask.priority === editTask.priority &&
+          newTask.category === editTask.category
+            ? 'Discard'
+            : 'Cancel'}
+        </button>
+      )}
     </form>
   );
 }
