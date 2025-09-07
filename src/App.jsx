@@ -135,6 +135,7 @@ export default function App() {
           handleCompleted,
           handleDelete,
           handleEdit,
+          editId,
         }}
       />
 
