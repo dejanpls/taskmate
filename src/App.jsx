@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { isEqual } from './utils/isEqual.js';
+import { getTaskValues } from './utils/getTaskValues.js';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
 
 import Form from './components/Form.jsx';
@@ -68,20 +69,10 @@ export default function App() {
   const handleEdit = (id) => {
     const taskToEdit = tasks.find((task) => task.id === id);
     setEditId(taskToEdit.id);
-    setNewTask({
-      title: taskToEdit.title,
-      description: taskToEdit.description,
-      dueDate: taskToEdit.dueDate,
-      priority: taskToEdit.priority,
-      category: taskToEdit.category,
-    });
-    setEditTask({
-      title: taskToEdit.title,
-      description: taskToEdit.description,
-      dueDate: taskToEdit.dueDate,
-      priority: taskToEdit.priority,
-      category: taskToEdit.category,
-    });
+    const taskValues = getTaskValues(taskToEdit);
+
+    setNewTask(taskValues);
+    setEditTask(taskValues);
   };
 
   const handleCancel = () => {
