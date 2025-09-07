@@ -1,13 +1,19 @@
+import CategoryInput from './CategoryInput.jsx';
+
 export default function Categories({
+  showCategoryInput,
+  setShowCategoryInput,
   handleChange,
   currentCategory,
   categories,
+  categoryInputData,
 }) {
   return (
     <>
       <label htmlFor="category">
         Category:
         <select
+          disabled={showCategoryInput}
           value={currentCategory}
           onChange={handleChange}
           id="category"
@@ -20,6 +26,13 @@ export default function Categories({
           ))}
         </select>
       </label>
+      <button
+        type="button"
+        onClick={() => setShowCategoryInput((prev) => !prev)}
+      >
+        {showCategoryInput ? 'X' : '+'}
+      </button>
+      {showCategoryInput && <CategoryInput {...categoryInputData} />}
     </>
   );
 }
