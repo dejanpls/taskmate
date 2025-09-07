@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { categories } from './utils/categories.js';
+import { isEqual } from './utils/isEqual.js';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
 
 import Form from './components/Form.jsx';
@@ -17,8 +18,8 @@ export default function App() {
 
   const [newTask, setNewTask] = useState(initialTask);
   const [tasks, setTasks] = useState([]);
-  const currentCategory = newTask.category;
   const [editId, setEditId] = useState(null);
+  const [editTask, setEditTask] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,17 +72,33 @@ export default function App() {
       priority: taskToEdit.priority,
       category: taskToEdit.category,
     });
+    setEditTask({
+      title: taskToEdit.title,
+      description: taskToEdit.description,
+      dueDate: taskToEdit.dueDate,
+      priority: taskToEdit.priority,
+      category: taskToEdit.category,
+    });
+  };
+
+  const handleCancel = () => {
+    setEditId(null);
+    setEditTask({});
+    setNewTask(initialTask);
   };
 
   return (
     <>
       <Form
         {...{
+          editId,
+          tasksEqual: isEqual(newTask, editTask),
+          handleCancel,
           handleSubmit,
           newTask,
           handleChange,
         }}
-        categoryData={{ currentCategory, categories }}
+        categoryData={{ currentCategory: newTask.category, categories }}
       />
 
       <TaskList
