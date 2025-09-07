@@ -9,7 +9,7 @@ export default function TaskList({
 }) {
   return (
     <>
-      {getProcessedTasks().length > 0 && (
+      {getProcessedTasks().length > 0 ? (
         <ul>
           {getProcessedTasks().map((task) => (
             <li key={task.id}>
@@ -41,6 +41,8 @@ export default function TaskList({
             </li>
           ))}
         </ul>
+      ) : (
+        <p>Task List Empty</p>
       )}
     </>
   );
