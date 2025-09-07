@@ -9,6 +9,7 @@ export default function Form({
   newTask,
   handleChange,
   categoryData,
+  categoryInputData,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -57,10 +58,11 @@ export default function Form({
         </select>
       </label>
 
-      <Categories {...{ handleChange, ...categoryData }} />
+      <Categories {...{ handleChange, ...categoryData, categoryInputData }} />
 
       <button
         disabled={
+          categoryData.showCategoryInput ||
           !newTask.title ||
           newTask.dueDate < getCurrentDateFormatted() ||
           (editId && tasksEqual)
