@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { categories } from './utils/categories.js';
 import { isEqual } from './utils/isEqual.js';
 import { getCurrentDateFormatted } from './utils/dateConverter.js';
 
@@ -20,6 +19,10 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editTask, setEditTask] = useState({});
+
+  const [newCategory, setNewCategory] = useState('');
+  const [categories, setCategories] = useState(['default']);
+  const [showCategoryInput, setShowCategoryInput] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,6 +90,19 @@ export default function App() {
     setNewTask(initialTask);
   };
 
+  const handleCategoryInputChange = (e) => {
+    setNewCategory(e.target.value);
+  };
+
+  const alreadyExists = categories.some(
+    (category) => category.toLowerCase() === newCategory.trim().toLowerCase()
+  );
+
+  const handleAddCategory = () => {
+    setCategories((cats) => [...cats, newCategory]);
+    setNewCategory('');
+  };
+
   return (
     <>
       <Form
@@ -98,7 +114,18 @@ export default function App() {
           newTask,
           handleChange,
         }}
-        categoryData={{ currentCategory: newTask.category, categories }}
+        categoryData={{
+          showCategoryInput,
+          setShowCategoryInput,
+          currentCategory: newTask.category,
+          categories,
+        }}
+        categoryInputData={{
+          handleCategoryInputChange,
+          newCategory,
+          handleAddCategory,
+          alreadyExists,
+        }}
       />
 
       <TaskList
