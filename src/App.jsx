@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { isEqual } from './utils/isEqual.js';
 import { getTaskValues } from './utils/getTaskValues.js';
@@ -14,7 +14,10 @@ import SortDropdown from './components/SortDropdown.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [editId, setEditId] = useState(null);
   const [editTask, setEditTask] = useState({});
 
@@ -24,6 +27,10 @@ export default function App() {
 
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('newestFirst');
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const getProcessedTasks = () => {
     const filtered = FILTERS[filter](tasks);
