@@ -68,14 +68,14 @@ export default function App() {
         )
       );
       setEditId(null);
+      setNewTask(initialTask);
     } else {
       setTasks((prev) => [
         ...prev,
         { ...newTask, id: Date.now(), completed: false },
       ]);
+      setNewTask((prev) => ({ ...prev, title: '', description: '' }));
     }
-
-    setNewTask(initialTask);
   };
 
   const handleCompleted = (id) => {
