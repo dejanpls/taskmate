@@ -30,16 +30,22 @@ export default function App() {
 
   const [showCategoryInput, setShowCategoryInput] = useState(false);
 
-  const [filter, setFilter] = useState('all');
-  const [sort, setSort] = useState('newestFirst');
+  const [filter, setFilter] = useState(() => {
+    const savedFilter = localStorage.getItem('filter');
+    return savedFilter ? savedFilter : 'all';
+  });
+
+  const [sort, setSort] = useState(() => {
+    const savedSort = localStorage.getItem('sort');
+    return savedSort ? savedSort : 'newestFirst';
+  });
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
-
-  useEffect(() => {
     localStorage.setItem('categories', JSON.stringify(categories));
-  }, [categories]);
+    localStorage.setItem('filter', filter);
+    localStorage.setItem('sort', sort);
+  }, [tasks, categories, filter, sort]);
 
   const getProcessedTasks = () => {
     const filtered = FILTERS[filter](tasks);
