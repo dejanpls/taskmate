@@ -22,7 +22,12 @@ export default function App() {
   const [editTask, setEditTask] = useState({});
 
   const [newCategory, setNewCategory] = useState('');
-  const [categories, setCategories] = useState(['default']);
+
+  const [categories, setCategories] = useState(() => {
+    const savedCategories = localStorage.getItem('categories');
+    return savedCategories ? JSON.parse(savedCategories) : ['default'];
+  });
+
   const [showCategoryInput, setShowCategoryInput] = useState(false);
 
   const [filter, setFilter] = useState('all');
@@ -31,6 +36,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem('categories', JSON.stringify(categories));
+  }, [categories]);
 
   const getProcessedTasks = () => {
     const filtered = FILTERS[filter](tasks);
