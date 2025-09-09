@@ -11,6 +11,7 @@ import Form from './components/Form.jsx';
 import TaskList from './components/TaskList.jsx';
 import Tabs from './components/Tabs';
 import SortDropdown from './components/SortDropdown.jsx';
+import CategoryFilter from './components/CategoryFilter.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
@@ -47,8 +48,22 @@ export default function App() {
     localStorage.setItem('sort', sort);
   }, [tasks, categories, filter, sort]);
 
+  const [showFilter, setShowFilter] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState(categories);
+
+  const handleCategoriesChange = (category) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
   const getProcessedTasks = () => {
-    const filtered = FILTERS[filter](tasks);
+    const visibleTasks = tasks.filter((task) =>
+      selectedCategories.includes(task.category)
+    );
+    const filtered = FILTERS[filter](visibleTasks);
     return SORTS[sort](filtered);
   };
 
@@ -161,7 +176,13 @@ export default function App() {
         }}
       />
 
-      <Tabs {...{ handleFilter }} />
+      <Tabs {...{ setShowFilter, handleFilter }} />
+
+      {showFilter && (
+        <CategoryFilter
+          {...{ handleCategoriesChange, selectedCategories, categories }}
+        />
+      )}
     </>
   );
 }
