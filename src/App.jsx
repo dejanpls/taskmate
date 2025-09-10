@@ -8,11 +8,7 @@ import { FILTERS } from './utils/filters.js';
 import { SORTS } from './utils/sorts.js';
 import { loadObject, loadString } from './utils/loadData.js';
 
-import Form from './components/Form.jsx';
-import TaskList from './components/TaskList.jsx';
-import Tabs from './components/Tabs';
-import SortDropdown from './components/SortDropdown.jsx';
-import CategoryFilter from './components/CategoryFilter.jsx';
+import Todo from './components/Todo.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
@@ -139,14 +135,20 @@ export default function App() {
 
   return (
     <>
-      <Form
-        {...{
+      <Todo
+        formData={{
           editId,
           tasksEqual: isEqual(newTask, editTask),
           handleCancel,
           handleSubmit,
           newTask,
           handleChange,
+          categoryInputData: {
+            handleCategoryInputChange,
+            newCategory,
+            handleAddCategory,
+            alreadyExists,
+          },
         }}
         categoryData={{
           showCategoryInput,
@@ -154,33 +156,22 @@ export default function App() {
           currentCategory: newTask.category,
           categories,
         }}
-        categoryInputData={{
-          handleCategoryInputChange,
-          newCategory,
-          handleAddCategory,
-          alreadyExists,
-        }}
-      />
-
-      <SortDropdown {...{ sort, handleSort }} />
-
-      <TaskList
-        {...{
+        SortDropdownData={{ sort, handleSort }}
+        TaskListData={{
           getProcessedTasks,
           handleCompleted,
           handleDelete,
           handleEdit,
           editId,
         }}
+        TabsData={{ setShowFilter, handleFilter }}
+        CategoryFilterData={{
+          handleCategoriesChange,
+          selectedCategories,
+          categories,
+        }}
+        showFilter={showFilter}
       />
-
-      <Tabs {...{ setShowFilter, handleFilter }} />
-
-      {showFilter && (
-        <CategoryFilter
-          {...{ handleCategoriesChange, selectedCategories, categories }}
-        />
-      )}
     </>
   );
 }
