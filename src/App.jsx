@@ -41,15 +41,25 @@ export default function App() {
     return savedSort ? savedSort : 'newestFirst';
   });
 
+  const [selectedCategories, setSelectedCategories] = useState(() => {
+    const savedSelectedCategories = localStorage.getItem('selectedCategories');
+    return savedSelectedCategories
+      ? JSON.parse(savedSelectedCategories)
+      : categories;
+  });
+
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('categories', JSON.stringify(categories));
+    localStorage.setItem(
+      'selectedCategories',
+      JSON.stringify(selectedCategories)
+    );
     localStorage.setItem('filter', filter);
     localStorage.setItem('sort', sort);
-  }, [tasks, categories, filter, sort]);
+  }, [tasks, categories, selectedCategories, filter, sort]);
 
   const [showFilter, setShowFilter] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState(categories);
 
   const handleCategoriesChange = (category) => {
     setSelectedCategories((prev) =>
