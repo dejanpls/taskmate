@@ -6,6 +6,7 @@ import { initialTask } from './utils/initialTask.js';
 
 import { FILTERS } from './utils/filters.js';
 import { SORTS } from './utils/sorts.js';
+import { loadObject } from './utils/loadData.js';
 
 import Form from './components/Form.jsx';
 import TaskList from './components/TaskList.jsx';
@@ -15,19 +16,15 @@ import CategoryFilter from './components/CategoryFilter.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem('tasks');
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
+  const [tasks, setTasks] = useState(loadObject('tasks', []));
   const [editId, setEditId] = useState(null);
   const [editTask, setEditTask] = useState({});
 
   const [newCategory, setNewCategory] = useState('');
 
-  const [categories, setCategories] = useState(() => {
-    const savedCategories = localStorage.getItem('categories');
-    return savedCategories ? JSON.parse(savedCategories) : ['default'];
-  });
+  const [categories, setCategories] = useState(
+    loadObject('categories', ['default'])
+  );
 
   const [showCategoryInput, setShowCategoryInput] = useState(false);
 
@@ -41,12 +38,9 @@ export default function App() {
     return savedSort ? savedSort : 'newestFirst';
   });
 
-  const [selectedCategories, setSelectedCategories] = useState(() => {
-    const savedSelectedCategories = localStorage.getItem('selectedCategories');
-    return savedSelectedCategories
-      ? JSON.parse(savedSelectedCategories)
-      : categories;
-  });
+  const [selectedCategories, setSelectedCategories] = useState(
+    loadObject('selectedCategories', categories)
+  );
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
