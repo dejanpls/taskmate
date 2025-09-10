@@ -20,7 +20,7 @@ export default function TaskList({
               />
               <h2>{task.title}</h2>
               <p>{task.description}</p>
-              <p>Due {prettyDate(task.dueDate)}</p>
+              <p>{prettyDate(task.dueDate)}</p>
               <p>Priority: {task.priority}</p>
               <p>Category: {task.category}</p>
 
