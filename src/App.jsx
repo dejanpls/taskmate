@@ -6,7 +6,7 @@ import { initialTask } from './utils/initialTask.js';
 
 import { FILTERS } from './utils/filters.js';
 import { SORTS } from './utils/sorts.js';
-import { loadObject } from './utils/loadData.js';
+import { loadObject, loadString } from './utils/loadData.js';
 
 import Form from './components/Form.jsx';
 import TaskList from './components/TaskList.jsx';
@@ -28,15 +28,9 @@ export default function App() {
 
   const [showCategoryInput, setShowCategoryInput] = useState(false);
 
-  const [filter, setFilter] = useState(() => {
-    const savedFilter = localStorage.getItem('filter');
-    return savedFilter ? savedFilter : 'all';
-  });
+  const [filter, setFilter] = useState(loadString('filter', 'all'));
 
-  const [sort, setSort] = useState(() => {
-    const savedSort = localStorage.getItem('sort');
-    return savedSort ? savedSort : 'newestFirst';
-  });
+  const [sort, setSort] = useState(loadString('sort', 'newestFirst'));
 
   const [selectedCategories, setSelectedCategories] = useState(
     loadObject('selectedCategories', categories)
