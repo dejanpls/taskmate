@@ -9,6 +9,7 @@ import { SORTS } from './utils/sorts.js';
 import { loadObject, loadString } from './utils/loadData.js';
 
 import Todo from './components/Todo.jsx';
+import Deleted from './components/Deleted.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
@@ -32,6 +33,10 @@ export default function App() {
     loadObject('selectedCategories', categories)
   );
 
+  const [deletedTasks, setDeletedTasks] = useState(
+    loadObject('deletedTasks', [])
+  );
+
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('categories', JSON.stringify(categories));
@@ -39,11 +44,13 @@ export default function App() {
       'selectedCategories',
       JSON.stringify(selectedCategories)
     );
+    localStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
     localStorage.setItem('filter', filter);
     localStorage.setItem('sort', sort);
-  }, [tasks, categories, selectedCategories, filter, sort]);
+  }, [tasks, categories, selectedCategories, deletedTasks, filter, sort]);
 
   const [showFilter, setShowFilter] = useState(false);
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const handleCategoriesChange = (category) => {
     setSelectedCategories((prev) =>
@@ -102,6 +109,8 @@ export default function App() {
   };
 
   const handleDelete = (id) => {
+    const taskToDelete = tasks.find((task) => task.id === id);
+    setDeletedTasks((prev) => [...prev, taskToDelete]);
     setTasks((tasks) => tasks.filter((task) => task.id !== id));
   };
 
@@ -175,7 +184,7 @@ export default function App() {
           handleEdit,
           editId,
         }}
-        TabsData={{ setShowFilter, handleFilter }}
+        TabsData={{ setShowFilter, setShowDeleted, handleFilter }}
         CategoryFilterData={{
           handleCategoriesChange,
           selectedCategories,
@@ -185,6 +194,8 @@ export default function App() {
         }}
         showFilter={showFilter}
       />
+
+      {showDeleted && <Deleted {...{ deletedTasks }} />}
     </>
   );
 }
