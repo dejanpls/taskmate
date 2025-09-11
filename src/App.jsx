@@ -184,7 +184,11 @@ export default function App() {
           handleEdit,
           editId,
         }}
-        TabsData={{ setShowFilter, setShowDeleted, handleFilter }}
+        TabsData={{
+          setShowFilter,
+          setShowDeleted,
+          handleFilter,
+        }}
         CategoryFilterData={{
           handleCategoriesChange,
           selectedCategories,
@@ -193,9 +197,9 @@ export default function App() {
           handleDeleteCategory,
         }}
         showFilter={showFilter}
+        showDeleted={showDeleted}
+        DeletedData={{ deletedTasks }}
       />
-
-      {showDeleted && <Deleted {...{ deletedTasks }} />}
     </>
   );
 }
