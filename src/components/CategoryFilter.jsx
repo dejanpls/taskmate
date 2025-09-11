@@ -2,6 +2,8 @@ export default function CategoryFilter({
   handleCategoriesChange,
   selectedCategories,
   categories,
+  categoryInUse,
+  handleDeleteCategory,
 }) {
   return (
     <div>
@@ -14,6 +16,13 @@ export default function CategoryFilter({
               onChange={() => handleCategoriesChange(category)}
             />
             <span>{category}</span>
+            <button
+              disabled={categoryInUse(category)}
+              onClick={() => handleDeleteCategory(category)}
+              type="button"
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
