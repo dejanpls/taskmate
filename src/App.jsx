@@ -9,7 +9,6 @@ import { SORTS } from './utils/sorts.js';
 import { loadObject, loadString } from './utils/loadData.js';
 
 import Todo from './components/Todo.jsx';
-import Deleted from './components/Deleted.jsx';
 
 export default function App() {
   const [newTask, setNewTask] = useState(initialTask);
@@ -114,6 +113,15 @@ export default function App() {
     setTasks((tasks) => tasks.filter((task) => task.id !== id));
   };
 
+  const handleRestore = (task) => {
+    setTasks((prev) => [...prev, task]);
+    setDeletedTasks((tasks) => tasks.filter((t) => t.id !== task.id));
+  };
+
+  const handleDeleteForever = (id) => {
+    setDeletedTasks((tasks) => tasks.filter((t) => t.id !== id));
+  };
+
   const handleEdit = (id) => {
     const taskToEdit = tasks.find((task) => task.id === id);
     setEditId(taskToEdit.id);
@@ -198,7 +206,7 @@ export default function App() {
         }}
         showFilter={showFilter}
         showDeleted={showDeleted}
-        DeletedData={{ deletedTasks }}
+        DeletedData={{ handleRestore, handleDeleteForever, deletedTasks }}
       />
     </>
   );
