@@ -130,7 +130,18 @@ export default function App() {
 
   const handleAddCategory = () => {
     setCategories((cats) => [...cats, newCategory]);
+    setSelectedCategories((prev) => [...prev, newCategory]);
     setNewCategory('');
+  };
+
+  const categoryInUse = (category) => {
+    return tasks.some(
+      (task) => task.category.toLowerCase() === category.toLowerCase()
+    );
+  };
+
+  const handleDeleteCategory = (category) => {
+    setCategories((cats) => cats.filter((cat) => cat !== category));
   };
 
   return (
@@ -143,12 +154,12 @@ export default function App() {
           handleSubmit,
           newTask,
           handleChange,
-          categoryInputData: {
-            handleCategoryInputChange,
-            newCategory,
-            handleAddCategory,
-            alreadyExists,
-          },
+        }}
+        categoryInputData={{
+          newCategory,
+          handleCategoryInputChange,
+          handleAddCategory,
+          alreadyExists,
         }}
         categoryData={{
           showCategoryInput,
@@ -169,6 +180,8 @@ export default function App() {
           handleCategoriesChange,
           selectedCategories,
           categories,
+          categoryInUse,
+          handleDeleteCategory,
         }}
         showFilter={showFilter}
       />
