@@ -1,9 +1,9 @@
 import CategoryInput from './CategoryInput.jsx';
 
 export default function Categories({
+  handleChange,
   showCategoryInput,
   setShowCategoryInput,
-  handleChange,
   currentCategory,
   categories,
   categoryInputData,
