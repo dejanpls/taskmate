@@ -3,6 +3,7 @@ import TaskList from './TaskList.jsx';
 import Tabs from './Tabs';
 import SortDropdown from './SortDropdown.jsx';
 import CategoryFilter from './CategoryFilter.jsx';
+import Deleted from './Deleted.jsx';
 
 export default function Todo({
   formData,
@@ -13,6 +14,8 @@ export default function Todo({
   TabsData,
   CategoryFilterData,
   showFilter,
+  showDeleted,
+  DeletedData,
 }) {
   return (
     <>
@@ -25,6 +28,8 @@ export default function Todo({
       <Tabs {...TabsData} />
 
       {showFilter && <CategoryFilter {...CategoryFilterData} />}
+
+      {showDeleted && <Deleted {...DeletedData} />}
     </>
   );
 }
