@@ -1,4 +1,4 @@
-export default function Tabs({ setShowFilter, setShowDeleted, handleFilter }) {
+export default function Tabs({ setShowDeleted, handleFilter }) {
   return (
     <div>
       <button onClick={handleFilter} value="all" type="button">
@@ -16,13 +16,6 @@ export default function Tabs({ setShowFilter, setShowDeleted, handleFilter }) {
         type="button"
       >
         Deleted
-      </button>
-      <button
-        onClick={() => setShowFilter((prev) => !prev)}
-        value="filter"
-        type="button"
-      >
-        Filter By Category
       </button>
     </div>
   );
