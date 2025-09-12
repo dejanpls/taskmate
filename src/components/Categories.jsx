@@ -9,7 +9,7 @@ export default function Categories({
   categoryInputData,
 }) {
   return (
-    <>
+    <div className="category">
       <label htmlFor="category">
         Category:
         <select
@@ -30,9 +30,9 @@ export default function Categories({
         type="button"
         onClick={() => setShowCategoryInput((prev) => !prev)}
       >
-        {showCategoryInput ? 'X' : '+'}
+        {showCategoryInput ? 'X' : '+ Category'}
       </button>
       {showCategoryInput && <CategoryInput {...categoryInputData} />}
-    </>
+    </div>
   );
 }

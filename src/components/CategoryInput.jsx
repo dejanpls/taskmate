@@ -5,9 +5,10 @@ export default function CategoryInput({
   alreadyExists,
 }) {
   return (
-    <>
+    <div className="categoryInput">
       <label htmlFor="newCategory">
         <input
+          placeholder="e.g. Work"
           value={newCategory}
           onChange={handleCategoryInputChange}
           name="newCategory"
@@ -19,8 +20,8 @@ export default function CategoryInput({
         type="button"
         onClick={handleAddCategory}
       >
-        Add
+        +
       </button>
-    </>
+    </div>
   );
 }

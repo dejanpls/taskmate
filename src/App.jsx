@@ -1,3 +1,5 @@
+import './styles/style.css';
+
 import { useState, useEffect } from 'react';
 
 import { isEqual } from './utils/isEqual.js';

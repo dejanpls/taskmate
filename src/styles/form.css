@@ -1,0 +1,82 @@
+form {
+  border: 1px solid black;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form input#title {
+  padding: 4px;
+}
+
+form textarea {
+  padding: 8px;
+}
+
+form label {
+  color: rgb(119, 116, 116);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+form div.optionsContainer {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+form div.optionsContainer .dueDate,
+form div.optionsContainer .priority {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 50%;
+}
+
+form div.optionsContainer .dueDate input,
+form div.optionsContainer .priority select {
+  height: 28px;
+}
+
+form div.category {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+form div.categoryInput {
+  display: flex;
+  gap: 8px;
+}
+
+form div.category select {
+  height: 28px;
+}
+
+form div.category button {
+  max-height: 28px;
+  min-width: 32px;
+  padding: 4px 8px;
+  background: white;
+  border: 1px solid black;
+}
+
+form div.categoryInput input {
+  width: 100%;
+  height: 28px;
+  padding: 4px;
+}
+
+form div.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+form div.buttonContainer button {
+  padding: 4px 8px;
+  background: white;
+  border: 1px solid black;
+}
