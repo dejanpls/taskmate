@@ -184,7 +184,7 @@ export default function App() {
           currentCategory: newTask.category,
           categories,
         }}
-        SortDropdownData={{ sort, handleSort }}
+        sortDropdownData={{ sort, handleSort }}
         TaskListData={{
           getProcessedTasks,
           handleCompleted,
