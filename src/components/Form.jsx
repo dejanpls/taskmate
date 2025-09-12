@@ -1,3 +1,5 @@
+import '../styles/form.css';
+
 import Categories from './Categories.jsx';
 import { getCurrentDateFormatted } from '../utils/dateConverter.js';
 
@@ -15,6 +17,7 @@ export default function Form({
     <form onSubmit={handleSubmit}>
       <label htmlFor="title">
         <input
+          placeholder={'e.g. Practice Spanish'}
           value={newTask.title}
           onChange={handleChange}
           name="title"
@@ -33,50 +36,53 @@ export default function Form({
         />
       </label>
 
-      <label htmlFor="dueDate">
-        Due date:
-        <input
-          value={newTask.dueDate}
-          onChange={handleChange}
-          type="date"
-          name="dueDate"
-          id="dueDate"
-        />
-      </label>
+      <div className="optionsContainer">
+        <div className="dueDate">
+          <label htmlFor="dueDate">Due date:</label>
+          <input
+            value={newTask.dueDate}
+            onChange={handleChange}
+            type="date"
+            name="dueDate"
+            id="dueDate"
+          />
+        </div>
 
-      <label htmlFor="priority">
-        Priority:
-        <select
-          value={newTask.priority}
-          onChange={handleChange}
-          name="priority"
-          id="priority"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </label>
-
+        <div className="priority">
+          <label htmlFor="priority">Priority:</label>
+          <select
+            value={newTask.priority}
+            onChange={handleChange}
+            name="priority"
+            id="priority"
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
       <Categories {...{ handleChange, ...categoryData, categoryInputData }} />
 
-      <button
-        disabled={
-          categoryData.showCategoryInput ||
-          !newTask.title ||
-          newTask.dueDate < getCurrentDateFormatted() ||
-          (editId && tasksEqual)
-        }
-        type="submit"
-      >
-        {editId ? 'Save' : 'Add Task'}
-      </button>
-
-      {editId && (
-        <button onClick={handleCancel} type="button">
-          {tasksEqual ? 'Cancel' : 'Discard'}
+      <div className="buttonContainer">
+        <button
+          disabled={
+            categoryData.showCategoryInput ||
+            !newTask.title ||
+            newTask.dueDate < getCurrentDateFormatted() ||
+            (editId && tasksEqual)
+          }
+          type="submit"
+        >
+          {editId ? 'Save' : 'Add Task'}
         </button>
-      )}
+
+        {editId && (
+          <button onClick={handleCancel} type="button">
+            {tasksEqual ? 'Cancel' : 'Discard'}
+          </button>
+        )}
+      </div>
     </form>
   );
 }
