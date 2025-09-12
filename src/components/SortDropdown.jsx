@@ -1,6 +1,8 @@
-export default function SortDropdown({ sort, handleSort }) {
+import '../styles/sortDropdown.css';
+
+export default function SortDropdown({ setShowFilter, sort, handleSort }) {
   return (
-    <>
+    <div className="sortContainer">
       <label htmlFor="sort">
         <select name="sort" id="sort" value={sort} onChange={handleSort}>
           <option value="newestFirst">Newest First</option>
@@ -13,6 +15,13 @@ export default function SortDropdown({ sort, handleSort }) {
           <option value="dueDateDesc">Due Date Descending</option>
         </select>
       </label>
-    </>
+      <button
+        onClick={() => setShowFilter((prev) => !prev)}
+        value="filter"
+        type="button"
+      >
+        Filter By Category
+      </button>
+    </div>
   );
 }
