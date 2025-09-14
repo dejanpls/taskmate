@@ -28,6 +28,11 @@ div.tabsContainer > button {
   color: white;
 }
 
+div.tabsContainer > button:active {
+  background: inherit;
+  box-shadow: none;
+}
+
 div.tabsContainer > button.all,
 div.tabsContainer > button.active,
 div.tabsContainer > button.done {
