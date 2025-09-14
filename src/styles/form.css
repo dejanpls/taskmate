@@ -4,14 +4,23 @@ form {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  background-color: var(--color-bg-primary);
 }
 
 form input#title {
   padding: 4px;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-form);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 form textarea {
   padding: 8px;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-form);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 form label {
@@ -38,6 +47,10 @@ form div.optionsContainer .priority {
 form div.optionsContainer .dueDate input,
 form div.optionsContainer .priority select {
   height: 28px;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-form);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 form div.category {
@@ -53,14 +66,20 @@ form div.categoryInput {
 
 form div.category select {
   height: 28px;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-form);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 form div.category button {
   max-height: 28px;
   min-width: 32px;
   padding: 4px 8px;
-  background: white;
-  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-form);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 form div.categoryInput input {
@@ -76,7 +95,23 @@ form div.buttonContainer {
 }
 
 form div.buttonContainer button {
-  padding: 4px 8px;
-  background: white;
-  border: 1px solid black;
+  width: 90px;
+  padding: 8px 0px;
+  border-radius: 4px;
+  color: white;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+form div.buttonContainer button.confirm:disabled,
+form div.buttonContainer button.cancel:disabled {
+  background-color: var(--color-disabled);
+}
+
+form div.buttonContainer button.confirm {
+  background-color: var(--color-confirm);
+}
+
+form div.buttonContainer button.cancel {
+  background-color: var(--color-cancel);
 }

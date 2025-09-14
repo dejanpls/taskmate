@@ -66,6 +66,7 @@ export default function Form({
 
       <div className="buttonContainer">
         <button
+          className="confirm"
           disabled={
             categoryData.showCategoryInput ||
             !newTask.title ||
@@ -78,7 +79,7 @@ export default function Form({
         </button>
 
         {editId && (
-          <button onClick={handleCancel} type="button">
+          <button className="cancel" onClick={handleCancel} type="button">
             {tasksEqual ? 'Cancel' : 'Discard'}
           </button>
         )}
