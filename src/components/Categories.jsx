@@ -21,7 +21,11 @@ export default function Categories({
         >
           {categories.map((category) => (
             <option key={category} value={category}>
-              {category[0].toUpperCase() + category.slice(1)}
+              {(category[0].toUpperCase() + category.slice(1)).length > 15
+                ? category[0].toUpperCase() +
+                  category.slice(1).substring(0, 12) +
+                  '...'
+                : category[0].toUpperCase() + category.slice(1)}
             </option>
           ))}
         </select>
