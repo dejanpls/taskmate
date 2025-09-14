@@ -1,41 +1,77 @@
 @import url('./customCheckbox.css');
 
 ul.list {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 li.listItem {
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 8px;
+  border-radius: 4px;
+  background-color: var(--color-bg-primary);
+  box-shadow: var(--shadow-secondary);
+  border: var(--border-task);
 }
 
 li.listItem div.primaryView {
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid red;
+}
+
+li.listItem div.secondaryView {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 li.listItem div.primaryView h2 {
   font-size: 22px;
 }
 
-li.listItem div.secondaryView {
-  border: 1px solid gray;
+li.listItem div.infoContainer {
   display: flex;
   gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 
-li.listItem div.secondaryView > * {
+li.listItem div.infoContainer > * {
   font-size: 14px;
-  border: 1px solid green;
-  padding: 2px;
+  padding: 4px;
+  align-self: flex-start;
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  border-radius: 4px;
+  background-color: rgb(129, 128, 128);
+  color: white;
+}
+
+li.listItem div.infoContainer > p.overdue {
+  background-color: rgb(229, 16, 16);
+}
+
+li.listItem div.infoContainer > p.today {
+  background-color: rgb(203, 136, 12);
+}
+
+li.listItem div.infoContainer > p.tomorrow {
+  background-color: rgb(15, 159, 15);
+}
+
+li.listItem div.infoContainer > p.priority-low {
+  background-color: rgb(12, 203, 98);
+}
+li.listItem div.infoContainer > p.priority-medium {
+  background-color: rgb(246, 161, 4);
+}
+li.listItem div.infoContainer > p.priority-high {
+  background-color: rgb(255, 72, 0);
 }
 
 li.listItem div.buttonContainer {
@@ -45,7 +81,19 @@ li.listItem div.buttonContainer {
 }
 
 li.listItem div.buttonContainer button {
-  background-color: white;
-  border: 1px solid black;
-  padding: 2px 8px;
+  border: var(--border-task);
+  padding: 4px;
+  border-radius: 4px;
+  color: white;
+}
+
+li.listItem div.buttonContainer button.material-icons {
+  background-color: var(--color-bg-primary);
+  color: var(--color-delete);
+}
+
+li.listItem div.buttonContainer button.edit {
+  box-shadow: var(--shadow-primary);
+  width: 65px;
+  background-color: var(--color-confirm);
 }

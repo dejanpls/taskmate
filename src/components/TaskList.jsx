@@ -7,6 +7,8 @@ export default function TaskList({
   handleDelete,
   handleEdit,
   editId,
+  showDescription,
+  setShowDescription,
 }) {
   return (
     <>
@@ -24,32 +26,60 @@ export default function TaskList({
                 </label>
                 <h2>{task.title}</h2>
               </div>
+              {showDescription && (
+                <p>
+                  {task.description
+                    ? task.description
+                    : 'No description provided'}
+                </p>
+              )}
               <div className="secondaryView">
-                <p>Due {prettyDate(task.dueDate)}</p>
-                <p>{task.priority} priority</p>
-                <p>{task.category}</p>
-              </div>
-              <p>{task.description}</p>
+                <div className="infoContainer">
+                  <p
+                    className={
+                      ['Overdue', 'Today', 'Tomorrow'].includes(
+                        prettyDate(task.dueDate)
+                      )
+                        ? prettyDate(task.dueDate).toLowerCase()
+                        : 'default'
+                    }
+                  >
+                    {prettyDate(task.dueDate)}
+                  </p>
+                  <p className={`priority-${task.priority}`}>
+                    {task.priority} priority
+                  </p>
+                  <p>{task.category}</p>
+                </div>
 
-              <div className="buttonContainer">
-                {task.description && (
-                  <button type="button">View Description</button>
-                )}
+                <div className="buttonContainer">
+                  {task.description && (
+                    <button
+                      onClick={() => setShowDescription((prev) => !prev)}
+                      className="material-icons"
+                      type="button"
+                    >
+                      info
+                    </button>
+                  )}
 
-                <button
-                  disabled={task.id === editId}
-                  type="button"
-                  onClick={() => handleDelete(task.id)}
-                >
-                  Delete
-                </button>
-                <button
-                  disabled={editId}
-                  type="button"
-                  onClick={() => handleEdit(task.id)}
-                >
-                  Edit
-                </button>
+                  <button
+                    className="material-icons"
+                    disabled={task.id === editId}
+                    type="button"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    delete
+                  </button>
+                  <button
+                    className="edit"
+                    disabled={editId}
+                    type="button"
+                    onClick={() => handleEdit(task.id)}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
             </li>
           ))}
