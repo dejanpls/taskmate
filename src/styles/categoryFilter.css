@@ -1,0 +1,45 @@
+div.categoryFilterContainer {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid black;
+  padding: 8px;
+  width: 94%;
+  min-height: 30vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+div.categoryFilterContainer > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+div.categoryFilterContainer ul li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 4px 8px;
+}
+
+div.categoryFilterContainer ul li div.primaryContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+div.categoryFilterContainer ul li div.buttonContainer {
+  display: flex;
+  gap: 8px;
+}
+
+div.categoryFilterContainer ul li div.buttonContainer button {
+  background-color: white;
+  border: none;
+}
