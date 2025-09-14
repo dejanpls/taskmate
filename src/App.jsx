@@ -52,6 +52,7 @@ export default function App() {
 
   const [showFilter, setShowFilter] = useState(false);
   const [showDeleted, setShowDeleted] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const handleCategoriesChange = (category) => {
     setSelectedCategories((prev) =>
@@ -193,6 +194,8 @@ export default function App() {
           handleDelete,
           handleEdit,
           editId,
+          showDescription,
+          setShowDescription,
         }}
         TabsData={{
           setShowDeleted,
