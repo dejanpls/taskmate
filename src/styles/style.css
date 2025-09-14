@@ -21,10 +21,12 @@
   --color-delete: rgb(128, 128, 128);
 
   --color-bg-primary: #f9f9f9;
+  --color-bg-tab: #e63946;
 
   --border-form: none;
   --border-sort: none;
   --border-task: none;
+  --border-tab: none;
 
   --shadow-primary: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   --shadow-secondary: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
