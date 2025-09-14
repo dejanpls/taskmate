@@ -4,6 +4,7 @@ ul.list {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 li.listItem {
@@ -109,4 +110,10 @@ li.listItem div.buttonContainer button:disabled.edit {
   box-shadow: var(--shadow-primary);
   width: 65px;
   background-color: var(--color-disabled);
+}
+
+div.taskListContainer {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
 }

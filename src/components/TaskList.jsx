@@ -11,7 +11,7 @@ export default function TaskList({
   setShowDescription,
 }) {
   return (
-    <>
+    <div className="taskListContainer">
       {getProcessedTasks().length > 0 ? (
         <ul className="list">
           {getProcessedTasks().map((task) => (
@@ -87,8 +87,8 @@ export default function TaskList({
           ))}
         </ul>
       ) : (
-        <p>Task List Empty</p>
+        <p className="emptyList">Task List Empty</p>
       )}
-    </>
+    </div>
   );
 }
