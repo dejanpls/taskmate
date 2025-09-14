@@ -4,6 +4,7 @@ div.sortContainer {
   display: flex;
   justify-content: center;
   gap: 8px;
+  background-color: var(--color-bg-primary);
 }
 
 div.sortContainer > * {
@@ -13,9 +14,15 @@ div.sortContainer > * {
 div.sortContainer select {
   width: 100%;
   height: 28px;
+  border-radius: 4px;
+  background-color: white;
+  border: var(--border-sort);
+  box-shadow: var(--shadow-primary);
 }
 
 div.sortContainer button {
+  border-radius: 4px;
   background-color: white;
-  border: 1px solid black;
+  border: var(--border-sort);
+  box-shadow: var(--shadow-primary);
 }
