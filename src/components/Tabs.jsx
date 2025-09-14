@@ -1,16 +1,31 @@
 import '../styles/tabs.css';
 
-export default function Tabs({ setShowDeleted, handleFilter }) {
+export default function Tabs({ setShowDeleted, filter, handleFilter }) {
   return (
     <div className="filterControls">
       <div className="tabsContainer">
-        <button onClick={handleFilter} value="all" type="button">
+        <button
+          className={filter === 'all' ? 'all' : 'default'}
+          onClick={handleFilter}
+          value="all"
+          type="button"
+        >
           All
         </button>
-        <button onClick={handleFilter} value="active" type="button">
+        <button
+          className={filter === 'active' ? 'active' : 'default'}
+          onClick={handleFilter}
+          value="active"
+          type="button"
+        >
           Active
         </button>
-        <button onClick={handleFilter} value="done" type="button">
+        <button
+          className={filter === 'done' ? 'done' : 'default'}
+          onClick={handleFilter}
+          value="done"
+          type="button"
+        >
           Done
         </button>
       </div>

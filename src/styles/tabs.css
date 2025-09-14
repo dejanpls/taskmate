@@ -22,6 +22,17 @@ div.tabsContainer > button {
   padding: 8px 0;
   background: transparent;
   border: none;
+  width: 50px;
+}
+
+div.tabsContainer > button.all,
+div.tabsContainer > button.active,
+div.tabsContainer > button.done {
+  font-weight: 700;
+}
+
+div.tabsContainer > button.default {
+  font-weight: 300;
 }
 
 div.filterControls button.material-icons {
