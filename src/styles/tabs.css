@@ -1,0 +1,30 @@
+div.filterControls {
+  max-width: 100%;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+div.tabsContainer {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 24px;
+}
+
+div.tabsContainer > button {
+  /* min-width: 70px; */
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+}
+
+div.filterControls button.material-icons {
+  background: white;
+  border: 1px solid black;
+  padding: 0 8px;
+}
