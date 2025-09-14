@@ -1,0 +1,38 @@
+li.listItem div.primary label.completed-control {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 16px auto;
+  gap: 8px;
+}
+
+li.listItem div.primaryView input[type='checkbox'] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 26px;
+  height: 26px;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+li.listItem div.primaryView input[type='checkbox']::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 16px 16px black;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+li.listItem div.primaryView input[type='checkbox']:checked::before {
+  transform: scale(1);
+}

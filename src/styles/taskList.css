@@ -1,0 +1,51 @@
+@import url('./customCheckbox.css');
+
+ul.list {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+li.listItem {
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+li.listItem div.primaryView {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid red;
+}
+
+li.listItem div.primaryView h2 {
+  font-size: 22px;
+}
+
+li.listItem div.secondaryView {
+  border: 1px solid gray;
+  display: flex;
+  gap: 8px;
+}
+
+li.listItem div.secondaryView > * {
+  font-size: 14px;
+  border: 1px solid green;
+  padding: 2px;
+}
+
+li.listItem div.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+li.listItem div.buttonContainer button {
+  background-color: white;
+  border: 1px solid black;
+  padding: 2px 8px;
+}
