@@ -6,6 +6,7 @@ div.filterControls {
   transform: translateX(-50%);
   display: flex;
   gap: 8px;
+  background-color: white;
 }
 
 div.tabsContainer {

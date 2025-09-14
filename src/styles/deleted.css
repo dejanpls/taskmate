@@ -1,0 +1,39 @@
+div.deletedContainer {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid black;
+  padding: 8px;
+  width: 94%;
+  min-height: 30vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+div.deletedContainer > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+div.deletedContainer ul li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 4px 8px;
+}
+
+div.deletedContainer ul li div.buttonContainer {
+  display: flex;
+  gap: 8px;
+}
+
+div.deletedContainer ul li div.buttonContainer button {
+  background-color: white;
+  border: none;
+}
