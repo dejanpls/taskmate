@@ -196,6 +196,7 @@ export default function App() {
         }}
         TabsData={{
           setShowDeleted,
+          filter,
           handleFilter,
         }}
         CategoryFilterData={{
