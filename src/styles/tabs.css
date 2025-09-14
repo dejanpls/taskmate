@@ -26,6 +26,7 @@ div.tabsContainer > button {
   border: none;
   width: 50px;
   color: white;
+  -webkit-tap-highlight-color: transparent;
 }
 
 div.tabsContainer > button:active {
