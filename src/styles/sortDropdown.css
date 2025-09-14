@@ -1,5 +1,6 @@
 div.sortContainer {
-  border: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 8px;
   padding: 8px;
   display: flex;
   justify-content: center;

@@ -3,20 +3,22 @@ div.deletedContainer {
   bottom: 68px;
   left: 50%;
   transform: translateX(-50%);
-  border: 1px solid black;
-  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
   width: 94%;
   min-height: 30vh;
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 div.deletedContainer > ul {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 div.deletedContainer ul li {
@@ -24,8 +26,11 @@ div.deletedContainer ul li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid black;
+  border: none;
+  border-radius: 4px;
   padding: 4px 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 div.deletedContainer ul li div.buttonContainer {
@@ -33,7 +38,8 @@ div.deletedContainer ul li div.buttonContainer {
   gap: 8px;
 }
 
-div.deletedContainer ul li div.buttonContainer button {
+div.deletedContainer ul li div.buttonContainer button.material-icons {
   background-color: white;
+  color: var(--color-delete);
   border: none;
 }

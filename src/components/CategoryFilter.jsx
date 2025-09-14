@@ -9,8 +9,8 @@ export default function CategoryFilter({
 }) {
   return (
     <div className="categoryFilterContainer">
+      <h2>Selected Categories</h2>
       <ul>
-        <h2>Selected Categories</h2>
         {categories.map((category) => (
           <li key={`show-${category}`}>
             <div className="primaryContainer">

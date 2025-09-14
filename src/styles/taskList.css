@@ -29,8 +29,14 @@ li.listItem div.secondaryView {
   gap: 8px;
 }
 
-li.listItem div.primaryView h2 {
+li.listItem div.primaryView h2,
+li.listItem div.primaryView h2.active {
   font-size: 22px;
+}
+
+li.listItem div.primaryView h2.completed {
+  text-decoration: line-through;
+  color: darkgray;
 }
 
 li.listItem div.infoContainer {
@@ -97,4 +103,10 @@ li.listItem div.buttonContainer button.edit {
   box-shadow: var(--shadow-primary);
   width: 65px;
   background-color: var(--color-confirm);
+}
+
+li.listItem div.buttonContainer button:disabled.edit {
+  box-shadow: var(--shadow-primary);
+  width: 65px;
+  background-color: var(--color-disabled);
 }

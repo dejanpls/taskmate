@@ -24,7 +24,9 @@ export default function TaskList({
                     onChange={() => handleCompleted(task.id)}
                   />
                 </label>
-                <h2>{task.title}</h2>
+                <h2 className={task.completed ? 'completed' : 'active'}>
+                  {task.title}
+                </h2>
               </div>
               {showDescription && (
                 <p>
@@ -73,7 +75,7 @@ export default function TaskList({
                   </button>
                   <button
                     className="edit"
-                    disabled={editId}
+                    disabled={editId || task.completed}
                     type="button"
                     onClick={() => handleEdit(task.id)}
                   >
