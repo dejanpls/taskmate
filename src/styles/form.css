@@ -50,7 +50,7 @@ form div.optionsContainer .priority select {
   border-radius: 4px;
   background-color: white;
   border: var(--border-form);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: var(--shadow-primary);
 }
 
 form div.category {
@@ -69,7 +69,7 @@ form div.category select {
   border-radius: 4px;
   background-color: white;
   border: var(--border-form);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: var(--shadow-primary);
 }
 
 form div.category button {
@@ -79,13 +79,15 @@ form div.category button {
   border-radius: 4px;
   background-color: white;
   border: var(--border-form);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: var(--shadow-primary);
 }
 
 form div.categoryInput input {
   width: 100%;
   height: 28px;
   padding: 4px;
+  border: var(--border-form);
+  box-shadow: var(--shadow-primary);
 }
 
 form div.buttonContainer {
@@ -100,7 +102,7 @@ form div.buttonContainer button {
   border-radius: 4px;
   color: white;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: var(--shadow-primary);
 }
 
 form div.buttonContainer button.confirm:disabled,
