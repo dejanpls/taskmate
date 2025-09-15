@@ -5,6 +5,8 @@ import SortDropdown from './SortDropdown.jsx';
 import CategoryFilter from './CategoryFilter.jsx';
 import Deleted from './Deleted.jsx';
 
+import { useState } from 'react';
+
 export default function Todo({
   formData,
   categoryData,
@@ -17,13 +19,24 @@ export default function Todo({
   showDeleted,
   DeletedData,
 }) {
+  const [activeIndexes, setActiveIndexes] = useState([]);
+
+  const handleIndexesChange = (id) => {
+    setActiveIndexes((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
   return (
     <>
       <Form {...{ ...formData, categoryData, categoryInputData }} />
 
       <SortDropdown {...sortDropdownData} />
 
-      <TaskList {...TaskListData} />
+      <TaskList
+        {...TaskListData}
+        activeIndexes={activeIndexes}
+        handleIndexesChange={handleIndexesChange}
+      />
 
       <Tabs {...TabsData} />
 
