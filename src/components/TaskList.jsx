@@ -7,8 +7,8 @@ export default function TaskList({
   handleDelete,
   handleEdit,
   editId,
-  showDescription,
-  setShowDescription,
+  activeIndexes,
+  handleIndexesChange,
 }) {
   return (
     <div className="taskListContainer">
@@ -28,13 +28,14 @@ export default function TaskList({
                   {task.title}
                 </h2>
               </div>
-              {showDescription && (
+              {activeIndexes.includes(task.id) && (
                 <p>
                   {task.description
                     ? task.description
                     : 'No description provided'}
                 </p>
               )}
+
               <div className="secondaryView">
                 <div className="infoContainer">
                   <p
@@ -55,15 +56,13 @@ export default function TaskList({
                 </div>
 
                 <div className="buttonContainer">
-                  {task.description && (
-                    <button
-                      onClick={() => setShowDescription((prev) => !prev)}
-                      className="material-icons"
-                      type="button"
-                    >
-                      info
-                    </button>
-                  )}
+                  <button
+                    onClick={() => handleIndexesChange(task.id)}
+                    className="material-icons"
+                    type="button"
+                  >
+                    info
+                  </button>
 
                   <button
                     className="material-icons"
